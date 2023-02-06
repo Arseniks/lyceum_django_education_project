@@ -1,0 +1,1 @@
+# lyceum_django_education_project
