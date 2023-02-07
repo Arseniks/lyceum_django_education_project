@@ -33,7 +33,8 @@ jobs:
     - name: Lint with flake8
       uses: py-actions/flake8@v2
       with:
-        plugins: 'pep8-naming flake8-alphabetize flake8-quotes'
+        plugins: 'pep8-naming flake8-alphabetize flake8-import-order 
+        flake8-quotes'
     - name: Lint with Black
       run: |
         black --check --verbose .
