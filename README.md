@@ -1,5 +1,7 @@
 # lyceum_django_education_project
 
+![Python Linting](https://github.com/Arseniks/lyceum_django_education_project/actions/workflows/python-package.yml/badge.svg)
+
 ## Запуск проекта
 - клонируйте проект с GitHub с помощью команды:
 ```
