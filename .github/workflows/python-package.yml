@@ -31,8 +31,9 @@ jobs:
         python -m pip install black
         pip install -r requirements.txt
     - name: Lint with flake8
-      run: |
-        flake8 . --count --show-source --statistics
+      uses: py-actions/flake8@v2
+      with:
+        plugins: 'pep8-naming flake8-alphabetize flake8-quotes'
     - name: Lint with Black
       run: |
         black --check --verbose .
