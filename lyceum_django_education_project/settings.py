@@ -34,15 +34,15 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'catalog.apps.CatalogConfig',
-    'homepage.apps.HomepageConfig',
-    'about.apps.AboutConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'catalog.apps.CatalogConfig',
+    'homepage.apps.HomepageConfig',
+    'about.apps.AboutConfig',
 ]
 
 MIDDLEWARE = [
@@ -74,18 +74,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'lyceum_django_education_project.wsgi.application'
-
-
-# Database
-# https://docs.djangoproject.com/en/3.2/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
