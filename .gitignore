@@ -100,7 +100,7 @@ celerybeat.pid
 *.sage.py
 
 # Environments
-../../AppData/Roaming/JetBrains/PyCharmCE2022.3/scratches/.env
+.env
 .venv
 env/
 venv/
@@ -126,6 +126,8 @@ dmypy.json
 # IDE files
 .idea/
 .vscode/
+
+# Mac/OSX
 .DS_Store/
 
 # Исключение db
