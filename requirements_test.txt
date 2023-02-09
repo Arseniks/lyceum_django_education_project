@@ -1,4 +1,4 @@
-flake8==6.0.0
+flake8
 flake8-broken-line
 flake8-isort
 flake8-plugin-utils
