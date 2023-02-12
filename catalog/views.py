@@ -17,5 +17,6 @@ def re(request):
 
 def converter(request, positive_number):
     return HttpResponse(
-        f'<body>Этот endpoint обработан с помощью пользовательского конвертора {positive_number}</body>'
+        f'<body>Этот endpoint обработан с помощью пользовательского конвертора'
+        f' {positive_number}</body>'
     )
