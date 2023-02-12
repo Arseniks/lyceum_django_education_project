@@ -29,6 +29,7 @@ INSTALLED_APPS = [
     'catalog.apps.CatalogConfig',
     'homepage.apps.HomepageConfig',
     'about.apps.AboutConfig',
+    'addition.apps.AdditionConfig',
     'debug_toolbar',
 ]
 
