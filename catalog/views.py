@@ -10,8 +10,12 @@ def item_detail(request, number):
 
 
 def re(request):
-    return HttpResponse('<body>Этот endpoint обработан с помощью регулярного выржения</body>')
+    return HttpResponse(
+        '<body>Этот endpoint обработан с помощью регулярного выржения</body>'
+    )
 
 
 def converter(request, positive_number):
-    return HttpResponse(f'<body>Этот endpoint обработан с помощью пользовательского конвертора {positive_number}</body>')
+    return HttpResponse(
+        f'<body>Этот endpoint обработан с помощью пользовательского конвертора {positive_number}</body>'
+    )
