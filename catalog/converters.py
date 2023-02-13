@@ -1,8 +1,8 @@
-class FourDigitYearConverter:
-    regex = '[0-9]+'
+class PositiveDigitConverter:
+    regex = r'[1-9][0-9]*|0'
 
     def to_python(self, value):
         return int(value)
 
     def to_url(self, value):
-        return '%04d' % value
+        return str(value)
