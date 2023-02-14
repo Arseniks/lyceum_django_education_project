@@ -8,7 +8,7 @@ class StaticURLTests(TestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_catalog_number_endpoint(self):
-        response = Client().get('/catalog/0/')
+        response = Client().get('/catalog/1/')
         self.assertEqual(response.status_code, 200)
 
     @parameterized.parameterized.expand([(-1,), ('adf',), (1.8,)])
@@ -17,7 +17,7 @@ class StaticURLTests(TestCase):
         self.assertEqual(response.status_code, 404)
 
     def test_catalog_converter_endpoint(self):
-        response = Client().get('/catalog/converter/0/')
+        response = Client().get('/catalog/converter/1/')
         self.assertEqual(response.status_code, 200)
 
     @parameterized.parameterized.expand(
@@ -28,7 +28,7 @@ class StaticURLTests(TestCase):
         self.assertEqual(response.status_code, 404)
 
     def test_catalog_re_endpoint(self):
-        response = Client().get('/catalog/re/0/')
+        response = Client().get('/catalog/re/1/')
         self.assertEqual(response.status_code, 200)
 
     @parameterized.parameterized.expand(
