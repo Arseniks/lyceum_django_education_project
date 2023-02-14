@@ -4,6 +4,6 @@ skip-string-normalization = true
 target-version = ['py310']
 include = '\.pyi?$'
 
-[flake8.local-plugins]
-import-order-style = 'google'
+[tool.isort]
+profile = "black"
 
