@@ -32,6 +32,8 @@ jobs:
         pip install -r requirements_dev.txt
     - name: Lint with flake8
       uses: py-actions/flake8@v2
+    - name: Linting with isort
+      uses: isort/isort-action@master
     - name: Lint with Black
       run: |
         black --check --verbose .
