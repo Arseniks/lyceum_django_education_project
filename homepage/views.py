@@ -1,10 +1,10 @@
-from http import HTTPStatus
-
 from django.http import HttpResponse
+
+from http import HTTPStatus
 
 
 def home(request):
-    return HttpResponse('<body>Главная</body>')
+    return HttpResponse(f'<body>Главная</body>')
 
 
 def teapot(request):
