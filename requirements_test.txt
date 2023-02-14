@@ -7,4 +7,4 @@ parameterized==0.8.1
 pycodestyle==2.10.0
 pyflakes==3.0.1
 flake8-variables-names==0.0.5
-isort==5.12.0
+flake8-import-order-spoqa==1.5.0
