@@ -6,5 +6,4 @@ include = '\.pyi?$'
 
 [tool.isort]
 profile = "black"
-include_trailing_comma = true
 
