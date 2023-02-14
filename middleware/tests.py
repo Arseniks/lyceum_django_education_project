@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.test import Client, TestCase
-
 from middleware.reverse_middleware import ReverseEachTenWordMiddleware
+
 import parameterized
 
 
