@@ -4,6 +4,6 @@ skip-string-normalization = true
 target-version = ['py310']
 include = '\.pyi?$'
 
-[tool.flake8]
-import-order-style = ['pep8']
+[flake8.local-plugins]
+import-order-style = 'pep8'
 
