@@ -13,5 +13,5 @@ class StaticURLTests(TestCase):
     def test_homepage_teapot_endpoint_answer(self):
         response = Client().get('/coffee')
         self.assertEqual(
-            response.content.decode('utf-8'), '<body>IM_A_TEAPOT</body>'
+            response.content.decode('utf-8'), '<body>Я чайник</body>'
         )
