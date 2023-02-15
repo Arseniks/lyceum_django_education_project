@@ -16,6 +16,10 @@ DEBUG = os.environ.get('DEBUG', 'True') == 'True'
 
 ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '*').split(',')
 
+ACTIVATE_REVERSE_MIDDLEWARE = (
+    os.environ.get('ACTIVATE_REVERSE_MIDDLEWARE', 'False') == 'True'
+)
+
 
 # Application definition
 
