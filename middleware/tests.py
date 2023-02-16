@@ -41,8 +41,9 @@ class MiddlewareTests(TestCase):
             response = ''
             for _ in range(10 + 1):
                 response = client.get('/coffee')
-            self.assertEqual(response.content.decode(), 
-                           '<body>Я кинйач</body>')
+            self.assertEqual(
+                response.content.decode(), '<body>Я кинйач</body>'
+            )
 
     def test_middleware_disable(self):
         with override_settings(ACTIVATE_REVERSE_MIDDLEWARE=False):
