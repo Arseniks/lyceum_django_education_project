@@ -43,7 +43,7 @@ class ReverseEachTenWordMiddleware:
 
         if self.activate_middleware is True:
             if self.counter == 10:
-                content = response.content.decode()[6:-7]
+                content = response.content.decode()
                 response.content = self.reverse_russian_words(content).encode()
                 self.counter = 0
             self.counter += 1
