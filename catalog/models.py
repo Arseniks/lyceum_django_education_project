@@ -2,7 +2,7 @@ import django.core.exceptions
 import django.core.validators
 import django.db.models
 
-from Core.models import AbstractModel
+from Core.models import AbstractItemModel
 
 
 def excellent_or_luxurious_in_field_validator(value):
@@ -13,7 +13,7 @@ def excellent_or_luxurious_in_field_validator(value):
         )
 
 
-class Tag(AbstractModel):
+class Tag(AbstractItemModel):
     slug = django.db.models.CharField(
         'URL slug',
         help_text='Напишите URL slug вашего товара',
@@ -30,7 +30,7 @@ class Tag(AbstractModel):
         return self.name
 
 
-class Item(AbstractModel):
+class Item(AbstractItemModel):
     text = django.db.models.TextField(
         'Описание',
         help_text='Опишите товар',
@@ -53,7 +53,7 @@ class Item(AbstractModel):
         return self.name
 
 
-class Category(AbstractModel):
+class Category(AbstractItemModel):
     slug = django.db.models.CharField(
         'URL slug',
         help_text='Напишите URL slug вашей категории',

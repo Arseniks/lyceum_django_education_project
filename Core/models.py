@@ -2,11 +2,7 @@ import django.db.models
 import django.core.validators
 
 
-class AbstractModel(django.db.models.Model):
-    id = django.db.models.IntegerField(
-        primary_key=True,
-        validators=[django.core.validators.MinValueValidator(1)],
-    )
+class AbstractItemModel(django.db.models.Model):
     name = django.db.models.CharField(
         'Название',
         help_text='Введите назовите',
