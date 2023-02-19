@@ -1,5 +1,6 @@
 from django.http import HttpResponse
 from django.test import Client
+from django.test import override_settings
 from django.test import TestCase
 import parameterized
 
@@ -17,19 +18,38 @@ class MiddlewareTests(TestCase):
             ('Hello, world!', 'Hello, world!'),
         ]
     )
-    def test_reverse_middleware(self, response, result):
-        testing_middleware = ReverseEachTenWordMiddleware(HttpResponse)
-        self.assertEqual(
-            result, testing_middleware.reverse_russian_words(response)
-        )
+    def test_reverse_russian_words_middleware(self, response, result):
+        with override_settings(ACTIVATE_REVERSE_MIDDLEWARE=True):
+            testing_middleware = ReverseEachTenWordMiddleware(HttpResponse)
+            self.assertEqual(
+                result, testing_middleware.reverse_russian_words(response)
+            )
+
+    @parameterized.parameterized.expand(
+        [('Ж', True), ('/', False), ('G', False), ('Х', True)]
+    )
+    def test_is_russian_letter_middleware(self, letter, result):
+        with override_settings(ACTIVATE_REVERSE_MIDDLEWARE=True):
+            testing_middleware = ReverseEachTenWordMiddleware(HttpResponse)
+            self.assertEqual(
+                result, testing_middleware.is_russian_letter(letter)
+            )
+
+    def test_reverse_middleware(self):
+        with override_settings(ACTIVATE_REVERSE_MIDDLEWARE=True):
+            client = Client()
+            response = ''
+            for _ in range(10 + 1):
+                response = client.get('/coffee')
+            self.assertEqual(
+                response.content.decode(), '<body>Я кинйач</body>'
+            )
 
     def test_middleware_disable(self):
-        testing_middleware = ReverseEachTenWordMiddleware(HttpResponse)
-        testing_middleware.activate_middleware = False
-
-        client = Client()
-
-        for _ in range(10):
-            response = client.get('/')
-            print(response.content.decode())
-            self.assertEqual(response.content.decode(), '<body>Главная</body>')
+        with override_settings(ACTIVATE_REVERSE_MIDDLEWARE=False):
+            client = Client()
+            for _ in range(10 + 1):
+                response = client.get('/')
+                self.assertEqual(
+                    response.content.decode(), '<body>Главная</body>'
+                )
