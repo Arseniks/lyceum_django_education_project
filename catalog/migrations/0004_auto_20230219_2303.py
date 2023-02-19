@@ -5,7 +5,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('catalog', '0003_auto_20230219_2301'),
     ]
@@ -14,16 +13,28 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='category',
             name='id',
-            field=models.IntegerField(primary_key=True, serialize=False, validators=[django.core.validators.MinValueValidator(1)]),
+            field=models.IntegerField(
+                primary_key=True,
+                serialize=False,
+                validators=[django.core.validators.MinValueValidator(1)],
+            ),
         ),
         migrations.AlterField(
             model_name='item',
             name='id',
-            field=models.IntegerField(primary_key=True, serialize=False, validators=[django.core.validators.MinValueValidator(1)]),
+            field=models.IntegerField(
+                primary_key=True,
+                serialize=False,
+                validators=[django.core.validators.MinValueValidator(1)],
+            ),
         ),
         migrations.AlterField(
             model_name='tag',
             name='id',
-            field=models.IntegerField(primary_key=True, serialize=False, validators=[django.core.validators.MinValueValidator(1)]),
+            field=models.IntegerField(
+                primary_key=True,
+                serialize=False,
+                validators=[django.core.validators.MinValueValidator(1)],
+            ),
         ),
     ]

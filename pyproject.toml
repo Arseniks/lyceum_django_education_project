@@ -6,10 +6,3 @@ include = '\.pyi?$'
 
 [tool.isort]
 profile = "google"
-
-[tool.flake8]
-per-file-ignores = [
-    '*/migrations/:E501',
-]
-max-complexity = 10
-

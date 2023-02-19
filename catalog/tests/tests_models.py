@@ -30,7 +30,6 @@ class ModelTests(TestCase):
         for text in test_texts:
             Item.objects.all().delete()
             with self.assertRaises(ValidationError):
-
                 self.item = Item(
                     id=1,
                     name='Тестовый товар',
@@ -51,7 +50,6 @@ class ModelTests(TestCase):
             'Очень роскошно и так превосходно',
             'Просто превосходно!',
             'Так роскошно, не верится своим глазам',
-
         ]
         for text in test_texts:
             Item.objects.all().delete()

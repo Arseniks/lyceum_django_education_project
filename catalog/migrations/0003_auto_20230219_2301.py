@@ -5,7 +5,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('catalog', '0002_auto_20230219_2254'),
     ]
@@ -14,21 +13,40 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='category',
             name='name',
-            field=models.CharField(help_text='Введите назовите', max_length=150, verbose_name='Название'),
+            field=models.CharField(
+                help_text='Введите назовите',
+                max_length=150,
+                verbose_name='Название',
+            ),
         ),
         migrations.AlterField(
             model_name='item',
             name='name',
-            field=models.CharField(help_text='Введите назовите', max_length=150, verbose_name='Название'),
+            field=models.CharField(
+                help_text='Введите назовите',
+                max_length=150,
+                verbose_name='Название',
+            ),
         ),
         migrations.AlterField(
             model_name='item',
             name='text',
-            field=models.TextField(default=None, help_text='Опишите товар', validators=[catalog.models.excellent_or_luxurious_in_field_validator], verbose_name='Описание'),
+            field=models.TextField(
+                default=None,
+                help_text='Опишите товар',
+                validators=[
+                    catalog.models.excellent_or_luxurious_in_field_validator
+                ],
+                verbose_name='Описание',
+            ),
         ),
         migrations.AlterField(
             model_name='tag',
             name='name',
-            field=models.CharField(help_text='Введите назовите', max_length=150, verbose_name='Название'),
+            field=models.CharField(
+                help_text='Введите назовите',
+                max_length=150,
+                verbose_name='Название',
+            ),
         ),
     ]

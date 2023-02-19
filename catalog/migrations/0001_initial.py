@@ -7,21 +7,64 @@ import re
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
             name='Category',
             fields=[
-                ('is_published', models.BooleanField(default=True, help_text='Объект опубликован', verbose_name='Опубликован')),
-                ('id', models.IntegerField(primary_key=True, serialize=False, validators=[django.core.validators.MinValueValidator(0)])),
-                ('name', models.CharField(help_text='Назовите объект', max_length=150, verbose_name='Название')),
-                ('slug', models.CharField(max_length=200, unique=True, validators=[django.core.validators.RegexValidator(re.compile('^[-a-zA-Z0-9_]+\\Z'), 'Enter a valid “slug” consisting of letters, numbers, underscores or hyphens.', 'invalid')])),
-                ('weight', models.IntegerField(default=100, validators=[django.core.validators.MinValueValidator(0), django.core.validators.MaxValueValidator(32767)])),
+                (
+                    'is_published',
+                    models.BooleanField(
+                        default=True,
+                        help_text='Объект опубликован',
+                        verbose_name='Опубликован',
+                    ),
+                ),
+                (
+                    'id',
+                    models.IntegerField(
+                        primary_key=True,
+                        serialize=False,
+                        validators=[
+                            django.core.validators.MinValueValidator(0)
+                        ],
+                    ),
+                ),
+                (
+                    'name',
+                    models.CharField(
+                        help_text='Назовите объект',
+                        max_length=150,
+                        verbose_name='Название',
+                    ),
+                ),
+                (
+                    'slug',
+                    models.CharField(
+                        max_length=200,
+                        unique=True,
+                        validators=[
+                            django.core.validators.RegexValidator(
+                                re.compile('^[-a-zA-Z0-9_]+\\Z'),
+                                'Enter a valid “slug” consisting of letters, numbers, underscores or hyphens.',
+                                'invalid',
+                            )
+                        ],
+                    ),
+                ),
+                (
+                    'weight',
+                    models.IntegerField(
+                        default=100,
+                        validators=[
+                            django.core.validators.MinValueValidator(0),
+                            django.core.validators.MaxValueValidator(32767),
+                        ],
+                    ),
+                ),
             ],
             options={
                 'verbose_name': 'Каталог',
@@ -31,10 +74,43 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Item',
             fields=[
-                ('id', models.IntegerField(primary_key=True, serialize=False, validators=[django.core.validators.MinValueValidator(0)])),
-                ('is_published', models.BooleanField(default=True, help_text='Объект опубликован', verbose_name='Опубликован')),
-                ('name', models.CharField(help_text='Назовите объект', max_length=150, verbose_name='Название')),
-                ('text', models.TextField(default=None, help_text='Опишите объект', validators=[catalog.models.excellent_or_luxurious_in_field_validator], verbose_name='Описание')),
+                (
+                    'id',
+                    models.IntegerField(
+                        primary_key=True,
+                        serialize=False,
+                        validators=[
+                            django.core.validators.MinValueValidator(0)
+                        ],
+                    ),
+                ),
+                (
+                    'is_published',
+                    models.BooleanField(
+                        default=True,
+                        help_text='Объект опубликован',
+                        verbose_name='Опубликован',
+                    ),
+                ),
+                (
+                    'name',
+                    models.CharField(
+                        help_text='Назовите объект',
+                        max_length=150,
+                        verbose_name='Название',
+                    ),
+                ),
+                (
+                    'text',
+                    models.TextField(
+                        default=None,
+                        help_text='Опишите объект',
+                        validators=[
+                            catalog.models.excellent_or_luxurious_in_field_validator
+                        ],
+                        verbose_name='Описание',
+                    ),
+                ),
             ],
             options={
                 'verbose_name': 'Товар',
@@ -44,10 +120,46 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Tag',
             fields=[
-                ('id', models.IntegerField(primary_key=True, serialize=False, validators=[django.core.validators.MinValueValidator(0)])),
-                ('name', models.CharField(help_text='Назовите объект', max_length=150, verbose_name='Название')),
-                ('is_published', models.BooleanField(default=True, help_text='Объект опубликован', verbose_name='Опубликован')),
-                ('slug', models.CharField(max_length=200, unique=True, validators=[django.core.validators.RegexValidator(re.compile('^[-a-zA-Z0-9_]+\\Z'), 'Enter a valid “slug” consisting of letters, numbers, underscores or hyphens.', 'invalid')])),
+                (
+                    'id',
+                    models.IntegerField(
+                        primary_key=True,
+                        serialize=False,
+                        validators=[
+                            django.core.validators.MinValueValidator(0)
+                        ],
+                    ),
+                ),
+                (
+                    'name',
+                    models.CharField(
+                        help_text='Назовите объект',
+                        max_length=150,
+                        verbose_name='Название',
+                    ),
+                ),
+                (
+                    'is_published',
+                    models.BooleanField(
+                        default=True,
+                        help_text='Объект опубликован',
+                        verbose_name='Опубликован',
+                    ),
+                ),
+                (
+                    'slug',
+                    models.CharField(
+                        max_length=200,
+                        unique=True,
+                        validators=[
+                            django.core.validators.RegexValidator(
+                                re.compile('^[-a-zA-Z0-9_]+\\Z'),
+                                'Enter a valid “slug” consisting of letters, numbers, underscores or hyphens.',
+                                'invalid',
+                            )
+                        ],
+                    ),
+                ),
             ],
             options={
                 'verbose_name': 'Тег',

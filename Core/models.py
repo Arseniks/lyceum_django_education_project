@@ -5,9 +5,7 @@ import django.core.validators
 class AbstractModel(django.db.models.Model):
     id = django.db.models.IntegerField(
         primary_key=True,
-        validators=[
-            django.core.validators.MinValueValidator(1)
-        ],
+        validators=[django.core.validators.MinValueValidator(1)],
     )
     name = django.db.models.CharField(
         'Название',

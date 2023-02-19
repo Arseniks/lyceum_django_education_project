@@ -19,9 +19,7 @@ class Tag(AbstractModel):
         help_text='Напишите URL slug вашего товара',
         max_length=200,
         unique=True,
-        validators=[
-            django.core.validators.validate_slug
-        ],
+        validators=[django.core.validators.validate_slug],
     )
 
     class Meta:
@@ -37,15 +35,13 @@ class Item(AbstractModel):
         'Описание',
         help_text='Опишите товар',
         default=None,
-        validators=[
-            excellent_or_luxurious_in_field_validator
-        ],
+        validators=[excellent_or_luxurious_in_field_validator],
     )
     category = django.db.models.ForeignKey(
         'category',
         default=None,
         on_delete=django.db.models.CASCADE,
-        related_name='items'
+        related_name='items',
     )
     tags = django.db.models.ManyToManyField(Tag, blank=True)
 
@@ -63,15 +59,13 @@ class Category(AbstractModel):
         help_text='Напишите URL slug вашей категории',
         max_length=200,
         unique=True,
-        validators=[
-            django.core.validators.validate_slug
-        ],
+        validators=[django.core.validators.validate_slug],
     )
     weight = django.db.models.IntegerField(
         default=100,
         validators=[
             django.core.validators.MinValueValidator(0),
-            django.core.validators.MaxValueValidator(32767)
+            django.core.validators.MaxValueValidator(32767),
         ],
     )
 
