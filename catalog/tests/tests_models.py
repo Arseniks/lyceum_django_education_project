@@ -1,8 +1,10 @@
 import django.core.exceptions
-
-from catalog.models import Category, Item, Tag
 from django.core.exceptions import ValidationError
 from django.test import TestCase
+
+from catalog.models import Category
+from catalog.models import Item
+from catalog.models import Tag
 
 
 class ModelTests(TestCase):
