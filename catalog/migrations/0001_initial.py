@@ -110,8 +110,7 @@ class Migration(migrations.Migration):
                         default=None,
                         help_text='Опишите объект',
                         validators=[
-                            catalog.models.
-                            excellent_or_luxurious_in_field_validator
+                            catalog.models.excellent_or_luxurious_in_field_validator
                         ],
                         verbose_name='Описание',
                     ),
