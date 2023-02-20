@@ -1,4 +1,3 @@
-import django.core.exceptions
 from django.core.exceptions import ValidationError
 from django.test import TestCase
 
