@@ -7,8 +7,8 @@ import django.db.models
 from Core.models import AbstractItemModel
 
 
-def ValidateMustContain(*args):
-    @wraps(ValidateMustContain)
+def validate_must_contain(*args):
+    @wraps(validate_must_contain)
     def validator(value):
         must_words = set(args)
         text = value.lower()
@@ -50,7 +50,7 @@ class Item(AbstractItemModel):
         'Описание',
         help_text='Опишите товар',
         default=None,
-        validators=[ValidateMustContain('превосходно', 'роскошно')],
+        validators=[validate_must_contain('превосходно', 'роскошно')],
     )
     category = django.db.models.ForeignKey(
         'category',
