@@ -55,14 +55,13 @@ class ModelTests(TestCase):
         ]
         for text in test_texts:
             Item.objects.all().delete()
-            with self.assertRaises(django.core.exceptions.ValidationError):
-                self.item = Item(
-                    id=1,
-                    name='Тестовый товар',
-                    category=self.category,
-                    text=text,
-                )
-                self.item.full_clean()
-                self.item.save()
-                self.item.tags.add(self.tag)
+            self.item = Item(
+                id=1,
+                name='Тестовый товар',
+                category=self.category,
+                text=text,
+            )
+            self.item.full_clean()
+            self.item.save()
+            self.item.tags.add(self.tag)
             self.assertEqual(Item.objects.count(), item_count + 1)
