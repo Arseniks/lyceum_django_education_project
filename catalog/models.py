@@ -38,8 +38,8 @@ class Tag(AbstractItemModel):
     )
 
     class Meta:
-        verbose_name = 'Тег'
-        verbose_name_plural = 'Теги'
+        verbose_name = 'тег'
+        verbose_name_plural = 'теги'
 
     def __str__(self):
         return self.name
@@ -61,8 +61,8 @@ class Item(AbstractItemModel):
     tags = django.db.models.ManyToManyField(Tag, blank=True)
 
     class Meta:
-        verbose_name = 'Товар'
-        verbose_name_plural = 'Товары'
+        verbose_name = 'товар'
+        verbose_name_plural = 'товары'
 
     def __str__(self):
         return self.name
@@ -85,8 +85,8 @@ class Category(AbstractItemModel):
     )
 
     class Meta:
-        verbose_name = 'Каталог'
-        verbose_name_plural = 'Каталоги'
+        verbose_name = 'каталог'
+        verbose_name_plural = 'каталоги'
 
     def __str__(self):
         return self.name
