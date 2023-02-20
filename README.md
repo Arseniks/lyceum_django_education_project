@@ -64,3 +64,5 @@ pip3 install -r requirements_test.txt
 ```
 python3 manage.py runserver
 ```
+## ER-диаграмма базы данных
+![QuickDBD-Free Diagram.png](ER_diagram.png)
