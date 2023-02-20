@@ -1,3 +1,5 @@
+from functools import wraps
+
 import django.core.exceptions
 import django.core.validators
 import django.db.models
@@ -5,12 +7,25 @@ import django.db.models
 from Core.models import AbstractItemModel
 
 
-def excellent_or_luxurious_in_field_validator(value):
-    value = value.lower()
-    if 'превосходно' not in value and 'роскошно' not in value:
-        raise django.core.exceptions.ValidationError(
-            'В тексте должно быть слово превосходно или роскошно'
-        )
+def ValidateMustContain(*args):
+    @wraps(ValidateMustContain)
+    def validator(value):
+        must_words = set(args)
+        text = value.lower()
+
+        wrong_text = True
+        for word in must_words:
+            if word in text:
+                wrong_text = False
+                break
+
+        if wrong_text:
+            raise django.core.exceptions.ValidationError(
+                f'Обязательно нужно использовать {" ".join(must_words)}'
+            )
+        return value
+
+    return validator
 
 
 class Tag(AbstractItemModel):
@@ -35,7 +50,7 @@ class Item(AbstractItemModel):
         'Описание',
         help_text='Опишите товар',
         default=None,
-        validators=[excellent_or_luxurious_in_field_validator],
+        validators=[ValidateMustContain('превосходно', 'роскошно')],
     )
     category = django.db.models.ForeignKey(
         'category',
