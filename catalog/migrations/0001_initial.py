@@ -52,8 +52,7 @@ class Migration(migrations.Migration):
                         validators=[
                             django.core.validators.RegexValidator(
                                 re.compile('^[-a-zA-Z0-9_]+\\Z'),
-                                'Enter a valid “slug” consisting of letters,'
-                                ' numbers, underscores or hyphens.',
+                                'Enter a valid “slug” consisting of letters, numbers, underscores or hyphens',
                                 'invalid',
                             )
                         ],
@@ -110,8 +109,7 @@ class Migration(migrations.Migration):
                         default=None,
                         help_text='Опишите объект',
                         validators=[
-                            catalog.models.
-                            excellent_or_luxurious_in_field_validator
+                            catalog.models.excellent_or_luxurious_in_field_validator
                         ],
                         verbose_name='Описание',
                     ),
@@ -159,8 +157,7 @@ class Migration(migrations.Migration):
                         validators=[
                             django.core.validators.RegexValidator(
                                 re.compile('^[-a-zA-Z0-9_]+\\Z'),
-                                'Enter a valid “slug” consisting of letters,'
-                                ' numbers, underscores or hyphens.',
+                                'Enter a valid “slug” consisting of letters, numbers, underscores or hyphens.',
                                 'invalid',
                             )
                         ],
