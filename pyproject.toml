@@ -7,5 +7,7 @@ include = '\.pyi?$'
 [tool.isort]
 profile = "google"
 
-[flake8]
-exclude = '*\migrations\'
+[tool.flake8]
+per-file-ignores = [
+    '*\migrations\:E501',
+]
