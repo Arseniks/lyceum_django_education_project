@@ -69,7 +69,7 @@ class Tag(AbstractItemModel, UniqueNamesModel):
         for unique_name in unique_names:
             if unique_name == result_name:
                 raise django.core.exceptions.ValidationError(
-                    f"Такое имя уже существует"
+                    'Такое имя уже существует'
                 )
 
         return result_name
@@ -137,7 +137,7 @@ class Category(AbstractItemModel, UniqueNamesModel):
         for unique_name in unique_names:
             if unique_name == result_name:
                 raise django.core.exceptions.ValidationError(
-                    f"Такое имя уже существует"
+                    'Такое имя уже существует'
                 )
 
         return result_name

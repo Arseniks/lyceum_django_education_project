@@ -5,7 +5,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('catalog', '0004_alter_item_text'),
     ]
@@ -14,6 +13,11 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='item',
             name='text',
-            field=models.TextField(default=None, help_text='Опишите товар', validators=[catalog.models.validate_must_contain], verbose_name='Описание'),
+            field=models.TextField(
+                default=None,
+                help_text='Опишите товар',
+                validators=[catalog.models.validate_must_contain],
+                verbose_name='Описание',
+            ),
         ),
     ]
