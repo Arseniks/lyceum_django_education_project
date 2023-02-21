@@ -100,3 +100,63 @@ class ModelTests(TestCase):
         self.category.full_clean()
         self.category.save()
         self.assertEqual(Category.objects.count(), category_count + 1)
+
+    @parameterized.parameterized.expand(
+        [
+            ('Нормализованный ТеКсТ', 'нормализованныйтекст'),
+            ('Нормализация - это здорово!', 'нормализацияэтоздорово'),
+            ('Нормализация - это здорово!', 'нормализацияэтоздорово'),
+            ('п\р.И"в^е?т', 'привет'),
+            ('EnglisH', 'еnglisн'),
+        ]
+    )
+    def test_normalization_category(self, first_name, second_name):
+        Category.objects.all().delete()
+        self.category = Category(
+            id=1,
+            name=first_name,
+            slug='test-slug',
+        )
+        self.category.full_clean()
+        self.category.save()
+        category_count = Category.objects.count()
+        with self.assertRaises(ValidationError):
+            self.category = Category(
+                id=1,
+                name=second_name,
+                slug='test-slug',
+            )
+            self.category.full_clean()
+            self.category.save()
+
+        self.assertEqual(Category.objects.count(), category_count)
+
+    @parameterized.parameterized.expand(
+        [
+            ('Нормализованный ТеКсТ', 'нормализованныйтекст'),
+            ('Нормализация - это здорово!', 'нормализацияэтоздорово'),
+            ('Нормализация - это здорово!', 'нормализацияэтоздорово'),
+            ('п\р.И"в^е?т', 'привет'),
+            ('EnglisH', 'еnglisн'),
+        ]
+    )
+    def test_normalization_tag(self, first_name, second_name):
+        Tag.objects.all().delete()
+        self.tag = Tag(
+            id=1,
+            name=first_name,
+            slug='test-slug',
+        )
+        self.tag.full_clean()
+        self.tag.save()
+        tag_count = Tag.objects.count()
+        with self.assertRaises(ValidationError):
+            self.tag = Tag(
+                id=1,
+                name=second_name,
+                slug='test-slug',
+            )
+            self.tag.full_clean()
+            self.tag.save()
+
+        self.assertEqual(Tag.objects.count(), tag_count)

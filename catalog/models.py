@@ -1,11 +1,13 @@
 from functools import wraps
 import re
+import string
 
 import django.core.exceptions
 import django.core.validators
 import django.db.models
 
 from Core.models import AbstractItemModel
+from Core.models import UniqueNamesModel
 
 
 def validate_must_contain(*args):
@@ -30,7 +32,7 @@ def validate_must_contain(*args):
     return validator
 
 
-class Tag(AbstractItemModel):
+class Tag(AbstractItemModel, UniqueNamesModel):
     slug = django.db.models.SlugField(
         'URL slug',
         help_text='Напишите URL slug вашего товара',
@@ -38,15 +40,60 @@ class Tag(AbstractItemModel):
         unique=True,
     )
 
-    class Meta:
-        verbose_name = 'тег'
-        verbose_name_plural = 'теги'
+    def normalization(self):
+        result_name = ''
+        for letter in self.name.lower():
+            if letter not in set(string.punctuation + ' '):
+                result_name += letter
+
+        english_letters_same_with_russian = {
+            'a': 'а',
+            'b': 'в',
+            'e': 'е',
+            'k': 'к',
+            'm': 'м',
+            'h': 'н',
+            'o': 'о',
+            'p': 'р',
+            'c': 'с',
+            'y': 'у',
+            'x': 'х',
+        }
+        result_name = list(result_name)
+        for num, letter in enumerate(result_name):
+            if letter in english_letters_same_with_russian.keys():
+                result_name[num] = english_letters_same_with_russian[letter]
+        result_name = ''.join(result_name)
+
+        unique_names = [i.unique_name for i in Tag.objects.all()]
+        for unique_name in unique_names:
+            if unique_name == result_name:
+                raise django.core.exceptions.ValidationError(
+                    f"Такое имя уже существует"
+                )
+
+        return result_name
+
+    def clean(self):
+        self.is_cleaned = True
+        if not self.unique_name:
+            self.unique_name = self.normalization()
+        return super().clean()
+
+    def save(self, *args, **kwargs):
+        if not self.is_cleaned:
+            self.full_clean()
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return self.name
 
+    class Meta:
+        verbose_name = 'тег'
+        verbose_name_plural = 'теги'
 
-class Category(AbstractItemModel):
+
+class Category(AbstractItemModel, UniqueNamesModel):
     slug = django.db.models.SlugField(
         'URL slug',
         help_text='Напишите URL slug вашей категории',
@@ -61,12 +108,57 @@ class Category(AbstractItemModel):
         ],
     )
 
-    class Meta:
-        verbose_name = 'категория'
-        verbose_name_plural = 'категории'
+    def normalization(self):
+        result_name = ''
+        for letter in self.name.lower():
+            if letter not in set(string.punctuation + ' '):
+                result_name += letter
+
+        english_letters_same_with_russian = {
+            'a': 'а',
+            'b': 'в',
+            'e': 'е',
+            'k': 'к',
+            'm': 'м',
+            'h': 'н',
+            'o': 'о',
+            'p': 'р',
+            'c': 'с',
+            'y': 'у',
+            'x': 'х',
+        }
+        result_name = list(result_name)
+        for num, letter in enumerate(result_name):
+            if letter in english_letters_same_with_russian.keys():
+                result_name[num] = english_letters_same_with_russian[letter]
+        result_name = ''.join(result_name)
+
+        unique_names = [i.unique_name for i in Category.objects.all()]
+        for unique_name in unique_names:
+            if unique_name == result_name:
+                raise django.core.exceptions.ValidationError(
+                    f"Такое имя уже существует"
+                )
+
+        return result_name
+
+    def clean(self):
+        self.is_cleaned = True
+        if not self.unique_name:
+            self.unique_name = self.normalization()
+        return super().clean()
+
+    def save(self, *args, **kwargs):
+        if not self.is_cleaned:
+            self.full_clean()
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return self.name
+
+    class Meta:
+        verbose_name = 'категория'
+        verbose_name_plural = 'категории'
 
 
 class Item(AbstractItemModel):
@@ -83,9 +175,9 @@ class Item(AbstractItemModel):
     )
     tags = django.db.models.ManyToManyField(Tag, blank=True)
 
+    def __str__(self):
+        return self.name
+
     class Meta:
         verbose_name = 'товар'
         verbose_name_plural = 'товары'
-
-    def __str__(self):
-        return self.name
