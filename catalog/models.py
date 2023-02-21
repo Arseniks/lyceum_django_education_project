@@ -1,4 +1,5 @@
 from functools import wraps
+import re
 
 import django.core.exceptions
 import django.core.validators
@@ -12,6 +13,7 @@ def validate_must_contain(*args):
     def validator(value):
         must_words = set(args)
         text = value.lower()
+        text = re.findall(r'\b.*?\b', text)
 
         wrong_text = True
         for word in must_words:
@@ -29,17 +31,39 @@ def validate_must_contain(*args):
 
 
 class Tag(AbstractItemModel):
-    slug = django.db.models.CharField(
+    slug = django.db.models.SlugField(
         'URL slug',
         help_text='Напишите URL slug вашего товара',
         max_length=200,
         unique=True,
-        validators=[django.core.validators.validate_slug],
     )
 
     class Meta:
         verbose_name = 'тег'
         verbose_name_plural = 'теги'
+
+    def __str__(self):
+        return self.name
+
+
+class Category(AbstractItemModel):
+    slug = django.db.models.SlugField(
+        'URL slug',
+        help_text='Напишите URL slug вашей категории',
+        max_length=200,
+        unique=True,
+    )
+    weight = django.db.models.IntegerField(
+        default=100,
+        validators=[
+            django.core.validators.MinValueValidator(0),
+            django.core.validators.MaxValueValidator(32767),
+        ],
+    )
+
+    class Meta:
+        verbose_name = 'категория'
+        verbose_name_plural = 'категории'
 
     def __str__(self):
         return self.name
@@ -52,11 +76,10 @@ class Item(AbstractItemModel):
         default=None,
         validators=[validate_must_contain('превосходно', 'роскошно')],
     )
-    category = django.db.models.ForeignKey(
-        'category',
+    category = django.db.models.OneToOneField(
+        Category,
         default=None,
         on_delete=django.db.models.CASCADE,
-        related_name='items',
     )
     tags = django.db.models.ManyToManyField(Tag, blank=True)
 
@@ -68,25 +91,4 @@ class Item(AbstractItemModel):
         return self.name
 
 
-class Category(AbstractItemModel):
-    slug = django.db.models.CharField(
-        'URL slug',
-        help_text='Напишите URL slug вашей категории',
-        max_length=200,
-        unique=True,
-        validators=[django.core.validators.validate_slug],
-    )
-    weight = django.db.models.IntegerField(
-        default=100,
-        validators=[
-            django.core.validators.MinValueValidator(0),
-            django.core.validators.MaxValueValidator(32767),
-        ],
-    )
 
-    class Meta:
-        verbose_name = 'каталог'
-        verbose_name_plural = 'каталоги'
-
-    def __str__(self):
-        return self.name
