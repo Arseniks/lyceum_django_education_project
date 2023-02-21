@@ -12,13 +12,9 @@ class ModelTests(TestCase):
     def setUpClass(cls):
         super().setUpClass()
         cls.category = Category.objects.create(
-            name='Тестовая категория',
-            slug='test-category-slug'
+            name='Тестовая категория', slug='test-category-slug'
         )
-        cls.tag = Tag.objects.create(
-            name='Тестовый тег',
-            slug='test-tag-slug'
-        )
+        cls.tag = Tag.objects.create(name='Тестовый тег', slug='test-tag-slug')
 
     def tearDown(self):
         Item.objects.all().delete()
@@ -27,10 +23,12 @@ class ModelTests(TestCase):
         super().tearDown()
 
     @parameterized.parameterized.expand(
-        [('Привет, мир, без роскоши и прекрас!',),
-         ('нероскошный',),
-         ('превосходительство',),
-         ('роскошное',)]
+        [
+            ('Привет, мир, без роскоши и прекрас!',),
+            ('нероскошный',),
+            ('превосходительство',),
+            ('роскошное',),
+        ]
     )
     def test_without_excellent_or_luxurious(self, test_text):
         Item.objects.all().delete()
@@ -49,11 +47,13 @@ class ModelTests(TestCase):
         self.assertEqual(Item.objects.count(), item_count)
 
     @parameterized.parameterized.expand(
-        [('Он смотрится превосходно',),
-         ('Выглядит роскошно!',),
-         ('Очень роскошно и так превосходно',),
-         ('Просто превосходно, нет слов',),
-         ('Так роскошно, не верится своим глазам',)]
+        [
+            ('Он смотрится превосходно',),
+            ('Выглядит роскошно!',),
+            ('Очень роскошно и так превосходно',),
+            ('Просто превосходно, нет слов',),
+            ('Так роскошно, не верится своим глазам',),
+        ]
     )
     def test_with_excellent_or_luxurious(self, test_text):
         Item.objects.all().delete()
@@ -70,10 +70,7 @@ class ModelTests(TestCase):
         self.assertEqual(Item.objects.count(), item_count + 1)
 
     @parameterized.parameterized.expand(
-        [(-1,),
-         (-1234,),
-         (32768,),
-         (1000000,)]
+        [(-1,), (-1234,), (32768,), (1000000,)]
     )
     def test_without_allowable_weight(self, test_weight):
         Category.objects.all().delete()
@@ -90,12 +87,7 @@ class ModelTests(TestCase):
 
         self.assertEqual(Category.objects.count(), category_count)
 
-    @parameterized.parameterized.expand(
-        [(0,),
-         (32767,),
-         (100,),
-         (1234,)]
-    )
+    @parameterized.parameterized.expand([(0,), (32767,), (100,), (1234,)])
     def test_with_allowable_weight(self, test_weight):
         Category.objects.all().delete()
         category_count = Category.objects.count()

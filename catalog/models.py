@@ -89,6 +89,3 @@ class Item(AbstractItemModel):
 
     def __str__(self):
         return self.name
-
-
-
