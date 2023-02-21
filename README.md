@@ -34,8 +34,17 @@ pip install -r requirements_dev.txt
   txt:
 ```
 pip install -r requirements_test.txt
-``` 
-- В папке с файлом manage.py выполните команду:
+```
+- В папке с файлом manage.py выполните команды:
+Установки миграций БД:
+```
+python manage.py migrate
+```
+Заполнения БД данными из фикстуры:
+```
+python manage.py loaddata data.json
+```
+Запуска проекта:
 ```
 python manage.py runserver
 ```
@@ -60,7 +69,28 @@ pip3 install -r requirements_dev.txt
 ```
 pip3 install -r requirements_test.txt
 ``` 
-- В папке с файлом manage.py выполните команду:
+- Устанавливаем миграции БД:
+```
+python3 manage.py migrate
+```
+- Заполнение БД данными из фикстуры:
+```
+python3 manage.py loaddata data.json
+```
+- В папке с файлом manage.py выполните команды:
+Установки миграций БД:
+```
+python3 manage.py migrate
+```
+Заполнения БД данными из фикстуры:
+```
+python3 manage.py loaddata data.json
+```
+Запуска проекта:
 ```
 python3 manage.py runserver
 ```
+
+
+## ER-диаграмма базы данных
+![QuickDBD-Free Diagram.png](ER_diagram.png)
