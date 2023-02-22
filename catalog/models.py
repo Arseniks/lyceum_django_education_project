@@ -1,6 +1,7 @@
 from functools import wraps
 import re
 import string
+from transliterate import translit
 
 import django.core.exceptions
 import django.core.validators
@@ -40,50 +41,16 @@ class Tag(AbstractItemModel, UniqueNamesModel):
         unique=True,
     )
 
-    def normalization(self):
-        result_name = ''
-        for letter in self.name.lower():
-            if letter not in set(string.punctuation + ' '):
-                result_name += letter
-
-        english_letters_same_with_russian = {
-            'a': 'а',
-            'b': 'в',
-            'e': 'е',
-            'k': 'к',
-            'm': 'м',
-            'h': 'н',
-            'o': 'о',
-            'p': 'р',
-            'c': 'с',
-            'y': 'у',
-            'x': 'х',
-        }
-        result_name = list(result_name)
-        for num, letter in enumerate(result_name):
-            if letter in english_letters_same_with_russian.keys():
-                result_name[num] = english_letters_same_with_russian[letter]
-        result_name = ''.join(result_name)
-
-        unique_names = [i.unique_name for i in Tag.objects.all()]
-        for unique_name in unique_names:
-            if unique_name == result_name:
-                raise django.core.exceptions.ValidationError(
-                    'Такое имя уже существует'
-                )
-
-        return result_name
-
     def clean(self):
-        self.is_cleaned = True
-        if not self.unique_name:
-            self.unique_name = self.normalization()
+        normalized_name = self.normalization()
+        tags = Tag.objects.all()
+        matches = filter(lambda x: x.unique_name == normalized_name, tags)
+        if list(matches):
+            raise django.core.exceptions.ValidationError(
+                'Такое имя уже существует'
+            )
+        self.unique_name = normalized_name
         return super().clean()
-
-    def save(self, *args, **kwargs):
-        if not self.is_cleaned:
-            self.full_clean()
-        super().save(*args, **kwargs)
 
     def __str__(self):
         return self.name
@@ -108,50 +75,16 @@ class Category(AbstractItemModel, UniqueNamesModel):
         ],
     )
 
-    def normalization(self):
-        result_name = ''
-        for letter in self.name.lower():
-            if letter not in set(string.punctuation + ' '):
-                result_name += letter
-
-        english_letters_same_with_russian = {
-            'a': 'а',
-            'b': 'в',
-            'e': 'е',
-            'k': 'к',
-            'm': 'м',
-            'h': 'н',
-            'o': 'о',
-            'p': 'р',
-            'c': 'с',
-            'y': 'у',
-            'x': 'х',
-        }
-        result_name = list(result_name)
-        for num, letter in enumerate(result_name):
-            if letter in english_letters_same_with_russian.keys():
-                result_name[num] = english_letters_same_with_russian[letter]
-        result_name = ''.join(result_name)
-
-        unique_names = [i.unique_name for i in Category.objects.all()]
-        for unique_name in unique_names:
-            if unique_name == result_name:
-                raise django.core.exceptions.ValidationError(
-                    'Такое имя уже существует'
-                )
-
-        return result_name
-
     def clean(self):
-        self.is_cleaned = True
-        if not self.unique_name:
-            self.unique_name = self.normalization()
+        normalized_name = self.normalization()
+        categories = Category.objects.all()
+        matches = filter(lambda x: x.unique_name == normalized_name, categories)
+        if list(matches):
+            raise django.core.exceptions.ValidationError(
+                'Такое имя уже существует'
+            )
+        self.unique_name = normalized_name
         return super().clean()
-
-    def save(self, *args, **kwargs):
-        if not self.is_cleaned:
-            self.full_clean()
-        super().save(*args, **kwargs)
 
     def __str__(self):
         return self.name
