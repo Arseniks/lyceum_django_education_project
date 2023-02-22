@@ -40,14 +40,7 @@ class Tag(AbstractItemModel, UniqueNamesModel):
     )
 
     def clean(self):
-        normalized_name = self.normalization()
-        tags = Tag.objects.all()
-        matches = filter(lambda x: x.unique_name == normalized_name, tags)
-        if list(matches):
-            raise django.core.exceptions.ValidationError(
-                'Такое имя уже существует'
-            )
-        self.unique_name = normalized_name
+        self.unique_name = self.normalization()
         return super().clean()
 
     def __str__(self):
@@ -74,16 +67,7 @@ class Category(AbstractItemModel, UniqueNamesModel):
     )
 
     def clean(self):
-        normalized_name = self.normalization()
-        categories = Category.objects.all()
-        matches = filter(
-            lambda x: x.unique_name == normalized_name, categories
-        )
-        if list(matches):
-            raise django.core.exceptions.ValidationError(
-                'Такое имя уже существует'
-            )
-        self.unique_name = normalized_name
+        self.unique_name = self.normalization()
         return super().clean()
 
     def __str__(self):

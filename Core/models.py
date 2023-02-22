@@ -23,6 +23,13 @@ class AbstractItemModel(django.db.models.Model):
                 result_name += letter
         result_name = translit(result_name, 'ru')
 
+        all_objects = self.__class__.objects.all()
+        matches = filter(lambda x: x.unique_name == result_name, all_objects)
+        if list(matches):
+            raise django.core.exceptions.ValidationError(
+                'Такое имя уже существует'
+            )
+
         return result_name
 
     def save(self, *args, **kwargs):
