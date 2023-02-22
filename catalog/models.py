@@ -1,11 +1,11 @@
 from functools import wraps
 import re
 import string
-from transliterate import translit
 
 import django.core.exceptions
 import django.core.validators
 import django.db.models
+from transliterate import translit
 
 from Core.models import AbstractItemModel
 from Core.models import UniqueNamesModel
@@ -78,7 +78,9 @@ class Category(AbstractItemModel, UniqueNamesModel):
     def clean(self):
         normalized_name = self.normalization()
         categories = Category.objects.all()
-        matches = filter(lambda x: x.unique_name == normalized_name, categories)
+        matches = filter(
+            lambda x: x.unique_name == normalized_name, categories
+        )
         if list(matches):
             raise django.core.exceptions.ValidationError(
                 'Такое имя уже существует'

@@ -11,9 +11,15 @@ class ModelTests(TestCase):
     @classmethod
     def setUpTestData(cls):
         cls.category = Category.objects.create(
-            id=123, name='Установочная тестовая категория', slug='setup-test-category-slug'
+            id=123,
+            name='Установочная тестовая категория',
+            slug='setup-test-category-slug',
         )
-        cls.tag = Tag.objects.create(id=123, name='Установочный тестовый тег', slug='setup-test-tag-slug')
+        cls.tag = Tag.objects.create(
+            id=123,
+            name='Установочный тестовый тег',
+            slug='setup-test-tag-slug',
+        )
         super().setUpTestData()
 
     def tearDown(self):
