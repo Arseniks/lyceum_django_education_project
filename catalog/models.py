@@ -1,11 +1,9 @@
 from functools import wraps
 import re
-import string
 
 import django.core.exceptions
 import django.core.validators
 import django.db.models
-from transliterate import translit
 
 from Core.models import AbstractItemModel
 from Core.models import UniqueNamesModel

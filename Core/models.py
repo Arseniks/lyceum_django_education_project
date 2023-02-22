@@ -1,6 +1,6 @@
-import django.db.models
 import string
 
+import django.db.models
 from transliterate import translit
 
 
