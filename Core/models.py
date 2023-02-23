@@ -16,6 +16,15 @@ class AbstractItemModel(django.db.models.Model):
         default=True,
     )
 
+    class Meta:
+        abstract = True
+
+
+class UniqueNamesModel(django.db.models.Model):
+    unique_name = django.db.models.CharField(
+        max_length=150, unique=True, editable=False, default=None
+    )
+
     def normalization(self):
         result_name = ''
         for letter in self.name.lower():
@@ -23,8 +32,7 @@ class AbstractItemModel(django.db.models.Model):
                 result_name += letter
         result_name = translit(result_name, 'ru')
 
-        all_objects = self.__class__.objects.all()
-        matches = filter(lambda x: x.unique_name == result_name, all_objects)
+        matches = self.__class__.objects.filter(unique_name=result_name)
         if list(matches):
             raise django.core.exceptions.ValidationError(
                 'Такое имя уже существует'
@@ -36,14 +44,9 @@ class AbstractItemModel(django.db.models.Model):
         self.full_clean()
         super().save(*args, **kwargs)
 
-    class Meta:
-        abstract = True
-
-
-class UniqueNamesModel(django.db.models.Model):
-    unique_name = django.db.models.CharField(
-        max_length=150, unique=True, editable=False, default=None
-    )
+    def clean(self):
+        self.unique_name = self.normalization()
+        return super().clean()
 
     class Meta:
         abstract = True

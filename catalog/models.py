@@ -39,10 +39,6 @@ class Tag(AbstractItemModel, UniqueNamesModel):
         unique=True,
     )
 
-    def clean(self):
-        self.unique_name = self.normalization()
-        return super().clean()
-
     def __str__(self):
         return self.name
 
@@ -66,10 +62,6 @@ class Category(AbstractItemModel, UniqueNamesModel):
         ],
     )
 
-    def clean(self):
-        self.unique_name = self.normalization()
-        return super().clean()
-
     def __str__(self):
         return self.name
 
@@ -85,11 +77,11 @@ class Item(AbstractItemModel):
         default=None,
         validators=[validate_must_contain('превосходно', 'роскошно')],
     )
-    category = django.db.models.OneToOneField(
+    category = django.db.models.ForeignKey(
         Category,
-        default=None,
         on_delete=django.db.models.CASCADE,
-    )
+        verbose_name='Категория',
+        help_text='Выберите категорию')
     tags = django.db.models.ManyToManyField(Tag, blank=True)
 
     def __str__(self):

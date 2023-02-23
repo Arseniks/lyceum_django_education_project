@@ -68,14 +68,6 @@ pip3 install -r requirements_dev.txt
 А для тестирования нужно установить зависимости из файла requirements_test.txt:
 ```
 pip3 install -r requirements_test.txt
-``` 
-- Устанавливаем миграции БД:
-```
-python3 manage.py migrate
-```
-- Заполнение БД данными из фикстуры:
-```
-python3 manage.py loaddata data.json
 ```
 - В папке с файлом manage.py выполните команды:
 Установки миграций БД:
