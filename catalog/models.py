@@ -81,7 +81,8 @@ class Item(AbstractItemModel):
         Category,
         on_delete=django.db.models.CASCADE,
         verbose_name='Категория',
-        help_text='Выберите категорию')
+        help_text='Выберите категорию',
+    )
     tags = django.db.models.ManyToManyField(Tag, blank=True)
 
     def __str__(self):
