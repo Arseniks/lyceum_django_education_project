@@ -1,4 +1,3 @@
-from functools import wraps
 import re
 
 import django.core.exceptions
@@ -6,31 +5,31 @@ import django.core.validators
 import django.db.models
 
 from Core.models import AbstractItemModel
+from Core.models import UniqueNamesModel
 
 
-def validate_must_contain(*args):
-    @wraps(validate_must_contain)
-    def validator(value):
-        must_words = set(args)
-        text = value.lower()
-        text = re.findall(r'\b.*?\b', text)
+class ValidateMustContain:
+    def __init__(self, *words):
+        self.must_words = set(words)
+
+    def __call__(self, value):
+        normalizable_words = value.lower()
+        normalizable_words = re.findall(r'\b.*?\b', normalizable_words)
 
         wrong_text = True
-        for word in must_words:
-            if word in text:
+        for word in self.must_words:
+            if word in normalizable_words:
                 wrong_text = False
                 break
 
         if wrong_text:
             raise django.core.exceptions.ValidationError(
-                f'Обязательно нужно использовать {" ".join(must_words)}'
+                f'Обязательно нужно использовать {" ".join(self.must_words)}'
             )
         return value
 
-    return validator
 
-
-class Tag(AbstractItemModel):
+class Tag(AbstractItemModel, UniqueNamesModel):
     slug = django.db.models.SlugField(
         'URL slug',
         help_text='Напишите URL slug вашего товара',
@@ -38,15 +37,15 @@ class Tag(AbstractItemModel):
         unique=True,
     )
 
+    def __str__(self):
+        return self.name
+
     class Meta:
         verbose_name = 'тег'
         verbose_name_plural = 'теги'
 
-    def __str__(self):
-        return self.name
 
-
-class Category(AbstractItemModel):
+class Category(AbstractItemModel, UniqueNamesModel):
     slug = django.db.models.SlugField(
         'URL slug',
         help_text='Напишите URL slug вашей категории',
@@ -61,12 +60,12 @@ class Category(AbstractItemModel):
         ],
     )
 
+    def __str__(self):
+        return self.name
+
     class Meta:
         verbose_name = 'категория'
         verbose_name_plural = 'категории'
-
-    def __str__(self):
-        return self.name
 
 
 class Item(AbstractItemModel):
@@ -74,18 +73,19 @@ class Item(AbstractItemModel):
         'Описание',
         help_text='Опишите товар',
         default=None,
-        validators=[validate_must_contain('превосходно', 'роскошно')],
+        validators=[ValidateMustContain('превосходно', 'роскошно')],
     )
-    category = django.db.models.OneToOneField(
+    category = django.db.models.ForeignKey(
         Category,
-        default=None,
         on_delete=django.db.models.CASCADE,
+        verbose_name='Категория',
+        help_text='Выберите категорию',
     )
     tags = django.db.models.ManyToManyField(Tag, blank=True)
+
+    def __str__(self):
+        return self.name
 
     class Meta:
         verbose_name = 'товар'
         verbose_name_plural = 'товары'
-
-    def __str__(self):
-        return self.name

@@ -5,6 +5,7 @@
   "fields": {
     "name": "Распродажа 11:11",
     "is_published": false,
+    "unique_name": "распродажа1111",
     "slug": "sale_11_11"
   }
 },
@@ -14,6 +15,7 @@
   "fields": {
     "name": "Скидка до 10%",
     "is_published": true,
+    "unique_name": "скидкадо10",
     "slug": "discount_up_to_10"
   }
 },
@@ -23,6 +25,7 @@
   "fields": {
     "name": "Недавно в продаже",
     "is_published": true,
+    "unique_name": "недавновпродаже",
     "slug": "new"
   }
 },
@@ -32,6 +35,7 @@
   "fields": {
     "name": "Для мужчин",
     "is_published": true,
+    "unique_name": "длямужчин",
     "slug": "for_men"
   }
 },
@@ -41,7 +45,8 @@
   "fields": {
     "name": "Для женщин",
     "is_published": true,
-    "slug": "for_wamen"
+    "unique_name": "дляженщин",
+    "slug": "for_women"
   }
 },
 {
@@ -50,6 +55,7 @@
   "fields": {
     "name": "18+",
     "is_published": true,
+    "unique_name": "18",
     "slug": "adult-only"
   }
 },
@@ -59,7 +65,63 @@
   "fields": {
     "name": "Для самых маленьких",
     "is_published": true,
-    "slug": "for_the_little_ones"
+    "unique_name": "длясамыхмаленьких",
+    "slug": "for-the-little-ones"
+  }
+},
+{
+  "model": "catalog.category",
+  "pk": 1,
+  "fields": {
+    "name": "Одежда",
+    "is_published": true,
+    "unique_name": "одежда",
+    "slug": "cloth",
+    "weight": 100
+  }
+},
+{
+  "model": "catalog.category",
+  "pk": 2,
+  "fields": {
+    "name": "Книги",
+    "is_published": true,
+    "unique_name": "книги",
+    "slug": "books",
+    "weight": 100
+  }
+},
+{
+  "model": "catalog.category",
+  "pk": 3,
+  "fields": {
+    "name": "Товары для детей",
+    "is_published": true,
+    "unique_name": "товарыдлядетей",
+    "slug": "products-for-children",
+    "weight": 200
+  }
+},
+{
+  "model": "catalog.category",
+  "pk": 4,
+  "fields": {
+    "name": "Хозтовары",
+    "is_published": false,
+    "unique_name": "хозтовары",
+    "slug": "household-goods",
+    "weight": 50
+  }
+},
+{
+  "model": "catalog.category",
+  "pk": 5,
+  "fields": {
+    "name": "Продукты",
+    "is_published": true,
+    "unique_name": "продукты",
+    "slug": "products",
+    "weight": 100
   }
 },
 {
@@ -69,7 +131,7 @@
     "name": "Стейк Рибай из говядины",
     "is_published": true,
     "text": "Один из самых популярных стейков. Отрезается со спиной части, в месте пересечения шести мышц, которые практически не задействуются при движении животного. Поэтому Рибай отличается особенной мягкостью и сочностью. Превосходно сочетается с любым гарниром.",
-    "category": 1,
+    "category": 5,
     "tags": [
       3
     ]
@@ -81,10 +143,11 @@
   "fields": {
     "name": "Сарафан для детей",
     "is_published": true,
-    "text": "Этот сарафан будет роскошно смотреться на вашей дочке в любое время.",
-    "category": 3,
+    "text": "Этот сарафан будет роскошно смотреться на вашей дочке в любое время",
+    "category": 1,
     "tags": [
       2,
+      3,
       5,
       7
     ]
@@ -97,9 +160,8 @@
     "name": "Почему нет рая на земле",
     "is_published": true,
     "text": "Эта книга превосходно расскажется вам захватывающую историю",
-    "category": 4,
+    "category": 2,
     "tags": [
-      3,
       6
     ]
   }
@@ -110,74 +172,25 @@
   "fields": {
     "name": "Средство для мытья полов",
     "is_published": true,
-    "text": "Это превосходно отмоет ваш пол  даже от въевшейся грязи.",
-    "category": 2,
+    "text": "Это превосходно отмоет ваш пол  даже от въевшейся грязи",
+    "category": 4,
     "tags": []
   }
 },
 {
   "model": "catalog.item",
-  "pk": 5,
+  "pk": 6,
   "fields": {
-    "name": "Ветровка",
+    "name": "Ветровка осень-весна",
     "is_published": true,
     "text": "Выглядит роскошно, носится превосходно, унисекс",
-    "category": 5,
+    "category": 1,
     "tags": [
+      2,
       3,
       4,
       5
     ]
-  }
-},
-{
-  "model": "catalog.category",
-  "pk": 1,
-  "fields": {
-    "name": "Продукты",
-    "is_published": true,
-    "slug": "products",
-    "weight": 100
-  }
-},
-{
-  "model": "catalog.category",
-  "pk": 2,
-  "fields": {
-    "name": "Хозтовары",
-    "is_published": false,
-    "slug": "household_goods",
-    "weight": 100
-  }
-},
-{
-  "model": "catalog.category",
-  "pk": 3,
-  "fields": {
-    "name": "Товары для детей",
-    "is_published": true,
-    "slug": "products_for_children",
-    "weight": 200
-  }
-},
-{
-  "model": "catalog.category",
-  "pk": 4,
-  "fields": {
-    "name": "Книги",
-    "is_published": true,
-    "slug": "books",
-    "weight": 100
-  }
-},
-{
-  "model": "catalog.category",
-  "pk": 5,
-  "fields": {
-    "name": "Одежда",
-    "is_published": true,
-    "slug": "cloth",
-    "weight": 100
   }
 }
 ]
