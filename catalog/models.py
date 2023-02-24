@@ -9,16 +9,16 @@ from Core.models import UniqueNamesModel
 
 
 class ValidateMustContain:
-    def __init__(self, *args):
-        self.must_words = set(args)
+    def __init__(self, *words):
+        self.must_words = set(words)
 
     def __call__(self, value):
-        text = value.lower()
-        text = re.findall(r'\b.*?\b', text)
+        normalizable_words = value.lower()
+        normalizable_words = re.findall(r'\b.*?\b', normalizable_words)
 
         wrong_text = True
         for word in self.must_words:
-            if word in text:
+            if word in normalizable_words:
                 wrong_text = False
                 break
 
