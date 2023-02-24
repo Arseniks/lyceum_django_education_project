@@ -166,7 +166,7 @@ class Migration(migrations.Migration):
                     models.TextField(
                         default=None,
                         help_text='Опишите товар',
-                        validators=[catalog.models.validate_must_contain],
+                        validators=[catalog.models.ValidateMustContain],
                         verbose_name='Описание',
                     ),
                 ),

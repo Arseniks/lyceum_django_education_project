@@ -1,4 +1,3 @@
-from functools import wraps
 import re
 
 import django.core.exceptions
@@ -9,26 +8,25 @@ from Core.models import AbstractItemModel
 from Core.models import UniqueNamesModel
 
 
-def validate_must_contain(*args):
-    @wraps(validate_must_contain)
-    def validator(value):
-        must_words = set(args)
+class ValidateMustContain:
+    def __init__(self, *args):
+        self.must_words = set(args)
+
+    def __call__(self, value):
         text = value.lower()
         text = re.findall(r'\b.*?\b', text)
 
         wrong_text = True
-        for word in must_words:
+        for word in self.must_words:
             if word in text:
                 wrong_text = False
                 break
 
         if wrong_text:
             raise django.core.exceptions.ValidationError(
-                f'Обязательно нужно использовать {" ".join(must_words)}'
+                f'Обязательно нужно использовать {" ".join(self.must_words)}'
             )
         return value
-
-    return validator
 
 
 class Tag(AbstractItemModel, UniqueNamesModel):
@@ -75,7 +73,7 @@ class Item(AbstractItemModel):
         'Описание',
         help_text='Опишите товар',
         default=None,
-        validators=[validate_must_contain('превосходно', 'роскошно')],
+        validators=[ValidateMustContain('превосходно', 'роскошно')],
     )
     category = django.db.models.ForeignKey(
         Category,
