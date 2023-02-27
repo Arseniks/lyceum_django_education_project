@@ -49,7 +49,7 @@ class MiddlewareTests(TestCase):
         with override_settings(ACTIVATE_REVERSE_MIDDLEWARE=False):
             client = Client()
             for _ in range(10 + 1):
-                response = client.get('/')
+                response = client.get('/coffee')
                 self.assertEqual(
-                    response.content.decode(), '<body>Главная</body>'
+                    response.content.decode(), '<body>Я чайник</body>'
                 )

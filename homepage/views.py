@@ -1,3 +1,6 @@
+from http import HTTPStatus
+
+from django.http import HttpResponse
 from django.shortcuts import render
 
 
@@ -8,6 +11,4 @@ def home(request):
 
 
 def teapot(request):
-    template = 'homepage/coffee.html'
-    context = {}
-    return render(request, template, context)
+    return HttpResponse('<body>Я чайник</body>', status=HTTPStatus.IM_A_TEAPOT)
