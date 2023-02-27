@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+<div class="row">
+  <div class="bg-dark mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center text-white overflow-hidden col">
+    <div class="my-3 py-3">
+      <h2 class="display-5">Стейк Рибай</h2>
+    </div>
+      <img src="{% static 'img/ribeye-steak.jpg' %}" alt="">
+  </div>
+  <div class="bg-light mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden col">
+    <div class="my-3 p-3">
+      <h2 class="display-5">₽3000,00</h2>
+    </div>
+    <div class="bg-light box-shadow mx-auto" style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;">
+      <p>Один из самых популярных стейков. Отрезается со спиной части, в месте пересечения шести мышц, которые практически не задействуются при движении животного. Поэтому Рибай отличается особенной мягкостью и сочностью. Превосходно сочетается с любым гарниром.</p>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

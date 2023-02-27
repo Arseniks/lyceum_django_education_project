@@ -35,16 +35,41 @@ pip install -r requirements_dev.txt
 ```
 pip install -r requirements_test.txt
 ```
-- В папке с файлом manage.py выполните команды:
-Установки миграций БД:
+В папке с файлом manage.py выполните команды:
+- Установки миграций БД:
 ```
 python manage.py migrate
 ```
-Заполнения БД данными из фикстуры:
+- Заполнения БД данными из фикстуры:
 ```
 python manage.py loaddata data.json
 ```
-Запуска проекта:
+- Установить DEBUG = False
+- Закомментировать в settings.py
+```
+STATICFILES_DIRS = [
+    BASE_DIR / 'static_dev',
+]
+```
+- Добавить в settings.py
+```
+STATIC_DIR = os.path.join(BASE_DIR, 'static')
+```
+- Сохранение статики:
+```
+python manage.py collectstatic
+```
+- Раскомментировать в settings.py
+```
+STATICFILES_DIRS = [
+    BASE_DIR / 'static_dev',
+]
+```
+- Убрать из settings.py
+```
+STATIC_DIR = os.path.join(BASE_DIR, 'static')
+```
+- Запуска проекта:
 ```
 python manage.py runserver
 ```
@@ -69,16 +94,41 @@ pip3 install -r requirements_dev.txt
 ```
 pip3 install -r requirements_test.txt
 ```
-- В папке с файлом manage.py выполните команды:
-Установки миграций БД:
+В папке с файлом manage.py выполните команды:
+- Установки миграций БД:
 ```
 python3 manage.py migrate
 ```
-Заполнения БД данными из фикстуры:
+- Заполнения БД данными из фикстуры:
 ```
 python3 manage.py loaddata data.json
 ```
-Запуска проекта:
+- Установить DEBUG = False
+- Закомментировать в settings.py
+```
+STATICFILES_DIRS = [
+    BASE_DIR / 'static_dev',
+]
+```
+- Добавить в settings.py
+```
+STATIC_DIR = os.path.join(BASE_DIR, 'static')
+```
+- Сохранение статики:
+```
+python3 manage.py collectstatic
+```
+- Раскомментировать в settings.py
+```
+STATICFILES_DIRS = [
+    BASE_DIR / 'static_dev',
+]
+```
+- Убрать из settings.py
+```
+STATIC_DIR = os.path.join(BASE_DIR, 'static')
+```
+- Запуска проекта:
 ```
 python3 manage.py runserver
 ```

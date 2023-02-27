@@ -1,0 +1,31 @@
+<div class="container">
+  <footer class="py-3 my-4">
+    <?echo date( 'Y-г m-м d-ч ', time() );?>
+
+    <script Language="JavaScript">
+      var year_server = Math.round(<?php echo date("Y"); ?>);
+      var hour_server = Math.round(<?php echo date("H"); ?>);
+      var year_user = Math.round(Date().getFullYear())
+      var hour_user = Math.round(Date().getHours())
+
+
+      if (hour_user<10)
+      min2display = "0"+min;
+      else
+      min2display = min;
+
+      if (hours<10)
+      hour2display = "0"+hours;
+      else
+      hour2display = hours;
+
+      document.getElementById("seconds").innerHTML = hour2display+":"+min2display+":"+sec2display;
+      setTimeout("display();", 1000);
+      }
+
+      display();
+    </script>
+    <p>©</p><div id="current_year_time_block"></div> Company, Inc. All rights reserved.</p>
+    <ul class="list-unstyled d-flex"></ul>
+  </footer>
+</div>
