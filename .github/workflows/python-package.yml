@@ -30,6 +30,8 @@ jobs:
         pip install -r requirements.txt
         pip install -r requirements_test.txt
         pip install -r requirements_dev.txt
+        apt-get update && apt-get upgrade -y
+        pip install build-essential
         sudo apt-get install libgdal-dev
         pip install numpy gdal
     - name: Lint with flake8
