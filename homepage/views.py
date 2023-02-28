@@ -7,7 +7,7 @@ from django.shortcuts import render
 
 def home(request):
     template = 'homepage/home.html'
-    context = {'date': datetime.now().strftime("%Y %m %d %H:%M")}
+    context = {'date': datetime.now().strftime('%Y %m %d %H:%M')}
     return render(request, template, context)
 
 

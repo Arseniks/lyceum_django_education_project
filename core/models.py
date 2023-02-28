@@ -81,9 +81,7 @@ class ImageBaseModel(django.db.models.Model):
 
     def small_image_tmb(self):
         if self.image:
-            return mark_safe(
-                f'<img src="{self.get_small_image.url}" '
-            )
+            return mark_safe(f'<img src="{self.get_small_image.url}" ')
         return 'Нет изображения'
 
     small_image_tmb.short_description = 'превью'
