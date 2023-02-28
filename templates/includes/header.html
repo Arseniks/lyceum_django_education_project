@@ -10,10 +10,10 @@
             <a href="{% url 'homepage:home' %}" class="nav-link px-2 text-secondary {% if view_name == 'homepage:home' %} text-white {% endif %}">На главную</a>
           </li>
           <li>
-            <a href="{% url 'about:description' %}" class="nav-link px-2 text-secondary {% if view_name == 'about:description' %} text-white {% endif %}">О проекте</a>
+            <a href="{% url 'catalog:item_list' %}" class="nav-link px-2 text-secondary {% if view_name == 'catalog:item_list' %} text-white {% endif %}">Список товаров</a>
           </li>
           <li>
-            <a href="{% url 'catalog:item_list' %}" class="nav-link px-2 text-secondary {% if view_name == 'catalog:item_list' %} text-white {% endif %}">Список товаров</a>
+            <a href="{% url 'about:description' %}" class="nav-link px-2 text-secondary {% if view_name == 'about:description' %} text-white {% endif %}">О проекте</a>
           </li>
           {% endwith %}
         </ul>

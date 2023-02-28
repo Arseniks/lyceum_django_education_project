@@ -20,7 +20,12 @@ class ItemAdminForm(forms.ModelForm):
 
 class MainImageInline(admin.TabularInline):
     model = catalog.models.MainImage
-    readonly_fields = ('image_tmb',)
+    readonly_fields = ('small_image_tmb',)
+
+
+class GalleryInline(admin.TabularInline):
+    model = catalog.models.ImageGallery
+    readonly_fields = ('small_image_tmb',)
 
 
 @admin.register(catalog.models.Item)
@@ -31,6 +36,7 @@ class ItemAdmin(admin.ModelAdmin):
     )
     inlines = [
         MainImageInline,
+        GalleryInline,
     ]
     form = ItemAdminForm
     list_editable = (catalog.models.Item.is_published.field.name,)

@@ -44,30 +44,9 @@ python manage.py migrate
 ```
 python manage.py loaddata data.json
 ```
-- Установить DEBUG = False
-- Закомментировать в settings.py
-```
-STATICFILES_DIRS = [
-    BASE_DIR / 'static_dev',
-]
-```
-- Добавить в settings.py
-```
-STATIC_DIR = os.path.join(BASE_DIR, 'static')
-```
 - Сохранение статики:
 ```
 python manage.py collectstatic
-```
-- Раскомментировать в settings.py
-```
-STATICFILES_DIRS = [
-    BASE_DIR / 'static_dev',
-]
-```
-- Убрать из settings.py
-```
-STATIC_DIR = os.path.join(BASE_DIR, 'static')
 ```
 - Запуска проекта:
 ```
@@ -86,11 +65,11 @@ source venv/bin/activate
 ```
 pip3 install -r requirements.txt
 ``` 
-Для разработки нужно также установить зависимости из файла requirements_dev.txt:
+- Для разработки нужно также установить зависимости из файла requirements_dev.txt:
 ```
 pip3 install -r requirements_dev.txt
 ``` 
-А для тестирования нужно установить зависимости из файла requirements_test.txt:
+- А для тестирования нужно установить зависимости из файла requirements_test.txt:
 ```
 pip3 install -r requirements_test.txt
 ```
@@ -103,30 +82,9 @@ python3 manage.py migrate
 ```
 python3 manage.py loaddata data.json
 ```
-- Установить DEBUG = False
-- Закомментировать в settings.py
-```
-STATICFILES_DIRS = [
-    BASE_DIR / 'static_dev',
-]
-```
-- Добавить в settings.py
-```
-STATIC_DIR = os.path.join(BASE_DIR, 'static')
-```
 - Сохранение статики:
 ```
 python3 manage.py collectstatic
-```
-- Раскомментировать в settings.py
-```
-STATICFILES_DIRS = [
-    BASE_DIR / 'static_dev',
-]
-```
-- Убрать из settings.py
-```
-STATIC_DIR = os.path.join(BASE_DIR, 'static')
 ```
 - Запуска проекта:
 ```

@@ -1,3 +1,4 @@
+from datetime import datetime
 from http import HTTPStatus
 
 from django.http import HttpResponse
@@ -6,7 +7,7 @@ from django.shortcuts import render
 
 def home(request):
     template = 'homepage/home.html'
-    context = {}
+    context = {'date': datetime.now().strftime("%Y %m %d %H:%M")}
     return render(request, template, context)
 
 

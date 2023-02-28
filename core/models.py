@@ -75,6 +75,20 @@ class ImageBaseModel(django.db.models.Model):
     image_tmb.short_description = 'превью'
     image_tmb.allow_tags = True
 
+    @property
+    def get_small_image(self):
+        return get_thumbnail(self.image, '50x50', crop='center', quality=51)
+
+    def small_image_tmb(self):
+        if self.image:
+            return mark_safe(
+                f'<img src="{self.get_small_image.url}" '
+            )
+        return 'Нет изображения'
+
+    small_image_tmb.short_description = 'превью'
+    small_image_tmb.allow_tags = True
+
     def item_name(self):
         return self.item.name
 
