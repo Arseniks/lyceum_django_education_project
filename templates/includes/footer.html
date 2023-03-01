@@ -1,6 +1,6 @@
 <div class="container">
   <footer class="py-3 my-4">
-    ©<span id="date">{% now "Y-m-d h:m" %}</span> Company, Inc. All rights reserved.
+    ©<span>{% now "Y-m-d h:m" %}</span> Company, Inc. All rights reserved.
     <script>
       dataElement = document.getElementsByTagName('span')['0']
       let serverDate = new Date(dataElement.textContent)
