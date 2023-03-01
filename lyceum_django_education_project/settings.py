@@ -16,7 +16,7 @@ DEBUG = os.environ.get('DEBUG', 'True') == 'True'
 ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '*').split(',')
 
 ACTIVATE_REVERSE_MIDDLEWARE = (
-        os.environ.get('ACTIVATE_REVERSE_MIDDLEWARE', 'False') == 'True'
+    os.environ.get('ACTIVATE_REVERSE_MIDDLEWARE', 'False') == 'True'
 )
 
 # Application definition
@@ -88,19 +88,19 @@ DATABASES = {
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.'
-                'UserAttributeSimilarityValidator',
+        'UserAttributeSimilarityValidator',
     },
     {
         'NAME': 'django.contrib.auth.password_validation.'
-                'MinimumLengthValidator',
+        'MinimumLengthValidator',
     },
     {
         'NAME': 'django.contrib.auth.password_validation.'
-                'CommonPasswordValidator',
+        'CommonPasswordValidator',
     },
     {
         'NAME': 'django.contrib.auth.password_validation.'
-                'NumericPasswordValidator',
+        'NumericPasswordValidator',
     },
 ]
 
@@ -114,7 +114,6 @@ LOCALE_PATHS = [BASE_DIR / 'locale/']
 LANGUAGES = (
     ('en', ('English',)),
     ('ru', ('Russian',)),
-
 )
 
 TIME_ZONE = 'UTC'
