@@ -7,7 +7,6 @@ load_dotenv()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get('SECRET_KEY', 'any-other-dummy-key')
 
@@ -17,9 +16,8 @@ DEBUG = os.environ.get('DEBUG', 'True') == 'True'
 ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '*').split(',')
 
 ACTIVATE_REVERSE_MIDDLEWARE = (
-    os.environ.get('ACTIVATE_REVERSE_MIDDLEWARE', 'False') == 'True'
+        os.environ.get('ACTIVATE_REVERSE_MIDDLEWARE', 'False') == 'True'
 )
-
 
 # Application definition
 
@@ -49,6 +47,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'debug_toolbar.middleware.DebugToolbarMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'middleware.reverse_middleware.ReverseEachTenWordMiddleware',
 ]
 
@@ -89,27 +88,34 @@ DATABASES = {
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.'
-        'UserAttributeSimilarityValidator',
+                'UserAttributeSimilarityValidator',
     },
     {
         'NAME': 'django.contrib.auth.password_validation.'
-        'MinimumLengthValidator',
+                'MinimumLengthValidator',
     },
     {
         'NAME': 'django.contrib.auth.password_validation.'
-        'CommonPasswordValidator',
+                'CommonPasswordValidator',
     },
     {
         'NAME': 'django.contrib.auth.password_validation.'
-        'NumericPasswordValidator',
+                'NumericPasswordValidator',
     },
 ]
-
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
 LANGUAGE_CODE = 'ru'
+
+LOCALE_PATHS = [BASE_DIR / 'locale/']
+
+LANGUAGES = (
+    ('en', ('English',)),
+    ('ru', ('Russian',)),
+
+)
 
 TIME_ZONE = 'UTC'
 
@@ -118,7 +124,6 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
