@@ -1,6 +1,10 @@
 import string
 
 import django.db.models
+from django.utils.safestring import mark_safe
+from django_cleanup.signals import cleanup_pre_delete
+from sorl.thumbnail import delete
+from sorl.thumbnail import get_thumbnail
 from transliterate import translit
 
 
@@ -47,6 +51,51 @@ class UniqueNamesModel(django.db.models.Model):
     def clean(self):
         self.unique_name = self.normalization()
         return super().clean()
+
+    class Meta:
+        abstract = True
+
+
+class ImageBaseModel(django.db.models.Model):
+    image = django.db.models.ImageField(
+        'изображение товара',
+        upload_to='catalog/',
+        default=None,
+    )
+
+    @property
+    def get_image(self):
+        return get_thumbnail(self.image, '300x300', crop='center', quality=51)
+
+    def image_tmb(self):
+        if self.image:
+            return mark_safe(f'<img src="{self.get_image.url}" ')
+        return 'Нет изображения'
+
+    image_tmb.short_description = 'превью'
+    image_tmb.allow_tags = True
+
+    @property
+    def get_small_image(self):
+        return get_thumbnail(self.image, '50x50', crop='center', quality=51)
+
+    def small_image_tmb(self):
+        if self.image:
+            return mark_safe(f'<img src="{self.get_small_image.url}" ')
+        return 'Нет изображения'
+
+    small_image_tmb.short_description = 'превью'
+    small_image_tmb.allow_tags = True
+
+    def item_name(self):
+        return self.item.name
+
+    item_name.short_description = 'товар'
+
+    def sorl_delete(**kwargs):
+        delete(kwargs['file'])
+
+    cleanup_pre_delete.connect(sorl_delete)
 
     class Meta:
         abstract = True

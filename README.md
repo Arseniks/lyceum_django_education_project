@@ -35,16 +35,24 @@ pip install -r requirements_dev.txt
 ```
 pip install -r requirements_test.txt
 ```
-- В папке с файлом manage.py выполните команды:
-Установки миграций БД:
+В папке с файлом manage.py выполните команды:
+- Установки миграций БД:
 ```
 python manage.py migrate
 ```
-Заполнения БД данными из фикстуры:
+- Заполнения БД данными из фикстуры:
 ```
 python manage.py loaddata data.json
 ```
-Запуска проекта:
+- Сохранение статики:
+```
+python manage.py collectstatic
+```
+- Создание бинарных файлов перевода
+```
+python manage.py compilemessages
+```
+- Запуска проекта:
 ```
 python manage.py runserver
 ```
@@ -61,24 +69,32 @@ source venv/bin/activate
 ```
 pip3 install -r requirements.txt
 ``` 
-Для разработки нужно также установить зависимости из файла requirements_dev.txt:
+- Для разработки нужно также установить зависимости из файла requirements_dev.txt:
 ```
 pip3 install -r requirements_dev.txt
 ``` 
-А для тестирования нужно установить зависимости из файла requirements_test.txt:
+- А для тестирования нужно установить зависимости из файла requirements_test.txt:
 ```
 pip3 install -r requirements_test.txt
 ```
-- В папке с файлом manage.py выполните команды:
-Установки миграций БД:
+В папке с файлом manage.py выполните команды:
+- Установки миграций БД:
 ```
 python3 manage.py migrate
 ```
-Заполнения БД данными из фикстуры:
+- Заполнения БД данными из фикстуры:
 ```
 python3 manage.py loaddata data.json
 ```
-Запуска проекта:
+- Сохранение статики:
+```
+python3 manage.py collectstatic
+```
+- Создание бинарных файлов перевода
+```
+python3 manage.py compilemessages
+```
+- Запуска проекта:
 ```
 python3 manage.py runserver
 ```

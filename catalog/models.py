@@ -4,10 +4,12 @@ import django.core.exceptions
 import django.core.validators
 import django.db.models
 
-from Core.models import AbstractItemModel
-from Core.models import UniqueNamesModel
+from core.models import AbstractItemModel
+from core.models import ImageBaseModel
+from core.models import UniqueNamesModel
 
 
+@django.utils.deconstruct.deconstructible
 class ValidateMustContain:
     def __init__(self, *words):
         self.must_words = set(words)
@@ -75,6 +77,7 @@ class Item(AbstractItemModel):
         default=None,
         validators=[ValidateMustContain('превосходно', 'роскошно')],
     )
+
     category = django.db.models.ForeignKey(
         Category,
         on_delete=django.db.models.CASCADE,
@@ -89,3 +92,35 @@ class Item(AbstractItemModel):
     class Meta:
         verbose_name = 'товар'
         verbose_name_plural = 'товары'
+        default_related_name = 'items'
+
+
+class MainImage(ImageBaseModel):
+    item = django.db.models.OneToOneField(
+        Item,
+        verbose_name='товар',
+        on_delete=django.db.models.CASCADE,
+        null=True,
+    )
+
+    class Meta:
+        verbose_name = 'главное изображение'
+        verbose_name_plural = 'главные изображения'
+
+    def __str__(self):
+        return self.item_name()
+
+
+class ImageGallery(ImageBaseModel):
+    item = django.db.models.ForeignKey(
+        Item,
+        verbose_name='товар',
+        on_delete=django.db.models.CASCADE,
+    )
+
+    class Meta:
+        verbose_name = 'Фото товара'
+        verbose_name_plural = 'Фотогалерея товара'
+
+    def __str__(self):
+        return self.item_name()
