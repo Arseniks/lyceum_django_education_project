@@ -48,6 +48,10 @@ python manage.py loaddata data.json
 ```
 python manage.py collectstatic
 ```
+- Создание бинарных файлов перевода
+```
+python manage.py compilemessages
+```
 - Запуска проекта:
 ```
 python manage.py runserver
@@ -85,6 +89,10 @@ python3 manage.py loaddata data.json
 - Сохранение статики:
 ```
 python3 manage.py collectstatic
+```
+- Создание бинарных файлов перевода
+```
+python3 manage.py compilemessages
 ```
 - Запуска проекта:
 ```
