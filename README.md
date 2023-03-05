@@ -2,8 +2,12 @@
 
 ![Python Linting](https://github.com/Arseniks/lyceum_django_education_project/actions/workflows/python-package.yml/badge.svg)
 
-## Запуск проекта
-- клонируйте проект с GitHub с помощью команды:
+# Запуск проекта
+- Вы можете запустить проект с помощью shell-скрипта:
+```
+sh project_setup.sh GIT_BRACH=week_5_task_1
+``` 
+- Клонируйте проект с GitHub с помощью команды:
 ```
 git clone https://github.com/Arseniks/lyceum_django_education_project
 ``` 

@@ -1,9 +1,31 @@
 from django.test import Client
 from django.test import TestCase
 import parameterized
+from django.urls import reverse
+
+from catalog.models import Item, Category
 
 
 class StaticURLTests(TestCase):
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.category = Category.objects.create(
+            name='Тестовая категория',
+            slug='test-category-slug',
+        )
+        for i in range(101):
+            Item.objects.create(
+                name=f'Test item {i}',
+                text='превосходно',
+                category=cls.category,
+            )
+
+    def tearDown(self):
+        Item.objects.all().delete()
+        Category.objects.all().delete()
+        super().tearDown()
+
     def test_catalog_item_list_endpoint(self):
         response = Client().get('/catalog/')
         self.assertEqual(response.status_code, 200)
@@ -38,3 +60,34 @@ class StaticURLTests(TestCase):
     def test_catalog_re_endpoint_negative(self, number):
         response = Client().get(f'/catalog/re/{number}/')
         self.assertEqual(response.status_code, 404)
+
+
+class ContextTests(TestCase):
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.category = Category.objects.create(
+            name='Тестовая категория',
+            slug='test-category-slug',
+        )
+        Item.objects.create(
+            name='Test item 1',
+            text='превосходно',
+            category=cls.category,
+        )
+
+    def tearDown(self):
+        Item.objects.all().delete()
+        Category.objects.all().delete()
+        super().tearDown()
+
+    def test_catalog_shown_correct_context_item_list(self):
+        response = Client().get(reverse('catalog:item_list'))
+        self.assertIn('items', response.context)
+
+    def test_catalog_shown_correct_context_item_detail(self):
+        response = Client().get(reverse(
+            'catalog:item_detail',
+            args=[1])
+        )
+        self.assertIn('item', response.context)

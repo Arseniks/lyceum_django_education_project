@@ -4,6 +4,7 @@ import django.core.exceptions
 import django.core.validators
 import django.db.models
 
+from catalog.managers import ItemManager, TagManager
 from core.models import AbstractItemModel
 from core.models import ImageBaseModel
 from core.models import UniqueNamesModel
@@ -32,6 +33,8 @@ class ValidateMustContain:
 
 
 class Tag(AbstractItemModel, UniqueNamesModel):
+    objects = TagManager()
+
     slug = django.db.models.SlugField(
         'URL slug',
         help_text='Напишите URL slug вашего товара',
@@ -71,6 +74,12 @@ class Category(AbstractItemModel, UniqueNamesModel):
 
 
 class Item(AbstractItemModel):
+    objects = ItemManager()
+
+    is_on_main = django.db.models.BooleanField(
+        'На главной',
+        default=False,
+    )
     text = django.db.models.TextField(
         'Описание',
         help_text='Опишите товар',

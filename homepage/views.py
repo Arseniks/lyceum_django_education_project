@@ -3,10 +3,15 @@ from http import HTTPStatus
 from django.http import HttpResponse
 from django.shortcuts import render
 
+import catalog.models
+
 
 def home(request):
     template = 'homepage/home.html'
-    context = {}
+    items = catalog.models.Item.objects.published()
+    context = {
+        'items': items,
+    }
     return render(request, template, context)
 
 
