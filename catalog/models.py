@@ -4,7 +4,8 @@ import django.core.exceptions
 import django.core.validators
 import django.db.models
 
-from catalog.managers import ItemManager, TagManager
+from catalog.managers import ItemManager
+from catalog.managers import TagManager
 from core.models import AbstractItemModel
 from core.models import ImageBaseModel
 from core.models import UniqueNamesModel

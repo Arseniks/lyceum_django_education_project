@@ -1,5 +1,6 @@
 import django.db.models
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import get_object_or_404
+from django.shortcuts import render
 
 import catalog.models
 
@@ -15,10 +16,9 @@ def item_list(request):
 
 def item_detail(request, number):
     template = 'catalog/item_detail.html'
-    item = get_object_or_404(catalog.models.Item.objects.published(), id=number)
+    item = get_object_or_404(
+        catalog.models.Item.objects.published(), id=number
+    )
     gallery = catalog.models.ImageGallery.objects.filter(item=item)
-    context = {
-        'item': item,
-        'gallery': gallery
-    }
+    context = {'item': item, 'gallery': gallery}
     return render(request, template, context)

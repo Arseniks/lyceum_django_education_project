@@ -1,9 +1,10 @@
 from django.test import Client
 from django.test import TestCase
-import parameterized
 from django.urls import reverse
+import parameterized
 
-from catalog.models import Item, Category
+from catalog.models import Category
+from catalog.models import Item
 
 
 class StaticURLTests(TestCase):
@@ -86,8 +87,5 @@ class ContextTests(TestCase):
         self.assertIn('items', response.context)
 
     def test_catalog_shown_correct_context_item_detail(self):
-        response = Client().get(reverse(
-            'catalog:item_detail',
-            args=[1])
-        )
+        response = Client().get(reverse('catalog:item_detail', args=[1]))
         self.assertIn('item', response.context)
