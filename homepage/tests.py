@@ -34,7 +34,7 @@ class ContextTests(TestCase):
         )
         cls.tag_unpublished = Tag.objects.create(
             is_published=False,
-            name='Не опубликованный тестовый тег',
+            name='Неопубликованный тестовый тег',
             slug='unpublished-test-tag-slug',
         )
         cls.category_published = Category.objects.create(
@@ -44,7 +44,7 @@ class ContextTests(TestCase):
         )
         cls.category_unpublished = Category.objects.create(
             is_published=False,
-            name='Не опубликованная тестовая категория',
+            name='Неопубликованная тестовая категория',
             slug='unpublished-test-category-slug',
         )
         cls.item_published_with_category_published = Item.objects.create(
@@ -57,15 +57,15 @@ class ContextTests(TestCase):
         cls.item_published_with_category_unpublished = Item.objects.create(
             is_published=True,
             is_on_main=True,
-            name='Опубликованный тестовый товар c не опубликованной категорией',
+            name='Опубликованный тестовый товар c неопубликованной категорией',
             text='превосходно',
             category=cls.category_unpublished,
         )
         cls.item_unpublished = Item.objects.create(
             is_published=False,
             is_on_main=False,
-            name='Не опубликованный тестовый товар',
-            text='Не публикованный тестовый товар',
+            name='Неопубликованный тестовый товар',
+            text='Непубликованный тестовый товар',
             category=cls.category_published,
         )
 
