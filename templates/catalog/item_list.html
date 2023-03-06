@@ -16,17 +16,24 @@
     </div>
   </section>
 
-  <div class="card-deck py-5 bg-light">
-    <div class="container">
-      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-        {% for item in items%}
-          {% include 'includes/card.html' %}
-        {% empty %}
-           <p>Список товаров пуст, ждём новые поставки!</p>
-        {% endfor %}
+  {% regroup items by category as categories_list %}
+  <ul>
+  {% for category in categories_list %}
+    <h1>Категория: {{ category.grouper }}</h1>
+      <div class="card-deck py-5 bg-light">
+        <div class="container">
+          <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+            {% for item in items %}
+              {% if category.grouper.name == item.category.name %}
+                {% include 'includes/card.html' %}
+              {% endif %}
+            {% endfor %}
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
-
+  {% empty %}
+    <p>Список товаров пуст, ждём новые поставки!</p>
+  {% endfor %}
+  </ul>
 </main>
 {% endblock %}
