@@ -87,6 +87,16 @@ class ContextTests(TestCase):
             name='Неопубликованная тестовая категория',
             slug='unpublished-test-category-slug',
         )
+        cls.category_first = Category.objects.create(
+            is_published=True,
+            name='АААААА',
+            slug='first-test-category-slug',
+        )
+        cls.category_second = Category.objects.create(
+            is_published=True,
+            name='ББББББ',
+            slug='second-test-category-slug',
+        )
         cls.item_published_with_category_published = Item.objects.create(
             is_published=True,
             is_on_main=True,
@@ -108,17 +118,34 @@ class ContextTests(TestCase):
             text='превосходно',
             category=cls.category_published,
         )
+        cls.item_first = Item.objects.create(
+            is_published=True,
+            is_on_main=True,
+            name='Тестовая категория, первая в списке',
+            text='превосходно',
+            category=cls.category_first,
+        )
 
+        cls.item_second = Item.objects.create(
+            is_published=True,
+            is_on_main=True,
+            name='Тестовая категория, вторая в списке',
+            text='превосходно',
+            category=cls.category_second,
+        )
+
+        cls.item_first.clean()
+        cls.item_first.save()
+        cls.item_second.clean()
+        cls.item_second.save()
         cls.item_published_with_category_published.clean()
         cls.item_published_with_category_published.save()
         cls.item_published_with_category_published.tags.add(cls.tag_published)
         cls.item_published_with_category_published.tags.add(
             cls.tag_unpublished
         )
-
         cls.item_published_with_category_unpublished.clean()
         cls.item_published_with_category_unpublished.save()
-
         cls.item_unpublished.clean()
         cls.item_unpublished.save()
 
@@ -131,7 +158,13 @@ class ContextTests(TestCase):
     def test_catalog_shown_context_item_list(self):
         response = Client().get(reverse('catalog:item_list'))
         self.assertIn('items', response.context)
-        self.assertEqual(1, len(response.context['items']))
+        print(response.context['items'])
+        self.assertEqual(3, len(response.context['items']))
+
+    def test_catalog_shown_context_sorting_item_list(self):
+        response = Client().get(reverse('catalog:item_list'))
+        self.assertEqual('Тестовая категория, первая в списке', response.context['items'][0].name)
+        self.assertEqual('Тестовая категория, вторая в списке', response.context['items'][1].name)
 
     def test_catalog_shown_correct_items_in_context_item_list(self):
         response = Client().get(reverse('catalog:item_list'))
@@ -155,10 +188,10 @@ class ContextTests(TestCase):
     def test_catalog_shown_correct_tags_in_context_item_list(self):
         response = Client().get(reverse('catalog:item_list'))
         self.assertIn(
-            self.tag_published, response.context['items'][0].tags.all()
+            self.tag_published, response.context['items'][2].tags.all()
         )
         self.assertNotIn(
-            self.tag_unpublished, response.context['items'][0].tags.all()
+            self.tag_unpublished, response.context['items'][2].tags.all()
         )
 
     def test_catalog_have_context_item_detail(self):

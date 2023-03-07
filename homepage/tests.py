@@ -68,6 +68,21 @@ class ContextTests(TestCase):
             text='Непубликованный тестовый товар',
             category=cls.category_published,
         )
+        cls.item_first = Item.objects.create(
+            is_published=True,
+            is_on_main=True,
+            name='АААААА',
+            text='превосходно',
+            category=cls.category_published,
+        )
+
+        cls.item_second = Item.objects.create(
+            is_published=True,
+            is_on_main=True,
+            name='ББББББ',
+            text='превосходно',
+            category=cls.category_published,
+        )
 
         cls.item_published_with_category_published.clean()
         cls.item_published_with_category_published.save()
@@ -88,11 +103,11 @@ class ContextTests(TestCase):
         Tag.objects.all().delete()
         super().tearDown()
 
-    def test_catalog_shown_context_home(self):
+    def test_homepage_shown_context_home(self):
         response = Client().get(reverse('homepage:home'))
         self.assertIn('items', response.context)
 
-    def test_catalog_shown_correct_items_in_context_home(self):
+    def test_homepage_shown_correct_items_in_context_home(self):
         response = Client().get(reverse('homepage:home'))
         self.assertIn(
             self.item_published_with_category_published,
@@ -104,15 +119,20 @@ class ContextTests(TestCase):
         )
         self.assertNotIn(self.item_unpublished, response.context['items'])
 
-    def test_catalog_shown_correct_categories_in_context_home(self):
+    def test_homepage_shown_correct_categories_in_context_home(self):
         response = Client().get(reverse('homepage:home'))
         self.assertNotIn('category', response.context)
 
-    def test_catalog_shown_correct_tags_in_context_home(self):
+    def test_homepage_shown_correct_tags_in_context_home(self):
         response = Client().get(reverse('homepage:home'))
         self.assertIn(
-            self.tag_published, response.context['items'][0].tags.all()
+            self.tag_published, response.context['items'][2].tags.all()
         )
         self.assertNotIn(
-            self.tag_unpublished, response.context['items'][0].tags.all()
+            self.tag_unpublished, response.context['items'][2].tags.all()
         )
+
+    def test_homepage_shown_context_sorting_home(self):
+        response = Client().get(reverse('homepage:home'))
+        self.assertEqual('АААААА', response.context['items'][0].name)
+        self.assertEqual('ББББББ', response.context['items'][1].name)
