@@ -1,8 +1,8 @@
 <div class="product-card">
   <div class="product-thumb">
     {% load thumbnail %}
-    {% thumbnail item.mainimage.image "300x300" crop="center" as image %}
-    <a href="{% url 'catalog:item_detail' item.id %}"><img src="{{ image.url }}"  alt=""></a>
+    {% thumbnail item.mainimage.get_image "300x300" crop="center" as image %}
+      <a href="{% url 'catalog:item_detail' item.id %}"><img src="{{ image.url }}"  alt=""></a>
     {% endthumbnail %}
   </div>
   <div class="product-details">

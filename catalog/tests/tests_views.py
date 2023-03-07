@@ -131,6 +131,7 @@ class ContextTests(TestCase):
     def test_catalog_shown_context_item_list(self):
         response = Client().get(reverse('catalog:item_list'))
         self.assertIn('items', response.context)
+        self.assertEqual(1, len(response.context['items']))
 
     def test_catalog_shown_correct_items_in_context_item_list(self):
         response = Client().get(reverse('catalog:item_list'))
@@ -160,9 +161,13 @@ class ContextTests(TestCase):
             self.tag_unpublished, response.context['items'][0].tags.all()
         )
 
-    def test_catalog_shown_have_context_item_detail(self):
+    def test_catalog_have_context_item_detail(self):
         response = Client().get(reverse('catalog:item_detail', args=[1]))
         self.assertIn('item', response.context)
+
+    def test_catalog_shown_have_context_item_detail_negative(self):
+        response = Client().get(reverse('catalog:item_detail', args=[100]))
+        self.assertEqual(404, response.status_code)
 
     def test_catalog_shown_correct_items_in_context_item_detail(self):
         response = Client().get(reverse('catalog:item_detail', args=[1]))

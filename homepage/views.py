@@ -8,7 +8,7 @@ import catalog.models
 
 def home(request):
     template = 'homepage/home.html'
-    items = catalog.models.Item.objects.published()
+    items = catalog.models.Item.objects.published().filter(is_on_main=True)
     context = {
         'items': items,
     }
