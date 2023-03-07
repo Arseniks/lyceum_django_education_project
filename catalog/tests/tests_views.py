@@ -16,7 +16,7 @@ class StaticURLTests(TestCase):
             slug='test-category-slug',
         )
         Item.objects.create(
-            name=f'Тестовый объект 1',
+            name='Тестовый объект 1',
             text='превосходно',
             category=cls.category,
         )
