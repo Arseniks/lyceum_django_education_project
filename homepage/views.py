@@ -3,12 +3,12 @@ from http import HTTPStatus
 from django.http import HttpResponse
 from django.shortcuts import render
 
-import catalog.models
+from catalog.models import Item
 
 
 def home(request):
     template = 'homepage/home.html'
-    items = catalog.models.Item.objects.published().filter(is_on_main=True).order_by('name')
+    items = Item.objects.published().filter(is_on_main=True).order_by('name')
     context = {
         'items': items,
     }
