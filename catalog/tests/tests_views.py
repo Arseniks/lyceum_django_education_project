@@ -15,12 +15,11 @@ class StaticURLTests(TestCase):
             name='Тестовая категория',
             slug='test-category-slug',
         )
-        for i in range(101):
-            Item.objects.create(
-                name=f'Test item {i}',
-                text='превосходно',
-                category=cls.category,
-            )
+        Item.objects.create(
+            name=f'Тестовый объект 1',
+            text='превосходно',
+            category=cls.category,
+        )
 
     def tearDown(self):
         Item.objects.all().delete()
@@ -72,7 +71,7 @@ class ContextTests(TestCase):
             slug='test-category-slug',
         )
         Item.objects.create(
-            name='Test item 1',
+            name='Тестовый объект 1',
             text='превосходно',
             category=cls.category,
         )
@@ -84,8 +83,14 @@ class ContextTests(TestCase):
 
     def test_catalog_shown_correct_context_item_list(self):
         response = Client().get(reverse('catalog:item_list'))
+
         self.assertIn('items', response.context)
+        self.assertEqual(1, len(response.context['items']))
 
     def test_catalog_shown_correct_context_item_detail(self):
         response = Client().get(reverse('catalog:item_detail', args=[1]))
         self.assertIn('item', response.context)
+
+    def test_catalog_shown_correct_context_item_detail_negative(self):
+        response = Client().get(reverse('catalog:item_detail', args=[100]))
+        self.assertEqual(404, response.status_code)
