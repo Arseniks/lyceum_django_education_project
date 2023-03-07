@@ -163,8 +163,14 @@ class ContextTests(TestCase):
 
     def test_catalog_shown_context_sorting_item_list(self):
         response = Client().get(reverse('catalog:item_list'))
-        self.assertEqual('Тестовая категория, первая в списке', response.context['items'][0].name)
-        self.assertEqual('Тестовая категория, вторая в списке', response.context['items'][1].name)
+        self.assertEqual(
+            'Тестовая категория, первая в списке',
+            response.context['items'][0].name,
+        )
+        self.assertEqual(
+            'Тестовая категория, вторая в списке',
+            response.context['items'][1].name,
+        )
 
     def test_catalog_shown_correct_items_in_context_item_list(self):
         response = Client().get(reverse('catalog:item_list'))

@@ -28,7 +28,7 @@
 </div>
 {% for galleryimage in gallery %}
   {% thumbnail galleryimage.get_image "300x300" crop="center" as image %}
-    <span><img src="{{ galleryimage.image.url }}"></span>
+    <span><img src="{{ image.url }}"></span>
   {% endthumbnail %}
 {% endfor %}
 
