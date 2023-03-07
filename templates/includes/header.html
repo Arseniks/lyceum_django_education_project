@@ -15,6 +15,9 @@
         <li>
           <a href="{% url 'about:description' %}" class="nav-link px-2 text-secondary {% if view_name == 'about:description' %} text-white {% endif %}">{% translate 'О проекте' %}</a>
         </li>
+        <li>
+          <a href="{% url 'admin:index' %}" class="nav-link px-2 text-secondary {% if view_name == 'admin:index' %} text-white {% endif %}">{% translate 'Админка' %}</a>
+        </li>
         {% endwith %}
       </ul>
       <div class="text-end">
