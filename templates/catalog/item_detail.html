@@ -24,7 +24,7 @@
   </div>
 </div>
 {% for galleryimage in gallery %}
-      <span><img src="{{ item.mainimage.get_image.url }}"></span>
+      <span><img src="{{ galleryimage.get_image.url }}"></span>
 {% endfor %}
 
 {% endblock %}
