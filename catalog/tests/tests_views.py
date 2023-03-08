@@ -101,7 +101,6 @@ class ContextTests(TestCase):
             is_published=True,
             is_on_main=True,
             name='Опубликованный тестовый товар с опубликованной категорией',
-
             text='превосходно',
             category=cls.category_published,
         )
