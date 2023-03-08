@@ -101,6 +101,7 @@ class ContextTests(TestCase):
             is_published=True,
             is_on_main=True,
             name='Опубликованный тестовый товар с опубликованной категорией',
+
             text='превосходно',
             category=cls.category_published,
         )
@@ -157,6 +158,7 @@ class ContextTests(TestCase):
 
     def test_catalog_shown_context_item_list(self):
         response = Client().get(reverse('catalog:item_list'))
+
         self.assertIn('items', response.context)
         print(response.context['items'])
         self.assertEqual(3, len(response.context['items']))

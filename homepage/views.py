@@ -3,7 +3,7 @@ from http import HTTPStatus
 from django.http import HttpResponse
 from django.shortcuts import render
 
-import catalog.models
+from catalog.models import Item
 
 
 def home(request):
