@@ -1,9 +1,31 @@
 from django.test import Client
 from django.test import TestCase
+from django.urls import reverse
 import parameterized
+
+from catalog.models import Category
+from catalog.models import Item
 
 
 class StaticURLTests(TestCase):
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.category = Category.objects.create(
+            name='Тестовая категория',
+            slug='test-category-slug',
+        )
+        Item.objects.create(
+            name='Тестовый объект 1',
+            text='превосходно',
+            category=cls.category,
+        )
+
+    def tearDown(self):
+        Item.objects.all().delete()
+        Category.objects.all().delete()
+        super().tearDown()
+
     def test_catalog_item_list_endpoint(self):
         response = Client().get('/catalog/')
         self.assertEqual(response.status_code, 200)
@@ -38,3 +60,37 @@ class StaticURLTests(TestCase):
     def test_catalog_re_endpoint_negative(self, number):
         response = Client().get(f'/catalog/re/{number}/')
         self.assertEqual(response.status_code, 404)
+
+
+class ContextTests(TestCase):
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.category = Category.objects.create(
+            name='Тестовая категория',
+            slug='test-category-slug',
+        )
+        Item.objects.create(
+            name='Тестовый объект 1',
+            text='превосходно',
+            category=cls.category,
+        )
+
+    def tearDown(self):
+        Item.objects.all().delete()
+        Category.objects.all().delete()
+        super().tearDown()
+
+    def test_catalog_shown_correct_context_item_list(self):
+        response = Client().get(reverse('catalog:item_list'))
+
+        self.assertIn('items', response.context)
+        self.assertEqual(1, len(response.context['items']))
+
+    def test_catalog_shown_correct_context_item_detail(self):
+        response = Client().get(reverse('catalog:item_detail', args=[1]))
+        self.assertIn('item', response.context)
+
+    def test_catalog_shown_correct_context_item_detail_negative(self):
+        response = Client().get(reverse('catalog:item_detail', args=[100]))
+        self.assertEqual(404, response.status_code)

@@ -16,99 +16,17 @@
     </div>
   </section>
 
-  <div class="album py-5 bg-light">
+  <div class="card-deck py-5 bg-light">
     <div class="container">
-
       <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-
-        <div class="col-lg-4 col-sm-6 mb-3">
-          <div class="product-card">
-            <div class="product-thumb">
-              <a href="#"><img src="{% static 'img/floor_soap.jpg' %}"  alt=""></a>
-            </div>
-            <div class="product-details">
-              <h4><a href="#">Мистер Пропер</a></h4>
-              <p>Это превосходно отмоет ваш пол даже от въевшейся грязи</p>
-              <div class="product-bottom-details d-flex justify-content-between">
-                <div class="product-price">
-                  <small>₽800,00</small> ₽599,99
-                </div>
-                <div class="product-links">
-                  <a href="#"><i class="fas fa-shopping-cart"></i></a>
-                  <a href="#"><i class="far fa-heart"></i></a>
-              </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-lg-4 col-sm-6 mb-3">
-          <div class="product-card">
-            <div class="product-thumb">
-              <a href="#"><img src="{% static 'img/boocover.jpg' %}"  alt=""></a>
-            </div>
-            <div class="product-details">
-              <h4><a href="#">Почему нет рая на земле</a></h4>
-              <p>Эта книга превосходно подойдёт для взыскательных читателей и расскажет вам захватывающую историю</p>
-              <div class="product-bottom-details d-flex justify-content-between">
-                <div class="product-price">
-                  ₽161,00
-                </div>
-                <div class="product-links">
-                  <a href="#"><i class="fas fa-shopping-cart"></i></a>
-                  <a href="#"><i class="far fa-heart"></i></a>
-              </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-lg-4 col-sm-6 mb-3">
-          <div class="product-card">
-            <div class="product-thumb">
-              <a href="#"><img src="{% static 'img/sundress.jpg' %}"  alt=""></a>
-            </div>
-            <div class="product-details">
-              <h4><a href="#">Сарафан детский</a></h4>
-              <p>Этот сарафан будет роскошно смотреться на вашей дочке в любое время</p>
-              <div class="product-bottom-details d-flex justify-content-between">
-                <div class="product-price">
-                  <small>₽1999,00</small> ₽1399,00
-                </div>
-                <div class="product-links">
-                  <a href="#"><i class="fas fa-shopping-cart"></i></a>
-                  <a href="#"><i class="far fa-heart"></i></a>
-              </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-lg-4 col-sm-6 mb-3">
-          <div class="product-card">
-            <div class="product-thumb">
-              <a href="#"><img src="{% static 'img/ribeye-steak.jpg' %}"  alt=""></a>
-            </div>
-            <div class="product-details">
-              <h4><a href="#">Стейк Рибай</a></h4>
-              <p>Один из самых популярных стейков. Отрезается со спиной части, в месте пересечения шести мышц, которые практически не задействуются при движении животного. Поэтому Рибай отличается особенной мягкостью и сочностью. Превосходно сочетается с любым гарниром.</p>
-              <div class="product-bottom-details d-flex justify-content-between">
-                <div class="product-price">
-                  ₽3000,00
-                </div>
-                <div class="product-links">
-                  <a href="#"><i class="fas fa-shopping-cart"></i></a>
-                  <a href="#"><i class="far fa-heart"></i></a>
-              </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
+        {% for item in items%}
+          {% include 'includes/card.html' %}
+        {% empty %}
+           <p>Список товаров пуст, ждём новые поставки!</p>
+        {% endfor %}
       </div>
     </div>
   </div>
 
 </main>
-
 {% endblock %}

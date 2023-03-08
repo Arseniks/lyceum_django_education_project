@@ -2,13 +2,16 @@
 
 set -ex
 
-cd lyceum_django_education_project || exit
-echo "Creating .env, don't forget to change values"
-cp .env.template .env
+cd lyceum_django_education_project
 echo "Creating Virtual Environment"
 python -m venv venv
 echo "Activating Virtual Environment"
-.\env\Scripts\activate
+source venv/bin/activate
+echo "Switching git branch"
+git checkout $GIT_BRANCH
+echo "Creating .env, don't forget to change values"
+touch .env
+cp .env.template .env
 echo "Installing dependencies"
 pip install -r requirements.txt
 pip install -r requirements_dev.txt

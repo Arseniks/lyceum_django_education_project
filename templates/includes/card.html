@@ -1,0 +1,27 @@
+<div class="product-card">
+  <div class="product-thumb">
+      <a href="{% url 'catalog:item_detail' item.id %}"><img src="{{ item.mainimage.get_image.url }}"  alt=""></a>
+  </div>
+  <div class="product-details">
+    <h4><a >{{ item.name }}</a></h4>
+    {% with request.resolver_match.view_name as view_name %}
+      {% if view_name == 'homepage:home' %}
+        <a>Категория: {{ item.category }}</a>
+      {% endif %}
+    {% endwith %}
+    <p>{{ item.text|striptags|truncatewords:10 }}</p>
+    <div class="product-bottom-details d-flex justify-content-between">
+      <div class="product-price">
+      </div>
+    </div>
+  </div>
+
+  <div class="card-footer">
+  Теги:
+    {% for tag in item.tags.all %}
+      <span class="badge rounded-pill text-bg-warning">{{ tag.name }}</span>
+    {% empty %}
+      Отсутствуют
+    {% endfor %}
+  </div>
+</div>
