@@ -11,6 +11,9 @@ register_converter(converters.PositiveDigitConverter, 'positive_int')
 
 urlpatterns = [
     path('', views.item_list, name='item_list'),
+    path('friday', views.friday, name='friday'),
+    path('novelty', views.novelty, name='novelty'),
+    path('untested', views.untested, name='untested'),
     path('<int:number>/', views.item_detail, name='item_detail'),
     path(
         'converter/<positive_int:number>/',

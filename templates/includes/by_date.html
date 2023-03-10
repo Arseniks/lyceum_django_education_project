@@ -1,0 +1,7 @@
+{% load static %}
+
+{% for item in items%}
+  {% include 'includes/card.html' %}
+{% empty %}
+    <p>Список товаров пуст, ждём новые поставки!</p>
+{% endfor %}

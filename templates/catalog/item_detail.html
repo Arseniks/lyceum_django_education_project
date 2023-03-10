@@ -6,7 +6,12 @@
     <div class="my-3 py-3">
       <h2 class="display-5">{{ item.name }}</h2>
     </div>
-      <a><img src="{{ item.mainimage.get_image.url }}"  alt=""></a>
+      <div class="card border-0 text-center">
+        <a><img src="{{ item.mainimage.get_image.url }}"  alt=""></a>
+        <div class="card-body">
+          <a class="btn btn-dark" download="proposed_file_name" href="{{ galleryimage.get_image.url }}" role="button">Скачать</a>
+        </div>
+      </div>
   </div>
   <div class="bg-light mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden col">
     <div class="my-3 p-3">
@@ -23,8 +28,24 @@
       {% endfor %}
   </div>
 </div>
-{% for galleryimage in gallery %}
-  <span><img src="{{ galleryimage.get_image.url }}"></span>
-{% endfor %}
+<div class="align-self-center p-2">
+  <h3>Фотогалерея товара</h3>
+  <div class="row row-cols-3">
+    {% for galleryimage in gallery %}
+      <div class="col-sm-6 mb-3">
+        <div class="card border-0 text-center">
+          <img src="{{ galleryimage.get_image.url }}">
+          <div class="card-body">
+            <a class="btn btn-dark" download="proposed_file_name" href="{{ galleryimage.get_image.url }}" role="button">Скачать</a>
+          </div>
+        </div>
+      </div>
+    {% empty %}
+      <div class="align-self-center p-2">
+        <p>Фотографий ещё нет</p>
+      </div>
+    {% endfor %}
+  </div>
+</div>
 
 {% endblock %}
