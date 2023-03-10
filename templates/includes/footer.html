@@ -1,18 +1,9 @@
+{% load static %}
+
 <div class="container">
   <footer class="py-3 my-4">
     ©<span>{% now "Y-m-d h:m" %}</span> Company, Inc. All rights reserved.
-    <script>
-      dataElement = document.getElementsByTagName('span')['0']
-      let serverDate = new Date(dataElement.textContent)
-      let userDate = new Date()
-      deltaTime = Math.abs(serverDate - userDate)
-
-      if (deltaTime > 1000 * 60 * 60 * 24) {
-          dataElement.innerHTML = serverDate.getFullYear()
-      } else {
-          dataElement.innerHTML = userDate.getFullYear()
-      }
-    </script>
+    <script src="{% static 'js/date_for_footer.js' %}"></script>
     <ul class="list-unstyled d-flex"></ul>
   </footer>
 </div>
