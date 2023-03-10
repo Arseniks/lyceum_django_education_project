@@ -6,26 +6,28 @@
     <div class="my-3 py-3">
       <h2 class="display-5">{{ item.name }}</h2>
     </div>
-      <div class="card border-0 text-center">
-        <a><img src="{{ item.mainimage.get_image.url }}"  alt=""></a>
-        <div class="card-body">
-          <a class="btn btn-dark" download="proposed_file_name" href="{{ galleryimage.get_image.url }}" role="button">Скачать</a>
-        </div>
+    <div class="card border-0 text-center">
+      <a><img src="{{ item.mainimage.get_image.url }}"  alt=""></a>
+      <div class="card-body">
+        <a class="btn btn-dark" download="proposed_file_name" href="{{ galleryimage.get_image.url }}" role="button">Скачать</a>
       </div>
+    </div>
   </div>
   <div class="bg-light mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden col">
     <div class="my-3 p-3">
       <h2 class="display-5">Категория: {{ item.category.name }}</h2>
     </div>
-    <div class="bg-light box-shadow mx-auto" style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;">
-      <p>{{ item.text|striptags }}</p>
+     <div class="card border-0 text-center bg-light box-shadow mx-auto" style="width: 80%; height: auto; border-radius: 21px 21px 0 0;">
+       <p>{{ item.text|safe }}</p>
+       <div class="card-body">
+         Теги:
+         {% for tag in item.tags.all %}
+           <p class="badge rounded-pill text-bg-warning">{{ tag.name }}</p>
+         {% empty %}
+           Отсутствуют
+         {% endfor %}
+       </div>
     </div>
-      Теги:
-      {% for tag in item.tags.all %}
-        <span class="badge rounded-pill text-bg-warning">{{ tag.name }}</span>
-      {% empty %}
-        Отсутствуют
-      {% endfor %}
   </div>
 </div>
 <div class="align-self-center p-2">
