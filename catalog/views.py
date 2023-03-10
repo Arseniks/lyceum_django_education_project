@@ -67,11 +67,11 @@ def untested(request):
     template = 'catalog/untested.html'
     items = catalog.models.Item.objects.filter(
         django.db.models.Q(
-            creation_date__lt=django.db.models.F("change_date")
+            creation_date__lt=django.db.models.F('change_date')
             + datetime.timedelta(seconds=1)
         )
         & django.db.models.Q(
-            change_date__lt=django.db.models.F("creation_date")
+            change_date__lt=django.db.models.F('creation_date')
             + datetime.timedelta(seconds=1)
         )
     )
