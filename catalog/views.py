@@ -29,16 +29,11 @@ def item_detail(request, number):
 
 def friday(request):
     template = 'catalog/friday.html'
-    ids = catalog.models.Item.objects.published().values_list(
-        catalog.models.Item.id.field.name, flat=True
+    items = (
+        catalog.models.Item.objects.published()
+        .filter(change_date__week_day=6)
+        .order_by('-creation_date')[:5]
     )
-    items = None
-    if ids:
-        items = catalog.models.Item.objects.filter(
-            change_date__week_day=6,
-            id__in=list(ids)[-6:-1],
-        )
-    print(items)
     context = {
         'items': items,
     }
@@ -47,20 +42,21 @@ def friday(request):
 
 def novelty(request):
     template = 'catalog/novelty.html'
-    ids = catalog.models.Item.objects.values_list(
-        catalog.models.Item.id.field.name, flat=True
+    ids = (
+        catalog.models.Item.objects.published()
+        .filter(
+            creation_date__range=[
+                django.utils.timezone.now() - datetime.timedelta(weeks=1),
+                django.utils.timezone.now(),
+            ],
+        )
+        .values_list(catalog.models.Item.id.field.name, flat=True)
     )
     items = None
     if ids:
-        items = (
-            catalog.models.Item.objects.published().filter(
-                id__in=random.sample(list(ids), k=min(len(ids), 5)),
-                creation_date__range=[
-                    django.utils.timezone.now() - datetime.timedelta(weeks=1),
-                    django.utils.timezone.now(),
-                ],
-            )
-        ).order_by('?')
+        items = catalog.models.Item.objects.published().filter(
+            id__in=random.sample(list(ids), k=min(len(ids), 5)),
+        )
     context = {
         'items': items,
     }
@@ -70,8 +66,13 @@ def novelty(request):
 def untested(request):
     template = 'catalog/untested.html'
     items = catalog.models.Item.objects.filter(
-        creation_date=django.db.models.F(
-            catalog.models.Item.change_date.field.name
+        django.db.models.Q(
+            creation_date__lt=django.db.models.F("change_date")
+            + datetime.timedelta(seconds=1)
+        )
+        & django.db.models.Q(
+            change_date__lt=django.db.models.F("creation_date")
+            + datetime.timedelta(seconds=1)
         )
     )
     context = {

@@ -9,7 +9,10 @@
     <div class="card border-0 text-center">
       <a><img src="{{ item.mainimage.get_image.url }}"  alt=""></a>
       <div class="card-body">
-        <a class="btn btn-dark" download="proposed_file_name" href="{{ galleryimage.get_image.url }}" role="button">Скачать</a>
+
+        <form method="get" action="{{ item.mainimage.image.url }}">
+          <button class="btn btn-dark" type="submit">Скачать!</button>
+        </form>
       </div>
     </div>
   </div>
@@ -38,7 +41,9 @@
         <div class="card border-0 text-center">
           <img src="{{ galleryimage.get_image.url }}">
           <div class="card-body">
-            <a class="btn btn-dark" download="proposed_file_name" href="{{ galleryimage.get_image.url }}" role="button">Скачать</a>
+            <form method="get" action="{{ galleryimage.image.url }}">
+              <button class="btn btn-dark" type="submit">Скачать!</button>
+            </form>
           </div>
         </div>
       </div>
