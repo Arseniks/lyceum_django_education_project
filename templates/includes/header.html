@@ -6,29 +6,15 @@
     <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
       <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
         {% with request.resolver_match.view_name as view_name %}
-          <li>
-            <a href="{% url 'homepage:home' %}" class="nav-link px-2 text-secondary {% if view_name == 'homepage:home' %} text-white {% endif %}">{% translate 'Главная' %}</a>
-          </li>
-          <li>
-            <a href="{% url 'catalog:item_list' %}" class="nav-link px-2 text-secondary {% if view_name == 'catalog:item_list' %} text-white {% endif %}">{% translate 'Список товаров' %}</a>
-          </li>
-          <li>
-            <a href="{% url 'about:description' %}" class="nav-link px-2 text-secondary {% if view_name == 'about:description' %} text-white {% endif %}">{% translate 'О проекте' %}</a>
-          </li>
-          <li>
-            <a href="{% url 'catalog:friday' %}" class="nav-link px-2 text-secondary {% if view_name == 'catalog:friday' %} text-white {% endif %}">{% translate 'Пятничные товары' %}</a>
-          </li>
-          <li>
-            <a href="{% url 'catalog:novelty' %}" class="nav-link px-2 text-secondary {% if view_name == 'catalog:novelty' %} text-white {% endif %}">{% translate 'Новинки' %}</a>
-          </li>
-          <li>
-            <a href="{% url 'catalog:untested' %}" class="nav-link px-2 text-secondary {% if view_name == 'catalog:untested' %} text-white {% endif %}">{% translate 'Непроверенное' %}</a>
-          </li>
-          {% if request.user.is_superuser %}
-            <li>
-              <a href="{% url 'admin:index' %}" class="nav-link px-2 text-secondary {% if view_name == 'admin:index' %} text-white {% endif %}">{% translate 'Админка' %}</a>
-            </li>
-          {% endif %}
+        <li>
+          <a href="{% url 'homepage:home' %}" class="nav-link px-2 text-secondary {% if view_name == 'homepage:home' %} text-white {% endif %}">{% translate 'Главная' %}</a>
+        </li>
+        <li>
+          <a href="{% url 'catalog:item_list' %}" class="nav-link px-2 text-secondary {% if view_name == 'catalog:item_list' %} text-white {% endif %}">{% translate 'Список товаров' %}</a>
+        </li>
+        <li>
+          <a href="{% url 'about:description' %}" class="nav-link px-2 text-secondary {% if view_name == 'about:description' %} text-white {% endif %}">{% translate 'О проекте' %}</a>
+        </li>
         {% endwith %}
       </ul>
       <div class="text-end">
