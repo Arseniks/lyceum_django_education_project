@@ -36,8 +36,9 @@ def friday(request):
     if ids:
         items = catalog.models.Item.objects.filter(
             change_date__week_day=6,
-            id__in=list(ids)[-1:6],
+            id__in=list(ids)[-6:-1],
         )
+    print(items)
     context = {
         'items': items,
     }
