@@ -3,26 +3,6 @@
   "model": "catalog.tag",
   "pk": 1,
   "fields": {
-    "name": "Распродажа 11:11",
-    "is_published": false,
-    "unique_name": "распродажа1111",
-    "slug": "sale_11_11"
-  }
-},
-{
-  "model": "catalog.tag",
-  "pk": 2,
-  "fields": {
-    "name": "Скидка до 10%",
-    "is_published": true,
-    "unique_name": "скидкадо10",
-    "slug": "discount_up_to_10"
-  }
-},
-{
-  "model": "catalog.tag",
-  "pk": 3,
-  "fields": {
     "name": "Недавно в продаже",
     "is_published": true,
     "unique_name": "недавновпродаже",
@@ -31,27 +11,27 @@
 },
 {
   "model": "catalog.tag",
+  "pk": 2,
+  "fields": {
+    "name": "Скидка 11:11",
+    "is_published": false,
+    "unique_name": "скидка1111",
+    "slug": "11-11-sale"
+  }
+},
+{
+  "model": "catalog.tag",
+  "pk": 3,
+  "fields": {
+    "name": "Скидка до 20 процентов",
+    "is_published": true,
+    "unique_name": "скидкадо20процентов",
+    "slug": "sale-up-to-20-percent"
+  }
+},
+{
+  "model": "catalog.tag",
   "pk": 4,
-  "fields": {
-    "name": "Для мужчин",
-    "is_published": true,
-    "unique_name": "длямужчин",
-    "slug": "for_men"
-  }
-},
-{
-  "model": "catalog.tag",
-  "pk": 5,
-  "fields": {
-    "name": "Для женщин",
-    "is_published": true,
-    "unique_name": "дляженщин",
-    "slug": "for_women"
-  }
-},
-{
-  "model": "catalog.tag",
-  "pk": 6,
   "fields": {
     "name": "18+",
     "is_published": true,
@@ -61,22 +41,42 @@
 },
 {
   "model": "catalog.tag",
+  "pk": 5,
+  "fields": {
+    "name": "Для детей",
+    "is_published": true,
+    "unique_name": "длядетей",
+    "slug": "for-kids"
+  }
+},
+{
+  "model": "catalog.tag",
+  "pk": 6,
+  "fields": {
+    "name": "Для мужчин",
+    "is_published": true,
+    "unique_name": "длямужчин",
+    "slug": "for-men"
+  }
+},
+{
+  "model": "catalog.tag",
   "pk": 7,
   "fields": {
-    "name": "Для самых маленьких",
+    "name": "Для женщин",
     "is_published": true,
-    "unique_name": "длясамыхмаленьких",
-    "slug": "for-the-little-ones"
+    "unique_name": "дляженщин",
+    "slug": "for-women"
   }
 },
 {
   "model": "catalog.category",
   "pk": 1,
   "fields": {
-    "name": "Одежда",
+    "name": "Продукты",
     "is_published": true,
-    "unique_name": "одежда",
-    "slug": "cloth",
+    "unique_name": "продукты",
+    "slug": "products",
     "weight": 100
   }
 },
@@ -95,11 +95,11 @@
   "model": "catalog.category",
   "pk": 3,
   "fields": {
-    "name": "Товары для детей",
+    "name": "Одежда",
     "is_published": true,
-    "unique_name": "товарыдлядетей",
-    "slug": "products-for-children",
-    "weight": 200
+    "unique_name": "одежда",
+    "slug": "cloth",
+    "weight": 100
   }
 },
 {
@@ -107,31 +107,23 @@
   "pk": 4,
   "fields": {
     "name": "Хозтовары",
-    "is_published": false,
+    "is_published": true,
     "unique_name": "хозтовары",
     "slug": "household-goods",
     "weight": 50
   }
 },
 {
-  "model": "catalog.category",
-  "pk": 5,
-  "fields": {
-    "name": "Продукты",
-    "is_published": true,
-    "unique_name": "продукты",
-    "slug": "products",
-    "weight": 100
-  }
-},
-{
   "model": "catalog.item",
-  "pk": 1,
+  "pk": 8,
   "fields": {
-    "name": "Стейк Рибай из говядины",
+    "name": "Стейк Рибай",
     "is_published": true,
-    "text": "Один из самых популярных стейков. Отрезается со спиной части, в месте пересечения шести мышц, которые практически не задействуются при движении животного. Поэтому Рибай отличается особенной мягкостью и сочностью. Превосходно сочетается с любым гарниром.",
-    "category": 5,
+    "creation_date": "2023-03-10T11:25:56.240Z",
+    "change_date": "2023-03-10T11:25:56.240Z",
+    "is_on_main": true,
+    "text": "<p>Этот стейк превосходно сочетается с любым гарниром, мясо эксклюзивных коров по небывалым ценам</p>",
+    "category": 1,
     "tags": [
       3
     ]
@@ -139,58 +131,123 @@
 },
 {
   "model": "catalog.item",
-  "pk": 2,
+  "pk": 9,
   "fields": {
-    "name": "Сарафан для детей",
+    "name": "Ветровка осень-весна",
     "is_published": true,
-    "text": "Этот сарафан будет роскошно смотреться на вашей дочке в любое время",
-    "category": 1,
+    "creation_date": "2023-03-10T11:34:21.388Z",
+    "change_date": "2023-03-10T12:38:02.621Z",
+    "is_on_main": true,
+    "text": "<p>Ветровка подойдет превосходно для любой погоды, унисекс</p>",
+    "category": 3,
     "tags": [
-      2,
-      3,
-      5,
+      1,
+      6,
       7
     ]
   }
 },
 {
   "model": "catalog.item",
-  "pk": 3,
+  "pk": 10,
   "fields": {
     "name": "Почему нет рая на земле",
     "is_published": true,
-    "text": "Эта книга превосходно расскажется вам захватывающую историю",
+    "creation_date": "2023-03-10T11:40:41.472Z",
+    "change_date": "2023-03-10T12:35:32.417Z",
+    "is_on_main": false,
+    "text": "<p>В 1971 году советская пресса назвала его предателем, агентом американского империализма и международного сионизма. В 1977 году израильские газеты назвали его предателем, агентом арабских шейхов и КГБ. В 1987 году &quot;Нью-йоркер&quot; назвал его опытным офицером советской разведки, проникшим в тело Соединенных Штатов... Что же было дальше? Об этом роскошно повествует наша книга!<br />\r\n&nbsp;</p>",
     "category": 2,
     "tags": [
-      6
+      1,
+      4
     ]
   }
 },
 {
   "model": "catalog.item",
-  "pk": 4,
+  "pk": 11,
   "fields": {
-    "name": "Средство для мытья полов",
+    "name": "Мистер Пропер",
     "is_published": true,
-    "text": "Это превосходно отмоет ваш пол  даже от въевшейся грязи",
+    "creation_date": "2023-03-10T12:49:51.624Z",
+    "change_date": "2023-03-10T12:49:51.624Z",
+    "is_on_main": false,
+    "text": "<p>Мистер Пропер веселей - в доме чисто в 10 раз быстрей! Сделает ваш пол роскошно чистым!</p>",
     "category": 4,
     "tags": []
   }
 },
 {
-  "model": "catalog.item",
+  "model": "catalog.mainimage",
+  "pk": 3,
+  "fields": {
+    "image": "catalog/12962437_955380714559488_306028747_o_500_306_5_100_xTHgCl1.jpg",
+    "item": 8
+  }
+},
+{
+  "model": "catalog.mainimage",
+  "pk": 4,
+  "fields": {
+    "image": "catalog/windbreaker.jpg",
+    "item": 9
+  }
+},
+{
+  "model": "catalog.mainimage",
+  "pk": 5,
+  "fields": {
+    "image": "catalog/boocover.jpg",
+    "item": 10
+  }
+},
+{
+  "model": "catalog.mainimage",
   "pk": 6,
   "fields": {
-    "name": "Ветровка осень-весна",
-    "is_published": true,
-    "text": "Выглядит роскошно, носится превосходно, унисекс",
-    "category": 1,
-    "tags": [
-      2,
-      3,
-      4,
-      5
-    ]
+    "image": "catalog/floor_soap.jpg",
+    "item": 11
+  }
+},
+{
+  "model": "catalog.imagegallery",
+  "pk": 2,
+  "fields": {
+    "image": "catalog/22565450_1.jpg",
+    "item": 8
+  }
+},
+{
+  "model": "catalog.imagegallery",
+  "pk": 3,
+  "fields": {
+    "image": "catalog/121879_1.jpg",
+    "item": 8
+  }
+},
+{
+  "model": "catalog.imagegallery",
+  "pk": 4,
+  "fields": {
+    "image": "catalog/windbreaker_for_gallery_1.jpg",
+    "item": 9
+  }
+},
+{
+  "model": "catalog.imagegallery",
+  "pk": 5,
+  "fields": {
+    "image": "catalog/windbreaker_for_gallery_2.jpg",
+    "item": 9
+  }
+},
+{
+  "model": "catalog.imagegallery",
+  "pk": 6,
+  "fields": {
+    "image": "catalog/windbreaker_for_gallery_3.jpg",
+    "item": 9
   }
 }
 ]
