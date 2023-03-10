@@ -13,9 +13,6 @@
           <a href="{% url 'catalog:item_list' %}" class="nav-link px-2 text-secondary {% if view_name == 'catalog:item_list' %} text-white {% endif %}">{% translate 'Список товаров' %}</a>
         </li>
         <li>
-          <a href="{% url 'about:description' %}" class="nav-link px-2 text-secondary {% if view_name == 'about:description' %} text-white {% endif %}">{% translate 'О проекте' %}</a>
-        </li>
-        <li>
           <a href="{% url 'catalog:friday' %}" class="nav-link px-2 text-secondary {% if view_name == 'catalog:friday' %} text-white {% endif %}">{% translate 'Пятничные' %}</a>
         </li>
         <li>
@@ -23,6 +20,9 @@
         </li>
         <li>
           <a href="{% url 'catalog:untested' %}" class="nav-link px-2 text-secondary {% if view_name == 'catalog:untested' %} text-white {% endif %}">{% translate 'Непроверенные' %}</a>
+        </li>
+        <li>
+          <a href="{% url 'about:description' %}" class="nav-link px-2 text-secondary {% if view_name == 'about:description' %} text-white {% endif %}">{% translate 'О проекте' %}</a>
         </li>
         {% if request.user.is_superuser %}
           <li>
