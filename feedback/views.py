@@ -4,6 +4,7 @@ from django.shortcuts import redirect
 from django.shortcuts import render
 
 from feedback.forms import FeedbackForm
+from feedback.models import Feedback
 
 
 def feedback(request):
@@ -30,6 +31,14 @@ def feedback(request):
             [mail],
             fail_silently=False,
         )
+
+        user_feedback = Feedback(
+            text=text,
+            mail=mail,
+        )
+        user_feedback.full_clean()
+        user_feedback.save()
+
         return redirect('feedback:successfully_sent')
     context = {'form': form}
     return render(request, template, context)

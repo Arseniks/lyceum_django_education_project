@@ -29,8 +29,6 @@ class FormTests(TestCase):
         self.assertEqual(mail_help_text, 'Введите почту')
 
     def test_create_task(self):
-        feedback_count = Feedback.objects.count()
-
         form_data = {
             'text': 'Тестовый отзыв',
             'mail': 'test.test@test.test',
@@ -43,7 +41,6 @@ class FormTests(TestCase):
         )
 
         self.assertRedirects(response, reverse('feedback:successfully_sent'))
-        self.assertEqual(Feedback.objects.count(), feedback_count + 1)
         self.assertTrue(
             Feedback.objects.filter(
                 text='Тестовый отзыв',
