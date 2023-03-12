@@ -39,7 +39,7 @@ class FormTests(TestCase):
             data=form_data,
             follow=True,
         )
-
+        self.assertIn('form', response.context)
         self.assertRedirects(response, reverse('feedback:successfully_sent'))
         self.assertTrue(
             Feedback.objects.filter(
