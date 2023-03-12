@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+<div class="px-4 py-5 my-5 text-center">
+  <h1 class="display-5 fw-bold">Пятничные товары</h1>
+    {% include 'includes/by_date.html' %}
+</div>
+{% endblock %}

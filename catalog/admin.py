@@ -33,6 +33,8 @@ class ItemAdmin(admin.ModelAdmin):
     list_display = (
         catalog.models.Item.name.field.name,
         catalog.models.Item.is_published.field.name,
+        catalog.models.Item.creation_date.field.name,
+        catalog.models.Item.change_date.field.name,
     )
     inlines = [
         MainImageInline,

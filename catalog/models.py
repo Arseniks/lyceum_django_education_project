@@ -77,6 +77,16 @@ class Category(AbstractItemModel, UniqueNamesModel):
 class Item(AbstractItemModel):
     objects = ItemManager()
 
+    creation_date = django.db.models.DateTimeField(
+        'Дата создания',
+        auto_now_add=True,
+        editable=False,
+    )
+    change_date = django.db.models.DateTimeField(
+        'Дата изменения',
+        auto_now=True,
+        editable=False,
+    )
     is_on_main = django.db.models.BooleanField(
         'На главной',
         default=False,

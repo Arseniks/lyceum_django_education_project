@@ -9,7 +9,7 @@
         <a>Категория: {{ item.category }}</a>
       {% endif %}
     {% endwith %}
-    <p>{{ item.text|striptags|truncatewords:10 }}</p>
+    <p>{{ item.text|safe|truncatewords:10 }}</p>
     <div class="product-bottom-details d-flex justify-content-between">
       <div class="product-price">
       </div>
