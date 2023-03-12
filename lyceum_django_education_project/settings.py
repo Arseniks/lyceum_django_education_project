@@ -31,6 +31,7 @@ INSTALLED_APPS = [
     'catalog.apps.CatalogConfig',
     'homepage.apps.HomepageConfig',
     'about.apps.AboutConfig',
+    'feedback.apps.FeedbackConfig',
     'debug_toolbar',
     'sorl.thumbnail',
     'django_cleanup.apps.CleanupConfig',
@@ -144,3 +145,8 @@ MEDIA_ROOT = BASE_DIR / 'media'
 MEDIA_URL = '/media/'
 
 CKEDITOR_UPLOAD_PATH = 'uploads/'
+
+EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
+EMAIL_FILE_PATH = BASE_DIR / 'sent_emails'
+
+FEEDBACK_MAIL = os.environ.get('FEEDBACK_MAIL', 'shopname@example.com')
