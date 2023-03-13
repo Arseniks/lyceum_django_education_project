@@ -4,7 +4,6 @@ from django.shortcuts import redirect
 from django.shortcuts import render
 
 from feedback.forms import FeedbackForm
-from feedback.models import Feedback
 
 
 def feedback(request):
