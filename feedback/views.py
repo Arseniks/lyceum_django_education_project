@@ -32,12 +32,8 @@ def feedback(request):
             fail_silently=False,
         )
 
-        user_feedback = Feedback(
-            text=text,
-            mail=mail,
-        )
-        user_feedback.full_clean()
-        user_feedback.save()
+        form.full_clean()
+        form.save()
 
         return redirect('feedback:successfully_sent')
     context = {'form': form}
