@@ -47,10 +47,10 @@ def feedback(request):
             feedback=feedback_user,
             text=text,
         )
-        for file in request.FILES.getlist('files'):
+        for user_file in request.FILES.getlist('files'):
             models.FeedbackFiles.objects.create(
                 feedback=feedback_user,
-                files=file,
+                files=user_file,
             )
 
         return redirect('feedback:successfully_sent')
