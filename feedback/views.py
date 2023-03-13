@@ -3,16 +3,17 @@ from django.core.mail import send_mail
 from django.shortcuts import redirect
 from django.shortcuts import render
 
-from feedback.forms import FeedbackForm
-from feedback.models import Feedback
+from feedback.forms import FeedbackForm, FeedbackTextForm, FeedbackFilesForm
 
 
 def feedback(request):
     template = 'feedback/feedback.html'
-    form = FeedbackForm(request.POST or None)
-    if form.is_valid():
-        text = form.cleaned_data['text']
-        mail = form.cleaned_data['mail']
+    feedback_form = FeedbackForm(request.POST or None)
+    feedback_text_form = FeedbackTextForm(request.POST or None)
+    feedback_file_form = FeedbackFilesForm(request.POST, request.FILES or None)
+    if feedback_form.is_valid() and feedback_text_form.is_valid() and feedback_file_form.is_valid():
+        text = feedback_text_form.cleaned_data['text']
+        mail = feedback_form.cleaned_data['mail']
         message = (
             'Благодарим за Ваши замечания и предложения!\nВы отправили отзыв '
             'о работе сайта KittyShop.\nВаш отзыв непременно передадут в '
@@ -31,16 +32,15 @@ def feedback(request):
             [mail],
             fail_silently=False,
         )
-
-        user_feedback = Feedback(
-            text=text,
-            mail=mail,
-        )
-        user_feedback.full_clean()
-        user_feedback.save()
-
+        feedback_form.save()
+        feedback_file_form.save()
+        feedback_text_form.save()
         return redirect('feedback:successfully_sent')
-    context = {'form': form}
+    context = {
+        'feedback_form': feedback_form,
+        'feedback_text_form': feedback_text_form,
+        'feedback_file_form': feedback_file_form,
+    }
     return render(request, template, context)
 
 
