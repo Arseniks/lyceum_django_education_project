@@ -31,6 +31,7 @@ INSTALLED_APPS = [
     'catalog.apps.CatalogConfig',
     'homepage.apps.HomepageConfig',
     'about.apps.AboutConfig',
+    'download.apps.DownloadConfig',
     'feedback.apps.FeedbackConfig',
     'debug_toolbar',
     'sorl.thumbnail',

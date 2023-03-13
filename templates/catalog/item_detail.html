@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
+{% load static %}
+
 {% block content %}
 <div class="row">
   <div class="bg-dark mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center text-white overflow-hidden col">
@@ -9,10 +11,7 @@
     <div class="card border-0 text-center">
       <a><img src="{{ item.mainimage.get_image.url }}"  alt=""></a>
       <div class="card-body">
-
-        <form method="get" action="{{ item.mainimage.image.url }}">
-          <button class="btn btn-dark" type="submit">Скачать!</button>
-        </form>
+        <a class="btn btn-dark" href="{% url 'download:download_image' item.mainimage.image.url %}">Скачать картинку</a>
       </div>
     </div>
   </div>
@@ -41,9 +40,7 @@
         <div class="card border-0 text-center">
           <img src="{{ galleryimage.get_image.url }}">
           <div class="card-body">
-            <form method="get" action="{{ galleryimage.image.url }}">
-              <button class="btn btn-dark" type="submit">Скачать!</button>
-            </form>
+            <a class="btn btn-dark" href="{% url 'download:download_image' galleryimage.image.url %}">Скачать!</a>
           </div>
         </div>
       </div>
