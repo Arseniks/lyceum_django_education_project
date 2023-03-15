@@ -105,4 +105,4 @@ python3 manage.py runserver
 
 
 ## ER-диаграмма базы данных
-![QuickDBD-Free Diagram.png](ER_diagram.png)
+![ER_diagram.png](ER_diagram.png)
