@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.translation import gettext_lazy as _
 
 
 class Feedback(models.Model):
@@ -15,17 +16,16 @@ class Feedback(models.Model):
         default='user_mail@example.com',
         help_text='Введите почту',
     )
-    status = models.TextField(
-        'статус',
-        default='получено',
-        choices=[
-            ('получено', 'получено'),
-            ('в обработке', 'в обработке'),
-            (
-                'ответ дан',
-                'ответ дан',
-            ),
-        ],
+
+    class Status(models.TextChoices):
+        GOT = 'получено', _('Получено')
+        IN_PROGRESS = 'в обработке', _('в обработке')
+        ANSWER_GIVEN = 'ответ дан', _('ответ дан')
+
+    status = models.CharField(
+        max_length=11,
+        choices=Status.choices,
+        default=Status.GOT,
     )
 
     def __str__(self):
