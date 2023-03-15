@@ -56,4 +56,13 @@
         <button type="submit" class="btn btn-dark mx-sm-3">Отправить</button>
     </div>
 </form>
+
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <h5 {% if message.tags %} class="{{ message.tags }} text-center text-success"{% endif %}>{{ message }}</h5>
+    {% endfor %}
+</ul>
+{% endif %}
+
 {% endblock %}

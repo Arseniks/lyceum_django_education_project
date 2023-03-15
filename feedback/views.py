@@ -1,4 +1,5 @@
 from django.conf import settings
+from django.contrib import messages
 from django.core.mail import send_mail
 from django.shortcuts import redirect
 from django.shortcuts import render
@@ -53,15 +54,13 @@ def feedback(request):
                 files=user_file,
             )
 
-        return redirect('feedback:successfully_sent')
+        messages.add_message(
+            request, messages.INFO, 'Ваш отзыв был успешно отправлен!'
+        )
+        return redirect('feedback:feedback')
     context = {
         'feedback_form': feedback_form,
         'feedback_text_form': feedback_text_form,
         'feedback_file_form': feedback_file_form,
     }
     return render(request, template, context)
-
-
-def successfully_sent(request):
-    template = 'feedback/successfully_sent.html'
-    return render(request, template)
