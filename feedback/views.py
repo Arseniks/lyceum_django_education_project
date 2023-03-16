@@ -31,6 +31,10 @@ def feedback(request):
             [mail],
             fail_silently=False,
         )
+
+        form.full_clean()
+        form.save()
+
         messages.add_message(
             request, messages.INFO, 'Ваш отзыв был успешно отправлен!'
         )
