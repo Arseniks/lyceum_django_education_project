@@ -159,7 +159,6 @@ class ContextTests(TestCase):
         response = Client().get(reverse('catalog:item_list'))
 
         self.assertIn('items', response.context)
-        print(response.context['items'])
         self.assertEqual(3, len(response.context['items']))
 
     def test_catalog_shown_context_sorting_item_list(self):

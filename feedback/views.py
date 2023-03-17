@@ -4,15 +4,24 @@ from django.core.mail import send_mail
 from django.shortcuts import redirect
 from django.shortcuts import render
 
+from feedback import models
+from feedback.forms import FeedbackFilesForm
 from feedback.forms import FeedbackForm
+from feedback.forms import FeedbackTextForm
 
 
 def feedback(request):
     template = 'feedback/feedback.html'
-    form = FeedbackForm(request.POST or None)
-    if form.is_valid():
-        text = form.cleaned_data['text']
-        mail = form.cleaned_data['mail']
+    feedback_form = FeedbackForm(request.POST or None)
+    feedback_text_form = FeedbackTextForm(request.POST or None)
+    feedback_file_form = FeedbackFilesForm(request.POST, request.FILES or None)
+    if (
+        feedback_form.is_valid()
+        and feedback_text_form.is_valid()
+        and feedback_file_form.is_valid()
+    ):
+        text = feedback_text_form.cleaned_data['text']
+        mail = feedback_form.cleaned_data['mail']
         message = (
             'Благодарим за Ваши замечания и предложения!\nВы отправили отзыв '
             'о работе сайта KittyShop.\nВаш отзыв непременно передадут в '
@@ -32,12 +41,26 @@ def feedback(request):
             fail_silently=False,
         )
 
-        form.full_clean()
-        form.save()
+        feedback_user = models.Feedback.objects.create(
+            mail=mail,
+        )
+        models.FeedbackText.objects.create(
+            feedback=feedback_user,
+            text=text,
+        )
+        for user_file in request.FILES.getlist('files'):
+            models.FeedbackFiles.objects.create(
+                feedback=feedback_user,
+                files=user_file,
+            )
 
         messages.add_message(
             request, messages.INFO, 'Ваш отзыв был успешно отправлен!'
         )
         return redirect('feedback:feedback')
-    context = {'form': form}
+    context = {
+        'feedback_form': feedback_form,
+        'feedback_text_form': feedback_text_form,
+        'feedback_file_form': feedback_file_form,
+    }
     return render(request, template, context)
