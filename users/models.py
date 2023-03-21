@@ -1,7 +1,15 @@
 from django.contrib.auth.models import User
 from django.db import models
 
+from users.managers import PersonManager
 from users.managers import ProfileManager
+
+
+class Person(User):
+    objects = PersonManager()
+
+    class Meta:
+        proxy = True
 
 
 class Profile(models.Model):

@@ -2,6 +2,15 @@ from django.contrib.auth.models import User
 from django.db import models
 
 
+class PersonManager(models.Manager):
+    def get_queryset(self):
+        return (
+            super()
+            .get_queryset()
+            .select_related(User.profile.related.related_name)
+        )
+
+
 class ProfileManager(models.Manager):
     def activated(self):
         from users.models import Profile

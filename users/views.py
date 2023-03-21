@@ -2,7 +2,6 @@ from datetime import timedelta
 
 from django.conf import settings
 from django.contrib import messages
-from django.contrib.auth.models import User
 from django.core.mail import send_mail
 from django.shortcuts import get_object_or_404
 from django.shortcuts import redirect
@@ -14,6 +13,7 @@ import users
 from users.forms import CustomCreationForm
 from users.forms import CustomUserChangeForm
 from users.forms import ProfileForm
+from users.models import Person
 from users.models import Profile
 
 
@@ -38,7 +38,7 @@ def user_detail(request, pk):
 def activate_user(request, name):
     template = 'users/activate.html'
 
-    user = get_object_or_404(User, username=name)
+    user = get_object_or_404(Person, username=name)
     if (
         user.date_joined < timezone.now() - timedelta(hours=12)
         and not user.is_active
@@ -78,8 +78,8 @@ class Register(View):
 
             user.is_active = settings.DEFAULT_USER_ACTIVITY
             user.save()
-            profile = Profile(user=user, coffee_count=0)
-            profile.save()
+            user_profile = Profile(user=user, coffee_count=0)
+            user_profile.save()
 
             if not settings.DEFAULT_USER_ACTIVITY:
                 send_mail(
