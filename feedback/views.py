@@ -31,7 +31,7 @@ def feedback(request):
             'Надеемся у вас будет положительный'
             ' опыт использования сайта KittyShop\n'
             '---\n'
-            'Интеренет-магазин KittyShop'
+            'Интернет-магазин KittyShop'
         )
         send_mail(
             'KittyShop',

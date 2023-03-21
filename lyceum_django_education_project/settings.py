@@ -31,6 +31,7 @@ INSTALLED_APPS = [
     'catalog.apps.CatalogConfig',
     'homepage.apps.HomepageConfig',
     'about.apps.AboutConfig',
+    'users.apps.UsersConfig',
     'download.apps.DownloadConfig',
     'feedback.apps.FeedbackConfig',
     'debug_toolbar',
@@ -106,6 +107,10 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+LOGIN_URL = '/auth/login/'
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/auth/login/'
+
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
@@ -151,3 +156,12 @@ EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
 EMAIL_FILE_PATH = BASE_DIR / 'sent_emails'
 
 FEEDBACK_MAIL = os.environ.get('FEEDBACK_MAIL', 'shopname@example.com')
+
+if DEBUG:
+    DEFAULT_USER_ACTIVITY = (
+        os.environ.get('DEFAULT_USER_ACTIVITY', 'True') == 'True'
+    )
+else:
+    DEFAULT_USER_ACTIVITY = (
+        os.environ.get('DEFAULT_USER_ACTIVITY', 'False') == 'True'
+    )
