@@ -4,7 +4,6 @@ from django.urls import reverse
 
 from feedback.forms import FeedbackForm
 from feedback.forms import FeedbackTextForm
-from feedback.models import Feedback
 
 
 class FormTests(TestCase):
