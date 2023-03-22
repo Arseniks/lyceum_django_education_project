@@ -5,11 +5,11 @@
 {% endblock %}
 
 {% block content %}
-<h1 class="text-center">Профиль</h1>
-<br>
-{% include 'users/includes/form.html' %}
-<br>
-<div class="col text-center">
-  <a href="{% url 'homepage:coffee' %}" class="btn btn-success mx-sm-3 w-25">Выпить кофе</a>
-</div>
+  <h1 class="text-center">Профиль</h1>
+  <br>
+  {% include 'users/includes/form.html' %}
+  <br>
+  <div class="col text-center">
+    <a href="{% url 'homepage:coffee' %}" class="btn btn-success mx-sm-3 w-25">Выпить кофе</a>
+  </div>
 {% endblock %}

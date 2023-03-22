@@ -12,8 +12,7 @@ class CustomCreationForm(UserCreationForm):
         for field in self.visible_fields():
             field.field.widget.attrs['class'] = 'form-control'
 
-    class Meta:
-        model = User
+    class Meta(UserCreationForm.Meta):
         fields = ('username', 'email', 'password1', 'password2')
 
 
@@ -25,7 +24,7 @@ class CustomUserChangeForm(UserChangeForm):
 
     password = None
 
-    class Meta:
+    class Meta(UserCreationForm.Meta):
         model = User
         fields = (
             User.email.field.name,
