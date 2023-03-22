@@ -1,6 +1,5 @@
 import datetime
 
-from django.contrib import messages
 from django.contrib.auth.models import User
 from django.core import exceptions
 from django.test import Client
