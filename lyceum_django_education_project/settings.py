@@ -157,4 +157,6 @@ EMAIL_FILE_PATH = BASE_DIR / 'sent_emails'
 
 FEEDBACK_MAIL = os.environ.get('FEEDBACK_MAIL', 'shopname@example.com')
 
-DEFAULT_USER_ACTIVITY = os.environ.get('DEFAULT_USER_ACTIVITY', str(DEBUG)) == 'True'
+DEFAULT_USER_ACTIVITY = (
+    os.environ.get('DEFAULT_USER_ACTIVITY', str(DEBUG)) == 'True'
+)
