@@ -15,9 +15,11 @@ class CustomCreationForm(UserCreationForm):
 
     def clean(self):
         cleaned_data = super().clean()
-        is_email_unique = Person.objects.filter(
-            email=cleaned_data['email']
-        ).exclude(pk=self.instance.id).exists()
+        is_email_unique = (
+            Person.objects.filter(email=cleaned_data['email'])
+            .exclude(pk=self.instance.id)
+            .exists()
+        )
         if is_email_unique:
             self.add_error(
                 Person.email.field.name,
