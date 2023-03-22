@@ -160,3 +160,5 @@ else:
 AUTHENTICATION_BACKENDS = [
     'users.auth.EmailAuthBackend',
 ]
+
+NUMBER_OF_FAILED_LOGIN = 3

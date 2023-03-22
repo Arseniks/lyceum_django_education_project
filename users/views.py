@@ -55,6 +55,30 @@ def activate_user(request, name):
     return render(request, template)
 
 
+def recovery_user(request, name):
+    template = 'users/recovery.html'
+
+    user = get_object_or_404(Person, username=name)
+    if (
+        user.profile.freezing_account_data is not None and
+        user.profile.freezing_account_data > timezone.now() + timedelta(days=7)
+        and not user.is_active
+    ):
+        user.delete()
+        messages.error(request, 'Пользователь удален системой безопасности')
+    elif user.is_active is False:
+        user.is_active = True
+        user.profile.login_failed_count = 0
+        user.profile.freezing_account_data = None
+        user.profile.save()
+        user.save()
+        messages.success(request, 'Аккаунт восстановлен!')
+    else:
+        messages.success(request, 'Аккаунт не требует восстановления')
+
+    return render(request, template)
+
+
 def profile(request):
     template = 'users/profile.html'
     form = CustomUserChangeForm
