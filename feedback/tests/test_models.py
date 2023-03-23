@@ -6,6 +6,17 @@ from feedback.models import FeedbackText
 
 
 class ModelTests(TestCase):
+    @classmethod
+    def setUpTestData(cls):
+        cls.feedback = Feedback.objects.create(
+            mail='test.test@test.test',
+        )
+        super().setUpTestData()
+
+    def tearDown(self):
+        Feedback.objects.all().delete()
+        super().tearDown()
+
     def test_feedback_model(self):
         feedback_count = Feedback.objects.count()
 
@@ -21,6 +32,7 @@ class ModelTests(TestCase):
         feedback_text_count = FeedbackText.objects.count()
 
         user_feedback_text = FeedbackText(
+            feedback=self.feedback,
             text='test',
         )
         user_feedback_text.full_clean()
@@ -32,7 +44,8 @@ class ModelTests(TestCase):
         feedback_files_count = FeedbackFiles.objects.count()
 
         user_feedback_files = FeedbackFiles(
-            file='test.txt',
+            feedback=self.feedback,
+            files='test.txt',
         )
         user_feedback_files.full_clean()
         user_feedback_files.save()

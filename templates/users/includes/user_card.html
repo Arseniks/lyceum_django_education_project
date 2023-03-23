@@ -1,0 +1,45 @@
+{% load thumbnail %}
+
+<div class="container">
+  <div class="card mb-3 mt-3">
+    <div class="card-header">Пользователь: {{ profile.user.email }}</div>
+    <div class="card-body">
+      {% with request.resolver_match.view_name as view_name %}
+        {% if view_name == 'users:user_detail' or view_name == 'users:profile' %}
+          {% if profile.image %}
+            {% thumbnail profile.image "300x300" crop="center" as image %}
+              <img src="{{ image.url }}" width="{{ image.width }}" height="{{ image.height }}" class="rounded float-end">
+            {% endthumbnail %}
+          {% endif %}
+          {% if profile.user.first_name %}
+            <p>Имя: {{ profile.user.first_name }}</p>
+          {% else %}
+            <p>Имя: <small>Не указано</small></p>
+          {% endif %}
+          {% if profile.user.last_name %}
+            <p>Фамилия: {{ profile.user.last_name }}</p>
+          {% else %}
+            <p>Фамилия: <small>Не указана</small></p>
+          {% endif %}
+          {% if profile.birthday %}
+            <p>День рождения: {{ profile.birthday }}</p>
+          {% endif %}
+          {% if profile.coffee_count %}
+            <p>Количество варок кофе: {{ profile.coffee_count }}</p>
+          {% endif %}
+          {% if view_name == 'users:user_detail '%}
+            <p>
+              <a href="{% url 'users:user_list' %}">Обратно к списку пользователей</a>
+            </p>
+          {% endif %}
+        {% else %}
+          <p>
+            <a href="{% url 'users:user_detail' user.pk %}">Перейти к пользователю</a>
+          </p>
+        {% endif %}
+      {% endwith %}
+    </div>
+    <div class="card-footer text-muted">
+    </div>
+  </div>
+</div>
