@@ -4,6 +4,15 @@ from django.db import models
 import users.models
 
 
+class PersonManager(models.Manager):
+    def get_queryset(self):
+        return (
+            super()
+            .get_queryset()
+            .select_related(User.profile.related.related_name)
+        )
+
+
 class ProfileManager(models.Manager):
     def activated(self):
         return (

@@ -19,7 +19,6 @@ ACTIVATE_REVERSE_MIDDLEWARE = (
     os.environ.get('ACTIVATE_REVERSE_MIDDLEWARE', 'False') == 'True'
 )
 
-# Application definition
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -85,8 +84,6 @@ DATABASES = {
     }
 }
 
-# Password validation
-# https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -111,8 +108,6 @@ LOGIN_URL = '/auth/login/'
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/auth/login/'
 
-# Internationalization
-# https://docs.djangoproject.com/en/3.2/topics/i18n/
 
 LANGUAGE_CODE = 'ru'
 
@@ -131,8 +126,6 @@ USE_L10N = True
 
 USE_TZ = True
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
 
@@ -142,8 +135,6 @@ STATICFILES_DIRS = [
 
 STATIC_ROOT = BASE_DIR / 'static'
 
-# Default primary key field type
-# https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
@@ -156,6 +147,7 @@ EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
 EMAIL_FILE_PATH = BASE_DIR / 'sent_emails'
 
 FEEDBACK_MAIL = os.environ.get('FEEDBACK_MAIL', 'shopname@example.com')
+
 
 DEFAULT_USER_ACTIVITY = (
     os.environ.get('DEFAULT_USER_ACTIVITY', str(DEBUG)) == 'True'

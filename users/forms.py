@@ -3,6 +3,7 @@ from django.contrib.auth.forms import UserChangeForm
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
+from users.models import Person
 from users.models import Profile
 
 
@@ -11,6 +12,19 @@ class CustomCreationForm(UserCreationForm):
         super().__init__(*args, **kwargs)
         for field in self.visible_fields():
             field.field.widget.attrs['class'] = 'form-control'
+
+    def clean(self):
+        cleaned_data = super().clean()
+        is_email_unique = (
+            Person.objects.filter(email=cleaned_data['email'])
+            .exclude(pk=self.instance.id)
+            .exists()
+        )
+        if is_email_unique:
+            self.add_error(
+                Person.email.field.name,
+                'Пользователь с такой почтой уже существует',
+            )
 
     class Meta(UserCreationForm.Meta):
         fields = ('username', 'email', 'password1', 'password2')
@@ -24,8 +38,20 @@ class CustomUserChangeForm(UserChangeForm):
 
     password = None
 
+    def clean(self):
+        cleaned_data = super().clean()
+        is_email_unique = (
+            Person.objects.filter(email=cleaned_data['email'])
+            .exclude(pk=self.instance.id)
+            .exists()
+        )
+        if is_email_unique:
+            self.add_error(
+                Person.email.field.name,
+                'Пользователь с такой почтой уже существует',
+            )
+
     class Meta(UserCreationForm.Meta):
-        model = User
         fields = (
             User.email.field.name,
             User.first_name.field.name,
