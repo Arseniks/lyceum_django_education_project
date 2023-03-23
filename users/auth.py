@@ -19,7 +19,10 @@ class EmailAuthBackend(ModelBackend):
                 return user
             else:
                 user.profile.login_failed_count += 1
-                if user.profile.login_failed_count == settings.NUMBER_OF_FAILED_LOGIN:
+                if (
+                    user.profile.login_failed_count
+                    == settings.NUMBER_OF_FAILED_LOGIN
+                ):
                     user.is_active = False
                     user.profile.freezing_account_data = datetime.now()
                     send_mail(

@@ -5,12 +5,14 @@
         {% with request.resolver_match.view_name as view_name %}
           {% if view_name == 'users:profile' %}
             {% with form=profile_form %}
-              {% include "form.html" %}
+              {% include 'users/includes/form.html' %}
             {% endwith %}
           {% endif %}
         {% endwith %}
 
-        {% include "form.html" %}
+        {% with form=form %}
+          {% include 'users/includes/form.html' %}
+        {% endwith %}
 
       <div class="col text-center">
         {% with request.resolver_match.view_name as view_name %}

@@ -59,8 +59,9 @@ def recovery_user(request, name):
 
     user = get_object_or_404(Person, username=name)
     if (
-        user.profile.freezing_account_data is not None and
-        user.profile.freezing_account_data > timezone.now() + timedelta(days=7)
+        user.profile.freezing_account_data is not None
+        and user.profile.freezing_account_data
+        > timezone.now() + timedelta(days=7)
         and not user.is_active
     ):
         user.delete()
