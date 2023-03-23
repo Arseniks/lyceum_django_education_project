@@ -5,11 +5,13 @@ from django.contrib.auth.backends import ModelBackend
 from django.contrib.auth.models import User
 from django.core.mail import send_mail
 
+from users.forms import normalize_email
+
 
 class EmailAuthBackend(ModelBackend):
     def authenticate(self, request, username=None, password=None):
         if '@' in username:
-            kwargs = {'email': username}
+            kwargs = {'email': normalize_email(username)}
         else:
             kwargs = {'username': username}
 
