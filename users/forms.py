@@ -2,7 +2,6 @@ from django import forms
 from django.contrib.auth.forms import UserChangeForm
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from django.db.models import Q
 
 from users.models import Person
 from users.models import Profile
@@ -16,16 +15,18 @@ class CustomCreationForm(UserCreationForm):
 
     def clean(self):
         cleaned_data = super().clean()
-        is_email_unique = Person.objects.filter(
-            ~Q(pk=self.instance.id), email=cleaned_data['email']
-        ).exists()
+        is_email_unique = (
+            Person.objects.filter(email=cleaned_data['email'])
+            .exclude(pk=self.instance.id)
+            .exists()
+        )
         if is_email_unique:
             self.add_error(
                 Person.email.field.name,
                 'Пользователь с такой почтой уже существует',
             )
 
-    class Meta:
+    class Meta(UserCreationForm.Meta):
         model = Person
         fields = ('username', 'email', 'password1', 'password2')
 
@@ -40,22 +41,24 @@ class CustomUserChangeForm(UserChangeForm):
 
     def clean(self):
         cleaned_data = super().clean()
-        is_email_unique = Person.objects.filter(
-            ~Q(pk=self.instance.id), email=cleaned_data['email']
-        ).exists()
+        is_email_unique = (
+            Person.objects.filter(email=cleaned_data['email'])
+            .exclude(pk=self.instance.id)
+            .exists()
+        )
         if is_email_unique:
             self.add_error(
                 Person.email.field.name,
                 'Пользователь с такой почтой уже существует',
             )
 
-    class Meta:
+    class Meta(UserCreationForm.Meta):
         model = Person
         fields = (
-            User.email.field.name,
-            User.first_name.field.name,
-            User.last_name.field.name,
-        )
+                    User.email.field.name,
+                    User.first_name.field.name,
+                    User.last_name.field.name,
+                )
 
 
 class ProfileForm(forms.ModelForm):

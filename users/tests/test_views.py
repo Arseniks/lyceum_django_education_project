@@ -68,10 +68,16 @@ class ViewsTests(TestCase):
             self.user_register_data_1,
             follow=True,
         )
-        Client().post(
+        response = Client().post(
             reverse('users:signup'),
             self.user_register_data_2,
             follow=True,
+        )
+        self.assertFormError(
+            response,
+            'form',
+            'email',
+            'Пользователь с такой почтой уже существует',
         )
         self.assertEqual(User.objects.count(), user_count + 1)
 
