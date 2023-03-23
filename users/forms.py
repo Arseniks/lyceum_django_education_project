@@ -45,7 +45,7 @@ class CustomCreationForm(UserCreationForm):
 
     def save(self, commit=True):
         user = super().save(commit=False)
-        user.set_password(self.cleaned_data["password1"])
+        user.set_password(self.cleaned_data['password1'])
         user.email = normalize_email(self.cleaned_data['email'])
         if commit:
             user.save()
