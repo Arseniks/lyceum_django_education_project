@@ -148,15 +148,7 @@ EMAIL_FILE_PATH = BASE_DIR / 'sent_emails'
 
 FEEDBACK_MAIL = os.environ.get('FEEDBACK_MAIL', 'shopname@example.com')
 
-if DEBUG:
-    DEFAULT_USER_ACTIVITY = (
-        os.environ.get('DEFAULT_USER_ACTIVITY', 'True') == 'True'
-    )
-else:
-    DEFAULT_USER_ACTIVITY = (
-        os.environ.get('DEFAULT_USER_ACTIVITY', 'False') == 'True'
-    )
 
-AUTHENTICATION_BACKENDS = [
-    'users.auth.EmailAuthBackend',
-]
+DEFAULT_USER_ACTIVITY = (
+    os.environ.get('DEFAULT_USER_ACTIVITY', str(DEBUG)) == 'True'
+)

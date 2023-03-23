@@ -9,7 +9,6 @@ from django.shortcuts import render
 from django.utils import timezone
 from django.views import View
 
-import users
 from users.forms import CustomCreationForm
 from users.forms import CustomUserChangeForm
 from users.forms import ProfileForm
@@ -19,18 +18,18 @@ from users.models import Profile
 
 def user_list(request):
     template = 'users/user_list.html'
-    all_users = users.models.Profile.objects.activated()
+    all_user_profiles = Profile.objects.activated()
     context = {
-        'users': all_users,
+        'profiles': all_user_profiles,
     }
     return render(request, template, context)
 
 
 def user_detail(request, pk):
     template = 'users/user_detail.html'
-    user = users.models.Profile.objects.activated().filter(pk=pk)[0]
+    user_profile = get_object_or_404(Profile.objects.activated(), pk=pk)
     context = {
-        'user': user,
+        'profile': user_profile,
     }
     return render(request, template, context)
 
@@ -59,7 +58,7 @@ def profile(request):
     template = 'users/profile.html'
     form = CustomUserChangeForm
     profile_form = ProfileForm
-    context = {'form': form, 'profile_form': profile_form}
+    context = {'form': (form, profile_form)}
     return render(request, template, context)
 
 

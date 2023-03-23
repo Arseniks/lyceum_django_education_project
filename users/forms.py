@@ -26,8 +26,7 @@ class CustomCreationForm(UserCreationForm):
                 'Пользователь с такой почтой уже существует',
             )
 
-    class Meta:
-        model = User
+    class Meta(UserCreationForm.Meta):
         fields = ('username', 'email', 'password1', 'password2')
 
 
@@ -52,8 +51,7 @@ class CustomUserChangeForm(UserChangeForm):
                 'Пользователь с такой почтой уже существует',
             )
 
-    class Meta:
-        model = User
+    class Meta(UserCreationForm.Meta):
         fields = (
             User.email.field.name,
             User.first_name.field.name,
