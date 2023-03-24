@@ -28,8 +28,8 @@ class Feedback(models.Model):
         return 'Отзыв №' + str(self.pk)
 
     class Meta:
-        verbose_name = 'фидбэк'
-        verbose_name_plural = 'фидбэки'
+        verbose_name = 'фидбек'
+        verbose_name_plural = 'фидбек'
 
 
 class FeedbackFiles(models.Model):
@@ -67,7 +67,7 @@ class FeedbackText(models.Model):
         primary_key=True,
     )
     text = models.TextField(
-        'фидбэк',
+        'фидбек',
         help_text='Напишите отзыв о нашем сайте',
         null=True,
         blank=True,

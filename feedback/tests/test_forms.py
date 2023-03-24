@@ -15,7 +15,7 @@ class FormTests(TestCase):
 
     def test_feedback_text_label(self):
         text_label = self.text_form.fields['text'].label
-        self.assertEqual(text_label, 'Фидбэк')
+        self.assertEqual(text_label, 'Фидбек')
 
     def test_feedback_mail_label(self):
         mail_label = self.form.fields['mail'].label

@@ -34,7 +34,7 @@ class Profile(models.Model):
         'количество неудачных входов в аккаунт',
         default=0,
     )
-    freezing_account_data = models.DateTimeField(
+    freezing_account_date = models.DateTimeField(
         'день заморозки аккаунта',
         default=None,
         null=True,

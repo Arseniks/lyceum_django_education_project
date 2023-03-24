@@ -1,4 +1,4 @@
-# Проект интернет-магазина для Яндекс Интенсивов
+# Проект интернет-магазина для Интенсивов Яндекс
 
 ![Python Linting](https://github.com/Arseniks/lyceum_django_education_project/actions/workflows/python-package.yml/badge.svg)
 
@@ -107,4 +107,5 @@ python3 manage.py runserver
 
 
 ## ER-диаграмма базы данных
-![ER_diagram.png](ER_diagram.png)
+![ER_diagram_1.png](ER_diagram_1.png)
+![ER_diagram_2.png](ER_diagram_2.png)

@@ -65,7 +65,7 @@ class ContextTests(TestCase):
             is_published=False,
             is_on_main=False,
             name='Неопубликованный тестовый товар',
-            text='Непубликованный тестовый товар',
+            text='Неопубликованный тестовый товар',
             category=cls.category_published,
         )
         cls.item_first = Item.objects.create(
