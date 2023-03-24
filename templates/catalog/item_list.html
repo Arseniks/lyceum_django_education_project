@@ -3,37 +3,36 @@
 {% load static %}
 
 {% block content %}
-<head>
-  <link rel="stylesheet" href="{% static 'css/item_list.css' %}">
-</head>
-<main>
+  <head>
+    <link rel="stylesheet" href="{% static 'css/item_list.css' %}">
+  </head>
 
-  <section class="py-5 text-center container">
-    <div class="row py-lg-5">
-      <div class="col-lg-6 col-md-8 mx-auto">
-        <h1 class="fw-light">Каталог товаров</h1>
-      </div>
-    </div>
-  </section>
-
-  {% regroup items by category as categories_list %}
-  <ul>
-  {% for category in categories_list %}
-    <h1>Категория: {{ category.grouper }}</h1>
-      <div class="card-deck py-5 bg-light">
-        <div class="container">
-          <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-            {% for item in items %}
-              {% if category.grouper.name == item.category.name %}
-                {% include 'includes/card.html' %}
-              {% endif %}
-            {% endfor %}
-          </div>
+  <main>
+    <section class="py-5 text-center container">
+      <div class="row py-lg-5">
+        <div class="col-lg-6 col-md-8 mx-auto">
+          <h1 class="fw-light">Каталог товаров</h1>
         </div>
       </div>
-  {% empty %}
-    <p>Список товаров пуст, ждём новые поставки!</p>
-  {% endfor %}
-  </ul>
-</main>
+    </section>
+    {% regroup items by category as categories_list %}
+    <ul>
+    {% for category in categories_list %}
+      <h1>Категория: {{ category.grouper }}</h1>
+        <div class="card-deck py-5 bg-light">
+          <div class="container">
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+              {% for item in items %}
+                {% if category.grouper.name == item.category.name %}
+                  {% include 'includes/card.html' %}
+                {% endif %}
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+    {% empty %}
+      <p>Список товаров пуст, ждём новые поставки!</p>
+    {% endfor %}
+    </ul>
+  </main>
 {% endblock %}

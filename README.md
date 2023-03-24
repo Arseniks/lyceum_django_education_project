@@ -1,12 +1,14 @@
-# lyceum_django_education_project
+# Проект интернет-магазина для Яндекс Интенсивов
 
 ![Python Linting](https://github.com/Arseniks/lyceum_django_education_project/actions/workflows/python-package.yml/badge.svg)
 
 # Запуск проекта
+#### Вариант 1:
 - Вы можете запустить проект с помощью shell-скрипта:
 ```
-sh project_setup.sh GIT_BRACH=week_5_task_1
+sh project_setup.sh GIT_BRANCH=main
 ``` 
+#### Вариант 2:
 - Клонируйте проект с GitHub с помощью команды:
 ```
 git clone https://github.com/Arseniks/lyceum_django_education_project
