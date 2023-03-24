@@ -80,5 +80,10 @@ urlpatterns = [
         users.views.activate_user,
         name='activate_user',
     ),
+    django.urls.re_path(
+        r'recovery/(?P<name>[\da-zA-Z+_@.-]*)/$',
+        users.views.recovery_user,
+        name='recovery_user',
+    ),
     django.urls.path('profile/', users.views.profile, name='profile'),
 ]

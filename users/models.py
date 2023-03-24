@@ -28,6 +28,17 @@ class Profile(models.Model):
     )
     coffee_count = models.IntegerField(
         'количество варок кофе',
+        default=0,
+    )
+    login_failed_count = models.IntegerField(
+        'количество неудачных входов в аккаунт',
+        default=0,
+    )
+    freezing_account_data = models.DateTimeField(
+        'день заморозки аккаунта',
+        default=None,
+        null=True,
+        blank=True,
     )
 
     def __str__(self):

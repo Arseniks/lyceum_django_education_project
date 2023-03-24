@@ -8,6 +8,7 @@ from django.test import TestCase
 from django.urls import reverse
 from django.utils import timezone
 import mock
+from parameterized import parameterized
 import pytz
 
 
@@ -173,3 +174,25 @@ class ViewsTests(TestCase):
 
         with self.assertRaises(exceptions.ObjectDoesNotExist):
             User.objects.get(username=self.user_register_data_1['username'])
+
+    @parameterized.expand(
+        [
+            ['test@ya.ru', 'test@yandex.ru'],
+            ['TEST@yA.ru', 'test@yandex.ru'],
+            ['te.st.+test@gmail.com', 'test@gmail.com'],
+            ['Te.St.+TesT@gmail.com', 'test@gmail.com'],
+        ]
+    )
+    def test_user_normalize_email(self, email, expected):
+        Client().post(
+            reverse('users:signup'),
+            {
+                'username': self.user_register_data_1['username'],
+                'email': email,
+                'password1': self.user_register_data_1['password1'],
+                'password2': self.user_register_data_1['password2'],
+            },
+            follow=True,
+        )
+        user = User.objects.get(pk=1)
+        self.assertEqual(user.email, expected)
