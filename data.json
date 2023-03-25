@@ -182,7 +182,7 @@
   "model": "catalog.mainimage",
   "pk": 3,
   "fields": {
-    "image": "catalog/12962437_955380714559488_306028747_o_500_306_5_100_xTHgCl1.jpg",
+    "image": "catalog/meat.jpg",
     "item": 8
   }
 },
@@ -190,7 +190,7 @@
   "model": "catalog.mainimage",
   "pk": 4,
   "fields": {
-    "image": "catalog/windbreaker.jpg",
+    "image": "catalog/2730136b86213db1dc8a8c94912d0239.jpg",
     "item": 9
   }
 },
@@ -198,7 +198,7 @@
   "model": "catalog.mainimage",
   "pk": 5,
   "fields": {
-    "image": "catalog/boocover.jpg",
+    "image": "catalog/orig.webp",
     "item": 10
   }
 },
@@ -212,26 +212,10 @@
 },
 {
   "model": "catalog.imagegallery",
-  "pk": 2,
-  "fields": {
-    "image": "catalog/22565450_1.jpg",
-    "item": 8
-  }
-},
-{
-  "model": "catalog.imagegallery",
   "pk": 3,
   "fields": {
     "image": "catalog/121879_1.jpg",
     "item": 8
-  }
-},
-{
-  "model": "catalog.imagegallery",
-  "pk": 4,
-  "fields": {
-    "image": "catalog/windbreaker_for_gallery_1.jpg",
-    "item": 9
   }
 },
 {
@@ -246,7 +230,7 @@
   "model": "catalog.imagegallery",
   "pk": 6,
   "fields": {
-    "image": "catalog/windbreaker_for_gallery_3.jpg",
+    "image": "catalog/windbreaker_for_gallery_1.jpg",
     "item": 9
   }
 }

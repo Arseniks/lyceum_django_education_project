@@ -28,6 +28,15 @@
         <li>
           <a href="{% url 'feedback:feedback' %}" class="nav-link px-2 text-secondary {% if view_name == 'feedback:feedback' %} text-white {% endif %}">{% translate 'Обратная связь' %}</a>
         </li>
+        <li>
+          <a href="{% url 'users:profile' %}" class="nav-link px-2 text-secondary {% if view_name == 'users:profile' %} text-white {% endif %}">{% translate 'Изменение профиль' %}</a>
+        </li>
+        <li>
+          <a href="{% url 'users:user_list' %}" class="nav-link px-2 text-secondary {% if view_name == 'users:user_list' %} text-white {% endif %}">{% translate 'Список пользователей' %}</a>
+        </li>
+        <li>
+          <a href="{% url 'users:password_change' %}" class="nav-link px-2 text-secondary {% if view_name == 'users:password_change' %} text-white {% endif %}">{% translate 'Смена пароля' %}</a>
+        </li>
         {% if request.user.is_superuser %}
           <li>
             <a href="{% url 'admin:index' %}" class="nav-link px-2 text-secondary {% if view_name == 'admin:index' %} text-white {% endif %}">{% translate 'Админка' %}</a>

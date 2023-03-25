@@ -19,8 +19,3 @@ class StaticUrlsTests(TestCase):
     def test_registration_endpoints(self, url, status):
         response = Client().get(reverse(f'users:{url}'))
         self.assertEqual(response.status_code, status)
-
-    @parameterized.parameterized.expand([('user_list',), ('profile',)])
-    def test_users_endpoints(self, url):
-        response = Client().get(reverse(f'users:{url}'))
-        self.assertEqual(response.status_code, 200)

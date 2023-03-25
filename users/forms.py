@@ -1,7 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import UserChangeForm
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.models import User
 
 from users.models import Person
 from users.models import Profile
@@ -82,10 +81,11 @@ class CustomUserChangeForm(UserChangeForm):
             )
 
     class Meta(UserChangeForm.Meta):
+        model = Person
         fields = (
-            User.email.field.name,
-            User.first_name.field.name,
-            User.last_name.field.name,
+            Person.email.field.name,
+            Person.first_name.field.name,
+            Person.last_name.field.name,
         )
 
 

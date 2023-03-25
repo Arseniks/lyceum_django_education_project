@@ -8,4 +8,5 @@
   <h1 class="text-center">Вход</h1>
   <br>
   {% include 'users/includes/form_with_buttons.html' %}
+  <a href="{% url 'users:password_reset' %}" class="nav-link px-2 text-dark text-center">Забыли пароль?</a>
 {% endblock %}

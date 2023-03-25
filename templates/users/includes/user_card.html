@@ -33,9 +33,17 @@
             </p>
           {% endif %}
         {% else %}
-          <p>
-            <a href="{% url 'users:user_detail' user.pk %}">Перейти к пользователю</a>
-          </p>
+          <div class="row row-cols-sm-3">
+            <p>
+              <a class="text-secondary" href="{% url 'users:user_detail' user.pk %}">Информация о пользователе</a>
+            </p>
+            <p></p>
+            {% if profile.image %}
+              {% thumbnail profile.image "400x300" crop="center" as image %}
+                <img src="{{ image.url }}" width="{{ image.width }}" height="{{ image.height }}">
+            {% endthumbnail %}
+            {% endif %}
+          </div>
         {% endif %}
       {% endwith %}
     </div>

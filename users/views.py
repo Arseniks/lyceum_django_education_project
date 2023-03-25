@@ -79,12 +79,32 @@ def recovery_user(request, name):
     return render(request, template)
 
 
-def profile(request):
-    template = 'users/profile.html'
-    form = CustomUserChangeForm
-    profile_form = ProfileForm
-    context = {'form': (form, profile_form)}
-    return render(request, template, context)
+class UserProfile(View):
+    template_name = 'users/profile.html'
+
+    def get(self, request):
+        user = request.user
+        form = CustomUserChangeForm(instance=user)
+        profile_form = ProfileForm(instance=user.profile)
+        user_profile = get_object_or_404(Profile.objects.activated(), pk=user.pk)
+        context = {'form': (form, profile_form), 'profile': user_profile}
+        return render(request, self.template_name, context)
+
+    def post(self, request):
+        user = request.user
+
+        form = CustomUserChangeForm(request.POST, instance=user)
+        profile_form = ProfileForm(
+            request.POST, request.FILES, instance=user.profile
+        )
+
+        if form.is_valid() and profile_form.is_valid():
+            form.save()
+            profile_form.save()
+            return redirect('users:profile')
+
+        context = {'form': (form, profile_form)}
+        return render(request, self.template_name, context)
 
 
 class Register(View):
