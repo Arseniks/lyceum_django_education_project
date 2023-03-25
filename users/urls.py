@@ -90,5 +90,6 @@ urlpatterns = [
         users.views.UserProfile.as_view(
             template_name='users/profile.html',
         ),
-        name='profile'),
+        name='profile',
+    ),
 ]

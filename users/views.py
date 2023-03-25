@@ -86,7 +86,9 @@ class UserProfile(View):
         user = request.user
         form = CustomUserChangeForm(instance=user)
         profile_form = ProfileForm(instance=user.profile)
-        user_profile = get_object_or_404(Profile.objects.activated(), pk=user.pk)
+        user_profile = get_object_or_404(
+            Profile.objects.activated(), pk=user.pk
+        )
         context = {'form': (form, profile_form), 'profile': user_profile}
         return render(request, self.template_name, context)
 

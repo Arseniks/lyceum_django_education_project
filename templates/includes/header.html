@@ -11,7 +11,7 @@
           <a href="{% url 'homepage:home' %}" class="nav-link px-2 text-secondary {% if view_name == 'homepage:home' %} text-white {% endif %}">{% translate 'Главная' %}</a>
         </li>
         <li>
-          <a href="{% url 'catalog:item_list' %}" class="nav-link px-2 text-secondary {% if view_name == 'catalog:item_list' %} text-white {% endif %}">{% translate 'Список товаров' %}</a>
+          <a href="{% url 'catalog:item_list' %}" class="nav-link px-2 text-secondary {% if view_name == 'catalog:item_list' %} text-white {% endif %}">{% translate 'Товары' %}</a>
         </li>
         <li>
           <a href="{% url 'catalog:friday' %}" class="nav-link px-2 text-secondary {% if view_name == 'catalog:friday' %} text-white {% endif %}">{% translate 'Пятничные' %}</a>
@@ -22,20 +22,22 @@
         <li>
           <a href="{% url 'catalog:untested' %}" class="nav-link px-2 text-secondary {% if view_name == 'catalog:untested' %} text-white {% endif %}">{% translate 'Непроверенные' %}</a>
         </li>
+        {% if user.is_authenticated %}
+          <li>
+            <a href="{% url 'users:profile' %}" class="nav-link px-2 text-secondary {% if view_name == 'users:profile' %} text-white {% endif %}">{% translate 'Профиль' %}</a>
+          </li>
+          <li>
+            <a href="{% url 'users:user_list' %}" class="nav-link px-2 text-secondary {% if view_name == 'users:user_list' %} text-white {% endif %}">{% translate 'Пользователи' %}</a>
+          </li>
+          <li>
+            <a href="{% url 'users:password_change' %}" class="nav-link px-2 text-secondary {% if view_name == 'users:password_change' %} text-white {% endif %}">{% translate 'Смена пароля' %}</a>
+          </li>
+        {% endif %}
         <li>
           <a href="{% url 'about:description' %}" class="nav-link px-2 text-secondary {% if view_name == 'about:description' %} text-white {% endif %}">{% translate 'О проекте' %}</a>
         </li>
         <li>
-          <a href="{% url 'feedback:feedback' %}" class="nav-link px-2 text-secondary {% if view_name == 'feedback:feedback' %} text-white {% endif %}">{% translate 'Обратная связь' %}</a>
-        </li>
-        <li>
-          <a href="{% url 'users:profile' %}" class="nav-link px-2 text-secondary {% if view_name == 'users:profile' %} text-white {% endif %}">{% translate 'Изменение профиль' %}</a>
-        </li>
-        <li>
-          <a href="{% url 'users:user_list' %}" class="nav-link px-2 text-secondary {% if view_name == 'users:user_list' %} text-white {% endif %}">{% translate 'Список пользователей' %}</a>
-        </li>
-        <li>
-          <a href="{% url 'users:password_change' %}" class="nav-link px-2 text-secondary {% if view_name == 'users:password_change' %} text-white {% endif %}">{% translate 'Смена пароля' %}</a>
+          <a href="{% url 'feedback:feedback' %}" class="nav-link px-2 text-secondary {% if view_name == 'feedback:feedback' %} text-white {% endif %}">{% translate 'Фидбек' %}</a>
         </li>
         {% if request.user.is_superuser %}
           <li>
@@ -47,7 +49,7 @@
       <div class="text-end">
         {% with request.resolver_match.view_name as view_name %}
           {% if user.is_authenticated %}
-            <a href="{% url 'users:logout' %}" class="btn btn-outline-light me-2">Выйти</a>
+            <a href="{% url 'users:logout' %}" class="btn btn-warning me-2">Выйти</a>
           {% else %}
             <a href="{% url 'users:login' %}" class="btn btn-outline-light me-2">Войти</a>
             <a href="{% url 'users:signup' %}" class="btn btn-warning">Зарегистрироваться</a>
