@@ -8,6 +8,8 @@ from django.shortcuts import redirect
 from django.shortcuts import render
 from django.utils import timezone
 from django.views import View
+from django.views.generic import DetailView
+from django.views.generic import ListView
 
 from users.forms import CustomCreationForm
 from users.forms import CustomUserChangeForm
@@ -16,67 +18,66 @@ from users.models import Person
 from users.models import Profile
 
 
-def user_list(request):
-    template = 'users/user_list.html'
-    all_user_profiles = Profile.objects.activated()
-    context = {
-        'profiles': all_user_profiles,
-    }
-    return render(request, template, context)
+class UserListView(ListView):
+    model = Person
+    template_name = 'users/user_list.html'
+    context_object_name = 'profiles'
+    queryset = Profile.objects.activated
 
 
-def user_detail(request, pk):
-    template = 'users/user_detail.html'
-    user_profile = get_object_or_404(Profile.objects.activated(), pk=pk)
-    context = {
-        'profile': user_profile,
-    }
-    return render(request, template, context)
+class UserDetailView(DetailView):
+    model = Person
+    template_name = 'users/user_detail.html'
+    context_object_name = 'profile'
+    get_queryset = Profile.objects.activated
 
 
-def activate_user(request, name):
-    template = 'users/activate.html'
+class ActivateUserView(View):
+    template_name = 'users/activate.html'
 
-    user = get_object_or_404(Person, username=name)
-    if (
-        user.date_joined < timezone.now() - timedelta(hours=12)
-        and not user.is_active
-    ):
-        user.delete()
-        messages.error(request, 'Активация аккаунта недействительна')
-    elif user.is_active is False:
-        user.is_active = True
-        user.save()
-        messages.success(request, 'Аккаунт активирован!')
-    else:
-        messages.success(request, 'Аккаунт уже был активирован ранее')
+    def get(self, request, name):
+        user = get_object_or_404(Person, username=name)
+        if (
+            user.date_joined < timezone.now() - timedelta(hours=12)
+            and not user.is_active
+        ):
+            user.delete()
+            messages.error(request, 'Активация аккаунта недействительна')
+        elif user.is_active is False:
+            user.is_active = True
+            user.save()
+            messages.success(request, 'Аккаунт активирован!')
+        else:
+            messages.success(request, 'Аккаунт уже был активирован ранее')
+        return render(request, self.template_name)
 
-    return render(request, template)
 
+class RecoveryUserView(View):
+    template_name = 'users/recovery.html'
 
-def recovery_user(request, name):
-    template = 'users/recovery.html'
+    def get(self, request, name):
+        user = get_object_or_404(Person, username=name)
+        if (
+            user.profile.freezing_account_date is not None
+            and user.profile.freezing_account_date
+            > timezone.now() + timedelta(days=7)
+            and not user.is_active
+        ):
+            user.delete()
+            messages.error(
+                request, 'Пользователь удален системой безопасности'
+            )
+        elif user.is_active is False:
+            user.is_active = True
+            user.profile.login_failed_count = 0
+            user.profile.freezing_account_date = None
+            user.profile.save()
+            user.save()
+            messages.success(request, 'Аккаунт восстановлен!')
+        else:
+            messages.success(request, 'Аккаунт не требует восстановления')
 
-    user = get_object_or_404(Person, username=name)
-    if (
-        user.profile.freezing_account_data is not None
-        and user.profile.freezing_account_data
-        > timezone.now() + timedelta(days=7)
-        and not user.is_active
-    ):
-        user.delete()
-        messages.error(request, 'Пользователь удален системой безопасности')
-    elif user.is_active is False:
-        user.is_active = True
-        user.profile.login_failed_count = 0
-        user.profile.freezing_account_data = None
-        user.profile.save()
-        user.save()
-        messages.success(request, 'Аккаунт восстановлен!')
-    else:
-        messages.success(request, 'Аккаунт не требует восстановления')
-
-    return render(request, template)
+        return render(request, self.template_name)
 
 
 class UserProfile(View):

@@ -62,10 +62,12 @@ urlpatterns = [
         ),
         name='password_reset_complete',
     ),
-    django.urls.path('user_list/', users.views.user_list, name='user_list'),
+    django.urls.path(
+        'user_list/', users.views.UserListView.as_view(), name='user_list'
+    ),
     django.urls.re_path(
         r'user_detail/(?P<pk>[1-9]\d*)/$',
-        users.views.user_detail,
+        users.views.UserDetailView.as_view(),
         name='user_detail',
     ),
     django.urls.path(
@@ -77,12 +79,12 @@ urlpatterns = [
     ),
     django.urls.re_path(
         r'activate/(?P<name>[\da-zA-Z+_@.-]*)/$',
-        users.views.activate_user,
+        users.views.ActivateUserView.as_view(),
         name='activate_user',
     ),
     django.urls.re_path(
         r'recovery/(?P<name>[\da-zA-Z+_@.-]*)/$',
-        users.views.recovery_user,
+        users.views.RecoveryUserView.as_view(),
         name='recovery_user',
     ),
     django.urls.path(
