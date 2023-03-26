@@ -3,9 +3,12 @@ import random
 
 import django.db.models
 from django.shortcuts import get_object_or_404
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 
 import catalog.models
+
+import rating.forms
+import rating.methods
 
 
 def item_list(request):
@@ -23,7 +26,21 @@ def item_detail(request, number):
         catalog.models.Item.objects.published(), id=number
     )
     gallery = catalog.models.ImageGallery.objects.filter(item=item)
-    context = {'item': item, 'gallery': gallery}
+    mark_form = rating.forms.MarkForm(request.POST or None)
+    if mark_form.is_valid() and request.user.is_authenticated:
+        mark = mark_form.cleaned_data['mark']
+        rating.methods.add_mark(request.user.id, number, mark)
+        return redirect('catalog:item_detail', number)
+    mark_form.fields['mark'].initial = \
+        rating.methods.get_initial_form_value(request.user.id, number)
+    marks_data = rating.methods.get_marks_statistic(number)
+    context = {
+        'item': item,
+        'gallery': gallery,
+        'mark_form': mark_form,
+        'rating': marks_data[1],
+        'count_marks': marks_data[0]
+        }
     return render(request, template, context)
 
 
