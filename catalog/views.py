@@ -4,17 +4,18 @@ import random
 import django.db.models
 from django.shortcuts import get_object_or_404
 from django.shortcuts import render
+from django.views.generic import ListView
 
 import catalog.models
 
 
-def item_list(request):
-    template = 'catalog/item_list.html'
-    items = catalog.models.Item.objects.published().order_by('category__name')
-    context = {
-        'items': items,
-    }
-    return render(request, template, context)
+class ItemListView(ListView):
+    model = catalog.models.Item
+    template_name = 'catalog/item_list.html'
+    context_object_name = 'items'
+
+    def get_queryset(self):
+        return catalog.models.Item.objects.published().order_by('category__name')
 
 
 def item_detail(request, number):
