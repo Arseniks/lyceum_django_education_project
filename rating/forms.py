@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import Mark
+from rating.models import Mark
 
 
 class MarkForm(forms.ModelForm):

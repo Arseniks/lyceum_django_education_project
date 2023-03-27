@@ -1,4 +1,4 @@
-from .models import Mark
+from rating.models import Mark
 
 
 def add_mark(user_id, item_id, mark):

@@ -7,32 +7,37 @@ import users.models
 class Mark(django.db.models.Model):
     user = django.db.models.ForeignKey(
         users.models.Person,
-        verbose_name='кто поставил оценку?',
+        verbose_name='пользователь',
+        help_text='кто поставил оценку?',
         on_delete=django.db.models.CASCADE,
         unique=False,
     )
     item = django.db.models.ForeignKey(
         catalog.models.Item,
         verbose_name='товар',
+        help_text='товар, на который поставлена оценка',
         on_delete=django.db.models.CASCADE,
         unique=False,
     )
 
-    mark_choices = django.db.models.IntegerChoices(
-        'mark_choices',
-        'Ненависть Неприязнь Нейтрально Обожание Любовь',
-    )
+    class MarkChoices(django.db.models.IntegerChoices):
+        HATE = 1, 'ненависть'
+        DISLIKE = 2, 'неприязнь'
+        NEUTRAL = 3, 'нейтрально'
+        ADORATION = 4, 'обожание'
+        LOVE = 5, 'любовь'
+
     mark = django.db.models.IntegerField(
         'оценка',
         help_text='оцените товар',
-        choices=mark_choices.choices,
+        choices=MarkChoices.choices,
         unique=False,
     )
 
     def __str__(self):
         return (
-            f'Оценка от пользователя id = {self.user.id} '
-            f'на товар {self.item.id}'
+            f'Оценка от пользователя id = {self.user.username} '
+            f'на товар {self.item.name}'
         )
 
     class Meta:
