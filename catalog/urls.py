@@ -10,17 +10,19 @@ app_name = 'catalog'
 register_converter(converters.PositiveDigitConverter, 'positive_int')
 
 urlpatterns = [
-    path('', views.item_list, name='item_list'),
-    path('friday', views.friday, name='friday'),
-    path('novelty', views.novelty, name='novelty'),
-    path('untested', views.untested, name='untested'),
-    path('<int:number>/', views.item_detail, name='item_detail'),
+    path('', views.ItemListView.as_view(), name='item_list'),
+    path('friday/', views.FridayView.as_view(), name='friday'),
+    path('novelty/', views.NoveltyView.as_view(), name='novelty'),
+    path('untested/', views.UntestedView.as_view(), name='untested'),
+    path('<int:pk>/', views.ItemDetailView.as_view(), name='item_detail'),
     path(
-        'converter/<positive_int:number>/',
-        views.item_detail,
+        'converter/<positive_int:pk>/',
+        views.ItemDetailView.as_view(),
         name='item_detail',
     ),
     re_path(
-        r'^re/(?P<number>[1-9][0-9]*)/$', views.item_detail, name='item_detail'
+        r'^re/(?P<pk>[1-9][0-9]*)/$',
+        views.ItemDetailView.as_view(),
+        name='item_detail',
     ),
 ]

@@ -24,7 +24,8 @@ class Profile(models.Model):
     image = models.ImageField(
         'аватарка пользователя',
         upload_to='users/',
-        default=None,
+        null=True,
+        blank=True,
     )
     coffee_count = models.IntegerField(
         'количество варок кофе',
