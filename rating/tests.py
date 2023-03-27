@@ -76,3 +76,9 @@ class TestMarkLogic(TestCase):
         response = client.get(reverse('catalog:item_detail', args=[1]))
         form = response.context['mark_form']
         self.assertEqual(form['mark'].value(), 4)
+
+    def test_correct_middle_value(self):
+        rating.methods.add_mark(self.user2.id, self.item1.id, 5)
+        rating.methods.add_mark(self.user1.id, self.item1.id, 4)
+        response = Client().get(reverse('catalog:item_detail', args=[1]))
+        self.assertContains(response, 'Рейтинг: 4,5. (2 оценок)')
