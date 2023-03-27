@@ -1,12 +1,14 @@
 from django.contrib.auth.models import User
-from django.test import Client, TestCase
+from django.test import Client
+from django.test import TestCase
 from django.urls import reverse
 
-from catalog.models import Category, Item
-from rating.models import Mark
-from users.models import Person, Profile
-
+from catalog.models import Category
+from catalog.models import Item
 import rating.methods
+from rating.models import Mark
+from users.models import Person
+from users.models import Profile
 
 
 class TestMarkLogic(TestCase):

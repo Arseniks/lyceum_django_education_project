@@ -2,11 +2,11 @@ import datetime
 import random
 
 import django.db.models
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect
+from django.shortcuts import render
 from django.views.generic import DetailView
 
 import catalog.models
-
 import rating.forms
 import rating.methods
 
