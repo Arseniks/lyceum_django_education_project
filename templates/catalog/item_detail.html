@@ -51,4 +51,18 @@
       {% endfor %}
     </div>
   </div>
+  <div class="align-self-center">
+    <p>Рейтинг: {{ rating }}. ({{ count_marks }} оценок)</p>
+    {% if request.user.is_authenticated %}
+    <form method="post">
+      {% csrf_token %}
+      <p>
+      {{ mark_form.as_p }}
+      </p>
+      <div class="col text-center">
+        <button type="submit" class="btn btn-dark mx-sm-3">Поставить отметку</button>
+      </div>
+    </form>
+    {% endif %}
+  </div>
 {% endblock %}

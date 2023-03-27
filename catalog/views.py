@@ -2,10 +2,40 @@ import datetime
 import random
 
 import django.db.models
+from django.shortcuts import redirect
 from django.views.generic import DetailView
 from django.views.generic import ListView
 
 import catalog.models
+import rating.forms
+import rating.methods
+
+
+class ItemDetailView(DetailView):
+    model = catalog.models.Item
+    template_name = 'catalog/item_detail.html'
+    context_object_name = 'item'
+    get_queryset = catalog.models.Item.objects.published
+
+    def get(self, request, pk, *args, **kwargs):
+        self.object = self.get_object()
+        mark_form = rating.forms.MarkForm()
+        mark_form.fields[
+            'mark'
+        ].initial = rating.methods.get_initial_form_value(request.user.id, pk)
+        context = self.get_context_data()
+        context['mark_form'] = mark_form
+        marks_data = rating.methods.get_marks_statistic(pk)
+        context['rating'] = marks_data[1]
+        context['count_marks'] = marks_data[0]
+        return self.render_to_response(context)
+
+    def post(self, request, pk, *args, **kwargs):
+        mark_form = rating.forms.MarkForm(request.POST or None)
+        if mark_form.is_valid() and request.user.is_authenticated:
+            mark = mark_form.cleaned_data['mark']
+            rating.methods.add_mark(request.user.id, pk, mark)
+        return redirect('catalog:item_detail', pk)
 
 
 class ItemListView(ListView):
@@ -17,13 +47,6 @@ class ItemListView(ListView):
         return catalog.models.Item.objects.published().order_by(
             'category__name'
         )
-
-
-class ItemDetailView(DetailView):
-    model = catalog.models.Item
-    template_name = 'catalog/item_detail.html'
-    context_object_name = 'item'
-    get_queryset = catalog.models.Item.objects.published
 
 
 class FridayView(ListView):
