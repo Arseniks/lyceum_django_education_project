@@ -29,8 +29,9 @@ class ItemDetailView(DetailView):
     def get(self, request, pk, *args, **kwargs):
         self.object = self.get_object()
         mark_form = rating.forms.MarkForm()
-        mark_form.fields['mark'].initial = \
-            rating.methods.get_initial_form_value(request.user.id, pk)
+        mark_form.fields[
+            'mark'
+        ].initial = rating.methods.get_initial_form_value(request.user.id, pk)
         context = self.get_context_data()
         context['mark_form'] = mark_form
         marks_data = rating.methods.get_marks_statistic(pk)

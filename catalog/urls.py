@@ -23,6 +23,6 @@ urlpatterns = [
     re_path(
         r'^re/(?P<pk>[1-9][0-9]*)/$',
         views.ItemDetailView.as_view(),
-        name='item_detail'
+        name='item_detail',
     ),
 ]

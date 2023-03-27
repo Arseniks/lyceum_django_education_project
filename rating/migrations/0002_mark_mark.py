@@ -5,7 +5,6 @@ from django.db import models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('rating', '0001_initial'),
     ]
@@ -14,7 +13,18 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='mark',
             name='mark',
-            field=models.IntegerField(choices=[(1, 'Ненависть'), (2, 'Неприязнь'), (3, 'Нейтрально'), (4, 'Обожание'), (5, 'Любовь')], default=0, help_text='оцените товар', verbose_name='оценка'),
+            field=models.IntegerField(
+                choices=[
+                    (1, 'Ненависть'),
+                    (2, 'Неприязнь'),
+                    (3, 'Нейтрально'),
+                    (4, 'Обожание'),
+                    (5, 'Любовь'),
+                ],
+                default=0,
+                help_text='оцените товар',
+                verbose_name='оценка',
+            ),
             preserve_default=False,
         ),
     ]

@@ -10,10 +10,8 @@ def add_mark(user_id, item_id, mark):
         cur_mark.delete()
     elif mark:
         add_mark = Mark.objects.create(
-            user_id=user_id,
-            item_id=item_id,
-            mark=mark
-            )
+            user_id=user_id, item_id=item_id, mark=mark
+        )
         add_mark.save()
 
 

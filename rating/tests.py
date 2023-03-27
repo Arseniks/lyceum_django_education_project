@@ -15,33 +15,22 @@ class TestMarkLogic(TestCase):
     @classmethod
     def setUpTestData(cls):
         cls.user1 = Person.objects.create(
-            id=1,
-            username='user1',
-            password='123'
-            )
+            id=1, username='user1', password='123'
+        )
         cls.user2 = Person.objects.create(
-            id=2,
-            username='user2',
-            password='123'
-            )
+            id=2, username='user2', password='123'
+        )
         cls.profile1 = Profile.objects.create(user_id=1)
         cls.profile2 = Profile.objects.create(user_id=2)
         cls.category = Category.objects.create(
-            name='test_category',
-            slug='cat1'
-            )
+            name='test_category', slug='cat1'
+        )
         cls.item1 = Item.objects.create(
-            id=1,
-            name='item1',
-            text='роскошно',
-            category=cls.category
-            )
+            id=1, name='item1', text='роскошно', category=cls.category
+        )
         cls.item2 = Item.objects.create(
-            id=2,
-            name='item2',
-            text='превосходно',
-            category=cls.category
-            )
+            id=2, name='item2', text='превосходно', category=cls.category
+        )
         super().setUpTestData()
 
     def tearDown(self):

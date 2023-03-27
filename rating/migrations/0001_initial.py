@@ -6,21 +6,48 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
     dependencies = [
-        ('catalog', '0002_auto_20230223_2243_squashed_0011_auto_20230310_1408'),
-        ('users', '0006_rename_freezing_account_data_profile_freezing_account_date'),
+        (
+            'catalog',
+            '0002_auto_20230223_2243_squashed_0011_auto_20230310_1408',
+        ),
+        (
+            'users',
+            '0006_rename_freezing_account_data_profile_freezing_account_date',
+        ),
     ]
 
     operations = [
         migrations.CreateModel(
             name='Mark',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('item', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, to='catalog.item', verbose_name='товар')),
-                ('user', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, to='users.person', verbose_name='кто поставил оценку?')),
+                (
+                    'id',
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name='ID',
+                    ),
+                ),
+                (
+                    'item',
+                    models.OneToOneField(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to='catalog.item',
+                        verbose_name='товар',
+                    ),
+                ),
+                (
+                    'user',
+                    models.OneToOneField(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to='users.person',
+                        verbose_name='кто поставил оценку?',
+                    ),
+                ),
             ],
             options={
                 'verbose_name': 'оценка',
