@@ -3,7 +3,7 @@
 set -ex
 
 echo "Creating Virtual Environment"
-python -m venv venv
+python3 -m venv venv
 echo "Activating Virtual Environment"
 source venv/bin/activate
 echo "Switching git branch"
@@ -15,12 +15,12 @@ pip install -r requirements/requirements.txt
 pip install -r requirements/requirements_dev.txt
 pip install -r requirements/requirements_test.txt
 echo "Installing migrations"
-python manage.py migrate
+python3 manage.py migrate
 echo "Filling the database from a fixture"
-python manage.py loaddata data.json
+python3 manage.py loaddata data.json
 echo "Collecting static"
-python manage.py collectstatic
+python3 manage.py collectstatic
 echo "Running server"
-python manage.py runserver
+python3 manage.py runserver
 echo "Ending"
 Exit
