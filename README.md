@@ -29,17 +29,17 @@ venv\Scripts\activate.bat
 - Установите необходимые вам зависимости
 Для основных зависимостей из файла requirements.txt:
 ```
-pip install -r requirements.txt
+pip install -r requirements/requirements.txt
 ``` 
 - Для разработки нужно также установить зависимости из файла requirements_dev.
 txt:
 ```
-pip install -r requirements_dev.txt
+pip install -r requirements/requirements_dev.txt
 ``` 
 - А для тестирования нужно установить зависимости из файла requirements_test.
   txt:
 ```
-pip install -r requirements_test.txt
+pip install -r requirements/requirements_test.txt
 ```
 В папке с файлом manage.py выполните команды:
 - Установки миграций БД:
@@ -73,15 +73,15 @@ source venv/bin/activate
 - Установите необходимые вам зависимости
 Для основных зависимостей из файла requirements.txt:
 ```
-pip3 install -r requirements.txt
+pip3 install -r requirements/requirements.txt
 ``` 
 - Для разработки нужно также установить зависимости из файла requirements_dev.txt:
 ```
-pip3 install -r requirements_dev.txt
+pip3 install -r requirements/requirements_dev.txt
 ``` 
 - А для тестирования нужно установить зависимости из файла requirements_test.txt:
 ```
-pip3 install -r requirements_test.txt
+pip3 install -r requirements/requirements_test.txt
 ```
 В папке с файлом manage.py выполните команды:
 - Установки миграций БД:

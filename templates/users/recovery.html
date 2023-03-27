@@ -6,5 +6,12 @@
 {% endblock %}
 
 {% block content %}
-  <h1 class="text-center" >Ваш аккаунт успешно восстановлен</h1>
+  <h4 class="text-center" >Восстановление аккаунта</h4>
+  {% if messages %}
+    <ul class="messages">
+      {% for message in messages %}
+        <h5 {% if message.tags %} class="{{ message.tags }} text-center"{% endif %}>{{ message }}</h5>
+      {% endfor %}
+    </ul>
+  {% endif %}
 {% endblock %}

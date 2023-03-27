@@ -5,19 +5,11 @@ import django.db.models
 from django.shortcuts import redirect
 from django.shortcuts import render
 from django.views.generic import DetailView
+from django.views.generic import ListView
 
 import catalog.models
 import rating.forms
 import rating.methods
-
-
-def item_list(request):
-    template = 'catalog/item_list.html'
-    items = catalog.models.Item.objects.published().order_by('category__name')
-    context = {
-        'items': items,
-    }
-    return render(request, template, context)
 
 
 class ItemDetailView(DetailView):
@@ -47,55 +39,64 @@ class ItemDetailView(DetailView):
         return redirect('catalog:item_detail', pk)
 
 
-def friday(request):
-    template = 'catalog/friday.html'
-    items = (
-        catalog.models.Item.objects.published()
-        .filter(change_date__week_day=6)
-        .order_by('-creation_date')[:5]
-    )
-    context = {
-        'items': items,
-    }
-    return render(request, template, context)
+class ItemListView(ListView):
+    model = catalog.models.Item
+    template_name = 'catalog/item_list.html'
+    context_object_name = 'items'
+
+    def get_queryset(self):
+        return catalog.models.Item.objects.published().order_by(
+            'category__name'
 
 
-def novelty(request):
-    template = 'catalog/novelty.html'
-    ids = (
-        catalog.models.Item.objects.published()
-        .filter(
-            creation_date__range=[
-                django.utils.timezone.now() - datetime.timedelta(weeks=1),
-                django.utils.timezone.now(),
-            ],
+class FridayView(ListView):
+    model = catalog.models.Item
+    template_name = 'catalog/friday.html'
+    context_object_name = 'items'
+
+    def get_queryset(self):
+        return (
+            catalog.models.Item.objects.published()
+            .filter(change_date__week_day=6)
+            .order_by('-creation_date')[:5]
         )
-        .values_list(catalog.models.Item.id.field.name, flat=True)
-    )
-    items = None
-    if ids:
-        items = catalog.models.Item.objects.published().filter(
-            id__in=random.sample(list(ids), k=min(len(ids), 5)),
-        )
-    context = {
-        'items': items,
-    }
-    return render(request, template, context)
 
 
-def untested(request):
-    template = 'catalog/untested.html'
-    items = catalog.models.Item.objects.filter(
-        django.db.models.Q(
-            creation_date__lt=django.db.models.F('change_date')
-            + datetime.timedelta(seconds=1)
+class NoveltyView(ListView):
+    model = catalog.models.Item
+    template_name = 'catalog/novelty.html'
+    context_object_name = 'items'
+
+    def get_queryset(self):
+        ids = (
+            catalog.models.Item.objects.published()
+            .filter(
+                creation_date__range=[
+                    django.utils.timezone.now() - datetime.timedelta(weeks=1),
+                    django.utils.timezone.now(),
+                ],
+            )
+            .values_list(catalog.models.Item.id.field.name, flat=True)
         )
-        & django.db.models.Q(
-            change_date__lt=django.db.models.F('creation_date')
-            + datetime.timedelta(seconds=1)
+        if ids:
+            return catalog.models.Item.objects.published().filter(
+                id__in=random.sample(list(ids), k=min(len(ids), 5)),
+            )
+
+
+class UntestedView(ListView):
+    model = catalog.models.Item
+    template_name = 'catalog/untested.html'
+    context_object_name = 'items'
+
+    def get_queryset(self):
+        return catalog.models.Item.objects.filter(
+            django.db.models.Q(
+                creation_date__lt=django.db.models.F('change_date')
+                + datetime.timedelta(seconds=1)
+            )
+            & django.db.models.Q(
+                change_date__lt=django.db.models.F('creation_date')
+                + datetime.timedelta(seconds=1)
+            )
         )
-    )
-    context = {
-        'items': items,
-    }
-    return render(request, template, context)
