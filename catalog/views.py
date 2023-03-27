@@ -47,6 +47,7 @@ class ItemListView(ListView):
     def get_queryset(self):
         return catalog.models.Item.objects.published().order_by(
             'category__name'
+        )
 
 
 class FridayView(ListView):
