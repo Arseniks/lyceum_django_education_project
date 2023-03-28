@@ -3,7 +3,7 @@ from django.contrib import messages
 from django.core.mail import send_mail
 from django.shortcuts import redirect
 from django.shortcuts import render
-from django.views.generic import View
+from django.views.generic import CreateView
 
 from feedback import models
 from feedback.forms import FeedbackFilesForm
@@ -11,10 +11,10 @@ from feedback.forms import FeedbackForm
 from feedback.forms import FeedbackTextForm
 
 
-class FeedbackView(View):
+class FeedbackView(CreateView):
     template_name = 'feedback/feedback.html'
 
-    def get(self, request):
+    def get(self, request, *args, **kwargs):
         feedback_form = FeedbackForm()
         feedback_text_form = FeedbackTextForm()
         feedback_file_form = FeedbackFilesForm()
@@ -25,7 +25,7 @@ class FeedbackView(View):
         }
         return render(request, self.template_name, context)
 
-    def post(self, request):
+    def post(self, request, *args, **kwargs):
         feedback_form = FeedbackForm(request.POST)
         feedback_text_form = FeedbackTextForm(request.POST)
         feedback_file_form = FeedbackFilesForm(request.POST, request.FILES)
@@ -73,10 +73,6 @@ class FeedbackView(View):
                 request, messages.INFO, 'Ваш отзыв был успешно отправлен!'
             )
             return redirect('feedback:feedback')
-        context = {
-            'feedback_form': feedback_form,
-            'feedback_text_form': feedback_text_form,
-            'feedback_file_form': feedback_file_form,
-        }
 
-        return render(request, self.template_name, context)
+        def get_context_data(self, **kwargs):
+            return super().get_context_data(**kwargs)
