@@ -1,3 +1,5 @@
+import time
+
 from django.contrib.auth.models import User
 from django.test import Client
 from django.test import TestCase
@@ -9,8 +11,6 @@ import rating.methods
 from rating.models import Mark
 from users.models import Person
 from users.models import Profile
-
-import time
 
 
 class TestMarkLogic(TestCase):
@@ -56,6 +56,8 @@ class TestMarkLogic(TestCase):
         self.assertContains(response, 'любовь')
         self.assertContains(response, '"<a href="/catalog/re/4/">item4</a>"')
         self.assertContains(response, 'ненависть')
-        self.assertContains(response, 'За все время пользования нашим сайтом '
-                            'вы поставили 4 оценок.')
+        self.assertContains(
+            response,
+            'За все время пользования нашим сайтом ' 'вы поставили 4 оценок.',
+        )
         self.assertContains(response, 'Среднее значение ваших оценок: 3,0.')
