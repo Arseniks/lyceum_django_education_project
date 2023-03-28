@@ -1,6 +1,6 @@
 import datetime
 
-from . import models
+import users.models
 
 
 def birthday_people(request):
@@ -8,12 +8,12 @@ def birthday_people(request):
     user_date = request.COOKIES.get('django_date', today).split('.')
 
     births = (
-        models.Profile.objects.activated()
+        users.models.Profile.objects.activated()
         .only(
-            f'{models.Profile.user.field.name}__'
-            f'{models.User.email.field.name}',
-            f'{models.Profile.user.field.name}__'
-            f'{models.User.first_name.field.name}',
+            f'{users.models.Profile.user.field.name}__'
+            f'{users.models.User.email.field.name}',
+            f'{users.models.Profile.user.field.name}__'
+            f'{users.models.User.first_name.field.name}',
         )
         .filter(
             birthday__day=user_date[0],
