@@ -7,6 +7,9 @@
 {% block content %}
   <h1 class="text-center">Оценки пользователя</h1>
   <br>
+  {% if message %}
+  <p>{{ message }}</p>
+  {% else %}
   <p>
     Недавно вам понравился товар 
     "<a href="{% url 'catalog:item_detail' best_mark.3.id %}">{{ best_mark.3 }}</a>". 
@@ -21,4 +24,5 @@
     За все время пользования нашим сайтом вы поставили {{ count }} оценок. 
     Среднее значение ваших оценок: {{ middle_value }}.
   </p>
+  {% endif %}
 {% endblock %}
