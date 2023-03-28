@@ -4,8 +4,11 @@ from rating.models import Mark
 def add_mark(user_id, item_id, mark):
     cur_mark = Mark.objects.filter(user_id=user_id, item_id=item_id)
     if cur_mark and mark:
-        cur_mark[0].mark = mark
-        cur_mark[0].save()
+        cur_mark.delete()
+        add_mark = Mark.objects.create(
+            user_id=user_id, item_id=item_id, mark=mark
+        )
+        add_mark.save()
     elif cur_mark:
         cur_mark.delete()
     elif mark:

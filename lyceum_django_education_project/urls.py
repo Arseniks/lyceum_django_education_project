@@ -11,6 +11,7 @@ import catalog.urls
 import download.urls
 import feedback.urls
 import homepage.urls
+import stats.urls
 import users.urls
 
 urlpatterns = [
@@ -22,6 +23,7 @@ urlpatterns = [
     path('catalog/', include(catalog.urls)),
     path('download/', include(download.urls)),
     path('feedback/', include(feedback.urls)),
+    path('stats/', include(stats.urls)),
     path('ckeditor/', include(ckeditor_uploader.urls)),
 ]
 

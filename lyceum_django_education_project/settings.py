@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'download.apps.DownloadConfig',
     'feedback.apps.FeedbackConfig',
     'rating.apps.RatingConfig',
+    'stats.apps.StatsConfig',
     'debug_toolbar',
     'sorl.thumbnail',
     'django_cleanup.apps.CleanupConfig',

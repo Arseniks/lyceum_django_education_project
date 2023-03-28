@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  <title>Краткая статистика по оценкам пользователя</title>
+{% endblock %}
+
+{% block content %}
+  <h1 class="text-center">Оценки пользователя</h1>
+  <br>
+  <p>
+    Недавно вам понравился товар 
+    "<a href="{% url 'catalog:item_detail' best_mark.3.id %}">{{ best_mark.3 }}</a>". 
+    Оценка: {{ best_mark.2 }}
+  </p>
+  <p>
+    Вам не понравился товар 
+    "<a href="{% url 'catalog:item_detail' worst_mark.3.id %}">{{ worst_mark.3 }}</a>". 
+    Оценка: {{ worst_mark.2 }}
+  </p>
+  <p>
+    За все время пользования нашим сайтом вы поставили {{ count }} оценок. 
+    Среднее значение ваших оценок: {{ middle_value }}.
+  </p>
+{% endblock %}
