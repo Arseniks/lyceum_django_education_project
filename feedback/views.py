@@ -1,31 +1,32 @@
 from django.conf import settings
 from django.contrib import messages
 from django.core.mail import send_mail
-from django.shortcuts import redirect
-from django.shortcuts import render
-from django.views.generic import View
+from django.views.generic import CreateView
 
 from feedback import models
 from feedback.forms import FeedbackFilesForm
 from feedback.forms import FeedbackForm
 from feedback.forms import FeedbackTextForm
+from feedback.models import Feedback
 
 
-class FeedbackView(View):
+class FeedbackView(CreateView):
+    model = Feedback
+    fields = '__all__'
     template_name = 'feedback/feedback.html'
+    success_url = 'feedback:feedback'
 
-    def get(self, request):
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
         feedback_form = FeedbackForm()
         feedback_text_form = FeedbackTextForm()
         feedback_file_form = FeedbackFilesForm()
-        context = {
-            'feedback_form': feedback_form,
-            'feedback_text_form': feedback_text_form,
-            'feedback_file_form': feedback_file_form,
-        }
-        return render(request, self.template_name, context)
+        context.setdefault('feedback_form', feedback_form)
+        context.setdefault('feedback_text_form', feedback_text_form)
+        context.setdefault('feedback_file_form', feedback_file_form)
+        return context
 
-    def post(self, request):
+    def post(self, request, *args, **kwargs):
         feedback_form = FeedbackForm(request.POST)
         feedback_text_form = FeedbackTextForm(request.POST)
         feedback_file_form = FeedbackFilesForm(request.POST, request.FILES)
@@ -72,11 +73,4 @@ class FeedbackView(View):
             messages.add_message(
                 request, messages.INFO, 'Ваш отзыв был успешно отправлен!'
             )
-            return redirect('feedback:feedback')
-        context = {
-            'feedback_form': feedback_form,
-            'feedback_text_form': feedback_text_form,
-            'feedback_file_form': feedback_file_form,
-        }
-
-        return render(request, self.template_name, context)
+        return super().post(self, request, *args, **kwargs)

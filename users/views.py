@@ -6,9 +6,11 @@ from django.core.mail import send_mail
 from django.shortcuts import get_object_or_404
 from django.shortcuts import redirect
 from django.shortcuts import render
+from django.urls import reverse_lazy
 from django.utils import timezone
 from django.views import View
 from django.views.generic import DetailView
+from django.views.generic import FormView
 from django.views.generic import ListView
 
 from users.forms import CustomCreationForm
@@ -100,7 +102,6 @@ class UserProfile(View):
         profile_form = ProfileForm(
             request.POST, request.FILES, instance=user.profile
         )
-        print(request.FILES)
 
         if form.is_valid() and profile_form.is_valid():
             form.save()
@@ -111,35 +112,28 @@ class UserProfile(View):
         return render(request, self.template_name, context)
 
 
-class Register(View):
+class Register(FormView):
     template_name = 'users/signup.html'
+    form_class = CustomCreationForm
+    success_url = reverse_lazy('users:login')
 
-    def get(self, request):
-        context = {'form': CustomCreationForm}
-        return render(request, self.template_name, context)
+    def form_valid(self, form):
+        user = form.save(commit=False)
 
-    def post(self, request):
-        form = CustomCreationForm(request.POST or None)
+        user.is_active = settings.DEFAULT_USER_ACTIVITY
+        user.save()
+        user_profile = Profile(user=user, coffee_count=0)
+        user_profile.save()
 
-        if form.is_valid():
-            user = form.save(commit=False)
-
-            user.is_active = settings.DEFAULT_USER_ACTIVITY
-            user.save()
-            user_profile = Profile(user=user, coffee_count=0)
-            user_profile.save()
-
-            if not settings.DEFAULT_USER_ACTIVITY:
-                send_mail(
-                    'Письмо верификации аккаунта',
-                    'Ваша почта была зарегистрирована на сайте KittyShop!\n'
-                    'Для подтверждение регистрации перейдите по ссылке: '
-                    'http://127.0.0.1:8000/auth/activate/'
-                    f'{form.cleaned_data["username"]}',
-                    settings.FEEDBACK_MAIL,
-                    [f'{form.cleaned_data["email"]}'],
-                    fail_silently=False,
-                )
-            return redirect('users:login')
-        context = {'form': form}
-        return render(request, self.template_name, context)
+        if not settings.DEFAULT_USER_ACTIVITY:
+            send_mail(
+                'Письмо верификации аккаунта',
+                'Ваша почта была зарегистрирована на сайте KittyShop!\n'
+                'Для подтверждение регистрации перейдите по ссылке: '
+                'http://127.0.0.1:8000/auth/activate/'
+                f'{form.cleaned_data["username"]}',
+                settings.FEEDBACK_MAIL,
+                [f'{form.cleaned_data["email"]}'],
+                fail_silently=False,
+            )
+        return super().form_valid(form)
