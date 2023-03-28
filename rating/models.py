@@ -21,11 +21,11 @@ class Mark(django.db.models.Model):
     )
 
     class MarkChoices(django.db.models.IntegerChoices):
-        HATE = 1, 'ненависть'
-        DISLIKE = 2, 'неприязнь'
-        NEUTRAL = 3, 'нейтрально'
-        ADORATION = 4, 'обожание'
-        LOVE = 5, 'любовь'
+        HATE = (1, 'ненависть')
+        DISLIKE = (2, 'неприязнь')
+        NEUTRAL = (3, 'нейтрально')
+        ADORATION = (4, 'обожание')
+        LOVE = (5, 'любовь')
 
     mark = django.db.models.IntegerField(
         'оценка',
@@ -36,7 +36,7 @@ class Mark(django.db.models.Model):
 
     def __str__(self):
         return (
-            f'Оценка от пользователя id = {self.user.username} '
+            f'Оценка от пользователя {self.user.username} '
             f'на товар {self.item.name}'
         )
 

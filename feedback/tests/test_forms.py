@@ -39,7 +39,6 @@ class FormTests(TestCase):
             data=form_data,
             follow=True,
         )
-
         self.assertIn('feedback_form', response.context)
         self.assertIn('feedback_text_form', response.context)
         self.assertIn('feedback_file_form', response.context)
