@@ -9,7 +9,8 @@ from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.utils import timezone
 from django.views import View
-from django.views.generic import DetailView, FormView
+from django.views.generic import DetailView
+from django.views.generic import FormView
 from django.views.generic import ListView
 
 from users.forms import CustomCreationForm
