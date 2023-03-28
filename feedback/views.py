@@ -21,12 +21,9 @@ class FeedbackView(CreateView):
         feedback_form = FeedbackForm()
         feedback_text_form = FeedbackTextForm()
         feedback_file_form = FeedbackFilesForm()
-        if 'feedback_form' not in context:
-            context['feedback_form'] = feedback_form
-        if 'feedback_text_form' not in context:
-            context['feedback_text_form'] = feedback_text_form
-        if 'feedback_file_form' not in context:
-            context['feedback_file_form'] = feedback_file_form
+        context.setdefault('feedback_form', feedback_form)
+        context.setdefault('feedback_text_form', feedback_text_form)
+        context.setdefault('feedback_file_form', feedback_file_form)
         return context
 
     def post(self, request, *args, **kwargs):

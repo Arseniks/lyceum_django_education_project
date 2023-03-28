@@ -34,12 +34,11 @@ class FormTests(TestCase):
             'mail': 'test.test@test.test',
         }
 
-        Client().post(
+        response = Client().post(
             reverse('feedback:feedback'),
             data=form_data,
             follow=True,
         )
-        # print(response)
-        # self.assertIn('feedback_form', response.context)
-        # self.assertIn('feedback_text_form', response.context)
-        # self.assertIn('feedback_file_form', response.context)
+        self.assertIn('feedback_form', response.context)
+        self.assertIn('feedback_text_form', response.context)
+        self.assertIn('feedback_file_form', response.context)
