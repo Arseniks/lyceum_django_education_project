@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  <title>Статистика товара</title>
+{% endblock title %}
+
+{% block content %}
+  <div class="container m-auto mt-5">
+    <div class="row">
+      <div class="col-lg-4">
+        <div class="card mb-4">
+          <div class="card-body text-center">
+            <img src="{{ item.mainimage.get_image.url }}"
+                 alt="нет изображения"
+                 width="auto"
+                 height="auto"
+                 class="rounded"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6 d-flex flex-column">
+        <div class="card mb-4">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-sm-4">
+                <p class="mb-0">Название товара:</p>
+              </div>
+              <div class="col-sm-8">
+                <a href="{% url 'catalog:item_detail' item.id %}"><p class="text-muted mb-0">{{ item.name }}</p></a>
+              </div>
+            </div>
+            <hr/>
+            <div class="row">
+              <div class="col-sm-4">
+                <p class="mb-0">Количество оценок:</p>
+              </div>
+              <div class="col-sm-8">
+                {% if mark_count %}
+                  <p class="text-muted mb-0">{{ mark_count }}</p>
+                {% else %}
+                  <p class="text-muted mb-0">0</p>
+                {% endif %}
+              </div>
+            </div>
+            <hr/>
+            <div class="row">
+              <div class="col-sm-4">
+                <p class="mb-0">Средняя оценка:</p>
+              </div>
+              <div class="col-sm-8">
+                <p class="text-muted mb-0">
+                  {% if avg_rating %}
+                    {{ avg_rating }}
+                  {% else %}
+                    <p class="text-muted mb-0">0</p>
+                  {% endif %}
+                </p>
+              </div>
+            </div>
+            <hr/>
+            <div class="row">
+              <div class="col-sm-4">
+                <p class="mb-0">Пользователь, поставивший максимальную оценку:</p>
+              </div>
+              <div class="col-sm-8">
+                {% if min_user %}
+                <a href="{% url 'users:user_detail' max_user.user.id %}"><p
+                        class="text-muted mb-0">{{ max_user.user.first_name|default:max_user.user.username }}</p></a>
+                {% else %}
+                  <p class="text-muted mb-0">нет</p>
+                {% endif %}
+              </div>
+            </div>
+            <hr/>
+            <div class="row">
+              <div class="col-sm-4">
+                <p class="mb-0">Пользователь, поставивший минимальную оценку:</p>
+              </div>
+              <div class="col-sm-8">
+                {% if min_user %}
+                <a href="{% url 'users:user_detail' min_user.user.id %}"><p
+                        class="text-muted mb-0">{{ min_user.user.first_name|default:min_user.user.username }}</p></a>
+                {% else %}
+                  <p class="text-muted mb-0">нет</p>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock content %}
