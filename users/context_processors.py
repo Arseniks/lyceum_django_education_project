@@ -1,12 +1,13 @@
 import datetime
 
+from django.utils import timezone
+
+import django
+
 import users.models
 
 
 def birthday_people(request):
-    today = datetime.datetime.utcnow().strftime('%d.%m.%Y')
-    user_date = request.COOKIES.get('django_date', today).split('.')
-
     births = (
         users.models.Profile.objects.activated()
         .only(
@@ -16,11 +17,17 @@ def birthday_people(request):
             f'{users.models.User.first_name.field.name}',
         )
         .filter(
-            birthday__day=user_date[0],
-            birthday__month=user_date[1],
+            birthday__day__range=[
+                (django.utils.timezone.now() - datetime.timedelta(hours=26)).day,
+                (django.utils.timezone.now() + datetime.timedelta(hours=26)).day,
+            ],
+            birthday__month__range=[
+                (django.utils.timezone.now() - datetime.timedelta(hours=26)).month,
+                (django.utils.timezone.now() + datetime.timedelta(hours=26)).month,
+            ],
+
         )
     )
-
     return {
         'births': births,
     }
