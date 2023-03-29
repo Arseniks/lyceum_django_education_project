@@ -34,9 +34,12 @@ class UserRatedItemsList(DetailView):
 
     def get(self, request, pk, *args, **kwargs):
         self.pk = pk
-        return super().get()
+        return super().get(request)
 
     def get_queryset(self):
+        print(Mark.objects.filter(
+            user__pk=self.pk,
+        ).order_by('-mark'))
         return Mark.objects.filter(
             user__pk=self.pk,
-        )
+        ).order_by('-mark')

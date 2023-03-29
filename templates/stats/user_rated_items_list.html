@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  <title>Список оценённых товаров</title>
+{% endblock %}
+
+{% block content %}
+  <h1 class="text-center">Оценки на товары</h1>
+  <br>
+  {% for mark in marks %}
+    {{ mark }}
+  {% endfor %}
+{% endblock %}

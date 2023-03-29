@@ -17,4 +17,7 @@
   <div class="col text-center">
     <a href="{% url 'stats:short_user' %}" class="btn btn-success mx-sm-3 w-25">Посмотреть краткую статистику оценок</a>
   </div>
+  <div class="col text-center">
+    <a href="{% url 'stats:user_rated_items_list' request.user.id %}" class="btn btn-success mx-sm-3 w-25">Посмотреть все оценённые товары</a>
+  </div>
 {% endblock %}
