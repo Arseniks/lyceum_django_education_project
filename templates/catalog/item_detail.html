@@ -54,15 +54,19 @@
   <div class="align-self-center">
     <p>Рейтинг: {{ rating }}. ({{ count_marks }} оценок)</p>
     {% if request.user.is_authenticated %}
-    <form method="post">
-      {% csrf_token %}
-      <p>
-      {{ mark_form.as_p }}
-      </p>
-      <div class="col text-center">
-        <button type="submit" class="btn btn-dark mx-sm-3">Поставить отметку</button>
-      </div>
-    </form>
+      <form method="post">
+        {% csrf_token %}
+        <p>
+        {{ mark_form.as_p }}
+        </p>
+        <div class="col text-center">
+          <button type="submit" class="btn btn-dark mx-sm-3">Поставить отметку</button>
+        </div>
+      </form>
     {% endif %}
+    <br>
+    <div class="col text-center">
+      <a href="{% url 'stats:item_stat' item.pk %}" class="btn btn-success mx-sm-3 w-25">Посмотреть статистику товара</a>
+    </div>
   </div>
 {% endblock %}
