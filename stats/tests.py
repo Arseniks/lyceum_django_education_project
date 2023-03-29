@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.test import Client
 from django.test import TestCase
 from django.urls import reverse
+from freezegun import freeze_time
 
 from catalog.models import Category
 from catalog.models import Item
@@ -11,8 +12,6 @@ import rating.methods
 from rating.models import Mark
 from users.models import Person
 from users.models import Profile
-
-from freezegun import freeze_time
 
 
 class TestMarkLogic(TestCase):

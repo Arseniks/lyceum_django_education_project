@@ -1,4 +1,6 @@
-from django.db.models import Max, Avg, Min
+from django.db.models import Avg
+from django.db.models import Max
+from django.db.models import Min
 from django.shortcuts import render
 from django.views.generic import DetailView
 
@@ -12,21 +14,21 @@ class ShortUserStatsView(DetailView):
         query = Mark.objects.filter(user=pk)
         if query:
             best_mark = query.aggregate(Max(Mark.mark.field.name))['mark__max']
-            best_mark_date = query.filter(mark=best_mark).\
-                aggregate(Max(Mark.date_created.field.name))\
-                ['date_created__max']
-            worst_mark = query.aggregate(Min(Mark.mark.field.name))['mark__min']
-            worst_mark_date = query.filter(mark=worst_mark).\
-                aggregate(Max(Mark.date_created.field.name))\
-                ['date_created__max']
+            best_mark_date = query.filter(mark=best_mark).aggregate(
+                Max(Mark.date_created.field.name)
+            )['date_created__max']
+            worst_mark = query.aggregate(Min(Mark.mark.field.name))[
+                'mark__min'
+            ]
+            worst_mark_date = query.filter(mark=worst_mark).aggregate(
+                Max(Mark.date_created.field.name)
+            )['date_created__max']
             context = {
                 'best_mark': query.get(
-                    mark=best_mark,
-                    date_created=best_mark_date
+                    mark=best_mark, date_created=best_mark_date
                 ),
                 'worst_mark': query.get(
-                    mark=worst_mark,
-                    date_created=worst_mark_date
+                    mark=worst_mark, date_created=worst_mark_date
                 ),
                 'count': query.count(),
                 'middle_value': round(
