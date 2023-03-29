@@ -1,14 +1,15 @@
 import datetime
 
-from django.utils import timezone
-
 import django
+from django.utils import timezone
 
 import users.models
 
 
 def birthday_people(request):
-    active_user_with_births = users.models.Profile.objects.activated().filter(birthday__isnull=False)
+    active_user_with_births = users.models.Profile.objects.activated().filter(
+        birthday__isnull=False
+    )
     births = []
     if active_user_with_births:
         births = (
@@ -22,14 +23,25 @@ def birthday_people(request):
             )
             .filter(
                 birthday__day__range=[
-                    (django.utils.timezone.now() - datetime.timedelta(hours=26)).day,
-                    (django.utils.timezone.now() + datetime.timedelta(hours=26)).day,
+                    (
+                        django.utils.timezone.now()
+                        - datetime.timedelta(hours=26)
+                    ).day,
+                    (
+                        django.utils.timezone.now()
+                        + datetime.timedelta(hours=26)
+                    ).day,
                 ],
                 birthday__month__range=[
-                    (django.utils.timezone.now() - datetime.timedelta(hours=26)).month,
-                    (django.utils.timezone.now() + datetime.timedelta(hours=26)).month,
+                    (
+                        django.utils.timezone.now()
+                        - datetime.timedelta(hours=26)
+                    ).month,
+                    (
+                        django.utils.timezone.now()
+                        + datetime.timedelta(hours=26)
+                    ).month,
                 ],
-
             )
         )
     return {

@@ -2,11 +2,10 @@ import datetime
 
 import django.shortcuts
 import django.test
+import mock
 import parameterized
 
 from users import models
-
-import mock
 
 
 class ContextTest(django.test.TestCase):
@@ -50,7 +49,9 @@ class ContextTest(django.test.TestCase):
     )
     @mock.patch('django.utils.timezone.now')
     def test_birthday_user(self, user_birth, server_date, result, mock_date):
-        mock_date.return_value = datetime.datetime.strptime(server_date, '%d.%m.%Y')
+        mock_date.return_value = datetime.datetime.strptime(
+            server_date, '%d.%m.%Y'
+        )
         date = user_birth
         self.profile.birthday = datetime.datetime.strptime(date, '%d.%m.%Y')
         self.profile.save()
