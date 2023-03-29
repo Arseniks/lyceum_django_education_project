@@ -34,6 +34,12 @@ class Mark(django.db.models.Model):
         unique=False,
     )
 
+    date_created = django.db.models.DateTimeField(
+        'время создания',
+        help_text='когда была поставлена оценка?',
+        auto_now_add=True,
+    )
+
     def __str__(self):
         return (
             f'Оценка от пользователя {self.user.username} '
