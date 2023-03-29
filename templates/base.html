@@ -20,12 +20,13 @@
   </head>
   <body>
     {% include 'includes/header.html' %}
-
+    {% include 'includes/births.html' %}
     {% block content%}
       Нет контента
     {% endblock %}
 
     {% include 'includes/footer.html' %}
     <script src="{% static 'js/bootstrap.js' %}"></script>
+    <script src="{% static 'js/births_date.js' %}"></script>
   </body>
 </html>

@@ -27,5 +27,5 @@ def get_initial_form_value(user_id, item_id):
 def get_marks_statistic(item_id):
     marks = [i.mark for i in Mark.objects.filter(item_id=item_id)]
     if marks:
-        return len(marks), sum(marks) / len(marks)
+        return len(marks), round(sum(marks) / len(marks), 3)
     return 0, 'не сформирован'

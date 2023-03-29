@@ -1,9 +1,8 @@
-import time
-
 from django.contrib.auth.models import User
 from django.test import Client
 from django.test import TestCase
 from django.urls import reverse
+from freezegun import freeze_time
 
 from catalog.models import Category
 from catalog.models import Item
@@ -46,12 +45,10 @@ class TestMarkLogic(TestCase):
     def test_correct_middle_value(self):
         rating.methods.add_mark(self.user1.id, self.item1.id, 5)
         rating.methods.add_mark(self.user1.id, self.item3.id, 1)
-        time.sleep(1)
-        rating.methods.add_mark(self.user1.id, self.item2.id, 5)
-        rating.methods.add_mark(self.user1.id, self.item4.id, 1)
-        client = Client()
-        client.force_login(self.user1)
-        response = client.get(reverse('stats:short_user'))
+        with freeze_time('2999-01-14'):
+            rating.methods.add_mark(self.user1.id, self.item2.id, 5)
+            rating.methods.add_mark(self.user1.id, self.item4.id, 1)
+        response = Client().get(reverse('stats:user_stat_short', args=[1]))
         self.assertContains(response, '"<a href="/catalog/re/2/">item2</a>"')
         self.assertContains(response, 'любовь')
         self.assertContains(response, '"<a href="/catalog/re/4/">item4</a>"')

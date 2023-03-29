@@ -102,7 +102,6 @@ class UserProfile(View):
         profile_form = ProfileForm(
             request.POST, request.FILES, instance=user.profile
         )
-        print(request.FILES)
 
         if form.is_valid() and profile_form.is_valid():
             form.save()

@@ -1,0 +1,22 @@
+<div class="border rounded p-3 mt-2 w-75 mx-auto">
+  <h4>Дни рождения у пользователей сегодня:</h4>
+  <ul class="container d-flex flex-wrap justify-content-around list-unstyled" id="births_container">
+    {% for profile in births %}
+      <li>
+        <a href="{% url 'users:user_detail' profile.user.id %}" class="text-decoration-none">
+          <div class="alert alert-dark">
+            {{ profile.user.first_name }}
+            <div class="badge text-bg-warning">
+              {{ profile.user.email }}
+            </div>
+            <div class="badge text-bg-info">
+              <span>{{ profile.birthday|date:'d.m.Y' }}</span>
+            </div>
+          </div>
+        </a>
+      </li>
+    {% empty %}
+      <h5>Сегодня ни у кого нет дня рождения...</h5>
+    {% endfor %}
+  </ul>
+</div>
