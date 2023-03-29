@@ -1,6 +1,7 @@
 from django.shortcuts import render
-from django.views.generic import View, DetailView
+from django.views.generic import View, ListView
 
+from catalog.models import Item
 from rating.models import Mark
 
 
@@ -27,19 +28,22 @@ class ShortUser(View):
         return render(request, self.template_name, context)
 
 
-class UserRatedItemsList(DetailView):
+class UserRatedItemsList(ListView):
     model = Mark
     template_name = 'stats/user_rated_items_list.html'
     context_object_name = 'marks'
 
-    def get(self, request, pk, *args, **kwargs):
-        self.pk = pk
-        return super().get(request)
-
-    def get_queryset(self):
-        print(Mark.objects.filter(
-            user__pk=self.pk,
-        ).order_by('-mark'))
-        return Mark.objects.filter(
-            user__pk=self.pk,
-        ).order_by('-mark')
+    def get_queryset(self, **kwargs):
+        return (
+            super(UserRatedItemsList, self)
+            .get_queryset()
+            .filter(
+                user__pk=self.kwargs.get('pk'),
+            )
+            .select_related(Mark.item.field.name)
+            .only(
+                f'{Mark.mark.field.name}',
+                f'{Mark.item.field.name}__{Item.name.field.name}',
+            )
+            .order_by('-mark')
+        )
