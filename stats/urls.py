@@ -12,7 +12,7 @@ urlpatterns = [
     ),
     path('item_stat/<int:pk>/', views.ItemStats.as_view(), name='item_stat'),
     path(
-        'user_stat_short/<int:pk>',
+        'user_stat_short/<int:pk>/',
         views.ShortUserStatsView.as_view(),
         name='user_stat_short',
     ),
