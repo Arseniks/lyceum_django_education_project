@@ -1,6 +1,10 @@
+from django.db.models import Avg
+from django.db.models import Count
+from django.db.models import Max
+from django.db.models import Min
 from django.shortcuts import render
+from django.views.generic import DetailView
 from django.views.generic import ListView
-from django.views.generic import View
 
 from catalog.models import Item
 from rating.models import Mark
@@ -25,8 +29,8 @@ class UserRatedItemsList(ListView):
             )
             .order_by('-mark')
         )
-        
-        
+
+
 class ShortUserStatsView(DetailView):
     template_name = 'stats/short_user_stat.html'
 
