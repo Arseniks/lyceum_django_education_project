@@ -6,6 +6,8 @@ import parameterized
 
 from users import models
 
+import mock
+
 
 class ContextTest(django.test.TestCase):
     @classmethod
@@ -26,7 +28,7 @@ class ContextTest(django.test.TestCase):
             ),
             (
                 '29.04.2023',
-                '28.04.2023',
+                '30.04.2023',
                 0,
             ),
             (
@@ -46,12 +48,13 @@ class ContextTest(django.test.TestCase):
             ),
         ]
     )
-    def test_birthday_user(self, cookie_date, user_birth, result):
+    @mock.patch('django.utils.timezone.now')
+    def test_birthday_user(self, user_birth, server_date, result, mock_date):
+        mock_date.return_value = datetime.datetime.strptime(server_date, '%d.%m.%Y')
         date = user_birth
         self.profile.birthday = datetime.datetime.strptime(date, '%d.%m.%Y')
         self.profile.save()
 
-        self.client.cookies.load({'django_date': cookie_date})
         response = self.client.get(
             django.shortcuts.reverse('homepage:home'), follow=True
         )
