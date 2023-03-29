@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.views.generic import View
+from django.views.generic import View, DetailView
 
 from rating.models import Mark
 
@@ -25,3 +25,18 @@ class ShortUser(View):
         else:
             context = {'message': 'Войдите, чтобы просмотреть статистику'}
         return render(request, self.template_name, context)
+
+
+class UserRatedItemsList(DetailView):
+    model = Mark
+    template_name = 'stats/user_rated_items_list.html'
+    context_object_name = 'marks'
+
+    def get(self, request, pk, *args, **kwargs):
+        self.pk = pk
+        return super().get()
+
+    def get_queryset(self):
+        return Mark.objects.filter(
+            user__pk=self.pk,
+        )
