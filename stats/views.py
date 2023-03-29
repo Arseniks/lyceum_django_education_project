@@ -4,9 +4,31 @@ from django.db.models import Max
 from django.db.models import Min
 from django.shortcuts import render
 from django.views.generic import DetailView
+from django.views.generic import ListView
 
 from catalog.models import Item
 from rating.models import Mark
+
+
+class UserRatedItemsList(ListView):
+    model = Mark
+    template_name = 'stats/user_rated_items_list.html'
+    context_object_name = 'marks'
+
+    def get_queryset(self, **kwargs):
+        return (
+            super(UserRatedItemsList, self)
+            .get_queryset()
+            .filter(
+                user__pk=self.kwargs.get('pk'),
+            )
+            .select_related(Mark.item.field.name)
+            .only(
+                f'{Mark.mark.field.name}',
+                f'{Mark.item.field.name}__{Item.name.field.name}',
+            )
+            .order_by('-mark')
+        )
 
 
 class ShortUserStatsView(DetailView):

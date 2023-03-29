@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  <title>Список оценённых товаров</title>
+{% endblock %}
+
+{% block content %}
+  <h1 class="text-center">Оценки на товары пользователя {{ request.user.first_name|default:request.user.username }}</h1>
+  <br>
+  <div class="container">
+    {% for mark in marks %}
+      <div class="container mb-4 rounded p-3 border">
+        <div class="row">
+          <div class="col-4">
+            Оценка:
+          </div>
+          <div class="col-4">
+            {{ mark.mark }}
+          </div>
+        </div>
+        <hr/>
+        <div class="row">
+          <div class="col-4">
+            Товар:
+          </div>
+          <div class="col-4">
+            <a href="{% url 'catalog:item_detail' mark.item.id %}">{{ mark.item }}</a>
+          </div>
+        </div>
+    </div>
+    {% endfor %}
+  </div>
+{% endblock %}
